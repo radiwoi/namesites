@@ -3,10 +3,6 @@ from django.contrib import admin
 from .models import *
 
 
-# admin.site.register(GirlName)
-# admin.site.register(BoyName)
-# admin.site.register(PopularName)
-# admin.site.register(Variant)
 admin.site.register(Email)
 
 

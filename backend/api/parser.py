@@ -24,6 +24,11 @@ class CoreParser:
         return sheets
 
     def parse(self):
+        """
+        runs and control parsing process
+        @todo: write exceptions handler
+        :return: parsing result
+        """
         self.read_file()
         self.assign_names()
         result = self.assign_to_model_instance_and_save()
@@ -206,6 +211,8 @@ class PopularParser(CoreParser):
         print(data_to_save)
         model.objects.bulk_create(data_to_save)
 
+        return len(data_to_save), ""
+
     def validate_data(self, row):
         pass
 
@@ -251,12 +258,20 @@ class VariantsParser(CoreParser):
             )
         print(data_to_save)
         model.objects.bulk_create(data_to_save)
+        return len(data_to_save), ""
 
     def validate_data(self, row):
         pass
 
 
 def dispatcher(name, file, model):
+    """
+    creates and returns parser instance
+    :param name: Parser className
+    :param file: File to parse
+    :param model: model to update
+    :return: Parser class instance
+    """
     parsers = {
         "girlname": NamesParser,
         "boyname": NamesParser,

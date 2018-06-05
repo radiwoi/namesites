@@ -93,13 +93,12 @@ class BoysNamesList(APIView):
                 or_query_set |= tmp
 
             resp = resp.filter(or_query_set)
-            print(resp.query)
+            # print(resp.query)
 
         if criteria is not None:
             if criteria == "begin":
                 resp = resp.filter(name__istartswith=name)
             elif criteria == "middle":
-                print(criteria)
                 resp = resp.filter(name__icontains=name)
             elif criteria == "end":
                 resp = resp.filter(name__iendswith=name)
@@ -165,7 +164,6 @@ def upload_file(request):
 
     # TODO exception handler
     parser = dispatcher(model_name, request.FILES['db_file'], model_name)
-    # print(parser)
     result, reason = parser.parse()
     print(result)
     if result:

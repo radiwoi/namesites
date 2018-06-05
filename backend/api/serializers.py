@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework import status
 
-from .models import *
+from .models import BoyName, GirlName, PopularName, Variant
 
 
 class BoysNamesSerializer(serializers.ModelSerializer):
