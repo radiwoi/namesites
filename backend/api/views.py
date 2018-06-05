@@ -7,10 +7,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
 
-from names_project.settings import PER_PAGE
+from names_project.settings import PER_PAGE, PER_PAGE_POPULAR
 from .parser import dispatcher
-from .models import *
-from .serializers import *
+from .models import BoyName, GirlName, PopularName, Variant
+from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNamesSerializer, PopularNamesSerializer
 
 
 class BoysNamesList(APIView):
@@ -40,6 +40,8 @@ class BoysNamesList(APIView):
          age_distribution: list
          search_criteria: str (begin, end, middle)
          frequency: list (based on NamesModel frequency field)
+         letters_range: str
+         double_name: bool
          limit: int
          skip: int
         :return: Response object
@@ -73,35 +75,36 @@ class BoysNamesList(APIView):
         if letters_range:
             resp = resp.filter(number_of_letters=letters_range)
 
-        mask = "age_distribution_{}__gt"
+        if age_distribution is not None:
+            mask = "age_distribution_{}__gt"
 
-        # AND age_distribution way
-        # dd = {}
-        #
-        # for d in age_distribution:
-        #     key = mask.format(d)
-        #     dd[key] = 0
-        # resp = resp.filter(**dd)
+            # AND age_distribution way
+            # dd = {}
+            #
+            # for d in age_distribution:
+            #     key = mask.format(d)
+            #     dd[key] = 0
+            # resp = resp.filter(**dd)
 
-        # OR age_distribution way
-        or_query_set = Q()
-        for d in age_distribution:
-            tmp = Q(**{mask.format(d): 0})
-            or_query_set |= tmp
+            # OR age_distribution way
+            or_query_set = Q()
+            for d in age_distribution:
+                tmp = Q(**{mask.format(d): 0})
+                or_query_set |= tmp
 
-        resp = resp.filter(or_query_set)
+            resp = resp.filter(or_query_set)
+            print(resp.query)
 
-        print(resp.query)
-
-        if criteria == "begin":
-            resp = resp.filter(name__istartswith=name)
-        elif criteria == "middle":
-            print(criteria)
-            resp = resp.filter(name__icontains=name)
-        elif criteria == "end":
-            resp = resp.filter(name__iendswith=name)
-        else:
-            resp = resp.filter(name__iexact=name)
+        if criteria is not None:
+            if criteria == "begin":
+                resp = resp.filter(name__istartswith=name)
+            elif criteria == "middle":
+                print(criteria)
+                resp = resp.filter(name__icontains=name)
+            elif criteria == "end":
+                resp = resp.filter(name__iendswith=name)
+            else:
+                resp = resp.filter(name__iexact=name)
 
         resp = resp.all()[skip:limit]
         serializer = BoysNamesSerializer(resp, many=True)
@@ -126,13 +129,15 @@ class GirlsNamesList(APIView):
 
 class PopularNamesList(APIView):
     def get(self, request, format=None):
-        popular_names = PopularName.objects.all()
+        order = request.GET.get('order')
 
-        paginator = Paginator(popular_names, PER_PAGE)
-        page = request.GET.get('page')
-        if not page:
-            page = 1
-        popular_names = paginator.page(page)
+        if order:
+            popular_names = PopularName.objects.order_by('?')[:PER_PAGE_POPULAR]
+        else:
+            popular_names = PopularName.objects.all()
+            paginator = Paginator(popular_names, PER_PAGE)
+            page = request.GET.get('page', 1)
+            popular_names = paginator.page(page)
 
         serializer = PopularNamesSerializer(popular_names, many=True)
 
@@ -158,9 +163,15 @@ def upload_file(request):
     print(repr(request.FILES['db_file']))
     model_name = request.POST.get("db_name")
 
-    parser = dispatcher(model_name)
-    parser(file_obj=request.FILES['db_file'], sheet_name=model_name)
+    # TODO exception handler
+    parser = dispatcher(model_name, request.FILES['db_file'], model_name)
+    # print(parser)
+    result, reason = parser.parse()
+    print(result)
+    if result:
+        messages.success(request, 'Table {} updated. Write {} records'.format(model_name, result))
+    else:
+        messages.warning(request, 'Table {} does not updated. Reason {}'.format(model_name, reason))
 
-    messages.success(request, 'Table {} updated.'.format(model_name))
     return redirect(reverse("admin:api_{}_changelist".format(model_name)))
 

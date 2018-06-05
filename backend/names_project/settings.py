@@ -134,3 +134,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 PER_PAGE = 5
+PER_PAGE_POPULAR = 20

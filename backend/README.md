@@ -32,24 +32,29 @@ In current folder make these commands:
 
 7) actual routes
 
-getting all boys names list 
-
-GET (with simple pagination)
+getting all boys names list (with simple pagination)
 ```
+Method: GET
 http://127.0.0.1:8000/api/v1/test/?page=1
+
+Returns json response
 ```
 
 Method for search boys names
-POST
+
 ```
 http://127.0.0.1:8000/api/v1/test/
+method: POST
 
-
- param request -> JSON string
+ param: request -> JSON string
  search_phrase: str,
  age_distribution: list
- search_criteria: str (begin, end, middle) default: all
+ search_criteria: str (begin, end, middle)
  frequency: list (based on NamesModel frequency field)
+ letters_range: str
+ double_name: bool
  limit: int
  skip: int
+ 
+ Returns json response
 ```

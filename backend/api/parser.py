@@ -8,9 +8,9 @@ class CoreParser:
         self.sheet_name = sheet_name
         self.file_obj = file_obj
         self.df = None
-        self.read_file()
-        self.assign_names()
-        self.assign_to_model_instance_and_save()
+        # todo check if we need this
+        self.model = None
+        self.to_update = None
 
     @property
     def sheet_model_assigner(self):
@@ -22,6 +22,13 @@ class CoreParser:
         }
 
         return sheets
+
+    def parse(self):
+        self.read_file()
+        self.assign_names()
+        result = self.assign_to_model_instance_and_save()
+
+        return result
 
     def read_file(self):
         try:
@@ -70,6 +77,8 @@ class NamesParser(CoreParser):
     def unique(self):
         unique = ["name"]
 
+        return unique
+
     @property
     def names(self):
         headers = [
@@ -92,6 +101,11 @@ class NamesParser(CoreParser):
 
     def validate_data(self, row):
         print("validation row", row)
+
+        if row["name"] in self.to_update:
+            print("EXISTS!")
+            return False
+
         for key in self.rules:
             if isinstance(row[key], self.rules[key]):
                 # print(True)
@@ -104,14 +118,24 @@ class NamesParser(CoreParser):
 
         return row
 
+    def check_existing(self):
+        self.to_update = self.model.objects.values_list('name', flat=True)
+
     def assign_to_model_instance_and_save(self):
         data_to_save = []
         model = self.sheet_model_assigner[self.sheet_name]["model_name"]
+        # todo remove or rewrite this
+        self.model = model
+        self.check_existing()
+        # return False
         data = self.df.to_dict('records')
         print("data", data)
         for row in data:
             print("row", row["name"])
             row = self.validate_data(row=row)
+            if not row:
+                continue
+
             data_to_save.append(
                 model(
                     name=row["name"],
@@ -130,7 +154,11 @@ class NamesParser(CoreParser):
                 )
             )
         print(data_to_save)
+        reason = ""
+        if len(data_to_save) == 0:
+            reason = "No unique records"
         model.objects.bulk_create(data_to_save)
+        return len(data_to_save), reason
 
 
 class PopularParser(CoreParser):
@@ -228,7 +256,7 @@ class VariantsParser(CoreParser):
         pass
 
 
-def dispatcher(name):
+def dispatcher(name, file, model):
     parsers = {
         "girlname": NamesParser,
         "boyname": NamesParser,
@@ -236,4 +264,4 @@ def dispatcher(name):
         "variant": VariantsParser
     }
 
-    return parsers[name]
+    return parsers[name](file_obj=file, sheet_name=model)
