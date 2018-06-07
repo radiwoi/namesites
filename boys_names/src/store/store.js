@@ -9,7 +9,8 @@ export default {
       "search_criteria": "start",
       "limit": 5,
       "skip": 0
-    }
+    },
+    doSearch: false
   },
   mutations: {
     test (state, value) {
@@ -17,11 +18,17 @@ export default {
     },
     changeCriteria (state, value) {
       state.searchObject.search_criteria = value
+    },
+    changeDoSearch (state, value) {
+      state.doSearch = value
     }
   },
   actions: {
     test(context) {
       context.commit('test')
     }
+  },
+  getters: {
+    getDoSearch: state => state.doSearch
   }
 }

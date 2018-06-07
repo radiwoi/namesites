@@ -7,6 +7,7 @@ import StartPage from './components/pages/startpage/StartPage.vue'
 import SearchPage from './components/pages/searchpage/SearchPage.vue'
 import PopularPage from './components/pages/popularpage/PopularPage.vue'
 import SearchForm from './components/reusable/SearchForm.vue'
+import NamesList from './components/reusable/NamesList.vue'
 
 Vue.component('main-header', Header);
 Vue.component('second-header', SecondHeader);
@@ -18,3 +19,4 @@ Vue.component('popular-page', PopularPage);
 // reusable components
 Vue.component('search-form', SearchForm);
 Vue.component('main-footer', Footer);
+Vue.component('names-list', NamesList);

@@ -58,6 +58,11 @@ export default {
     },
     handleClick () {
 //      this.$store.commit('test', 'mooooooo')
+//      this.$data.response = [{a: "b", c: "d"}];
+//      console.log(this.$data.response);
+//      return
+      this.$store.commit('changeDoSearch', true);
+      console.log(this.$store)
     }
   },
   computed: {
@@ -71,7 +76,7 @@ export default {
       }
   },
   created() {
-    console.log(this.$store.state.searchObject.search_criteria);
+//    console.log(this.$store.state.searchObject.search_criteria);
     this.criterias.map(criteria => {
         if (criteria.action == this.$store.state.searchObject.search_criteria) {
             criteria.chosen = true;

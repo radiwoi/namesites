@@ -2,7 +2,7 @@
   <div class="serach-page">
     <second-header></second-header>
     <div class="search-page-wrapper">
-      {{searchInput}}
+      <names-list></names-list>
     </div>
   </div>
 </template>
@@ -14,6 +14,11 @@ export default {
   data () {
     return {
 
+    }
+  },
+  methods: {
+    onClickChild (value) {
+        console.log(value)
     }
   },
   mounted () {
