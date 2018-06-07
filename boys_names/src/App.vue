@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <main-header></main-header>
+    <!--<main-header></main-header>-->
     <router-view></router-view>
     <main-footer></main-footer>
   </div>
@@ -38,7 +38,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 10px;
 }
 
 h1, h2 {

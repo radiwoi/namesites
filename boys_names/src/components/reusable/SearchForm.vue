@@ -1,10 +1,11 @@
 <template>
   <div class="search-form">
+
     <div class="input-group">
-      <input type="text" class="form-control main-search-control" placeholder="Sok" v-model="searchInput">
+      <input type="text" class="form-control main-search-control" placeholder="Sok" v-model="searchObject.search_phrase">
       <span class="input-group-btn main-page-search">
-      <router-link v-bind:to="{name: 'search-page', params: {'searchInput': searchInput}}">
-        <button class="btn btn-default main-page-search-btn" @click="search" type="submit">
+      <router-link v-bind:to="{name: 'search-page'}">
+        <button class="btn btn-default main-page-search-btn" @click="handleClick" type="submit">
             <i class="fa fa-search"></i>
         </button>
       </router-link>
@@ -23,33 +24,62 @@
 
 
 <script>
+import {mapState, mapMutations} from 'vuex'
 export default {
     name: 'search-form',
     data () {
-    return {
-      seen: false,
-      search_criteria: {name: "borjar med sokstrangen ", action: "start"},
-      criterias: [
-          {name: "innehar sokstrangen", action: "middle", chosen: false},
-          {name: "borjar med sokstrangen ", action: "start", chosen: true},
-          {name: "slutar med sokstrangen", action: "end", chosen: false},
-      ],
-      searchInput: ''
+      return {
+        seen: false,
+        search_criteria: {},
+        criterias: [
+            {name: "innehar sokstrangen", action: "middle", chosen: false},
+            {name: "borjar med sokstrangen ", action: "start", chosen: true},
+            {name: "slutar med sokstrangen", action: "end", chosen: false},
+        ],
+        new_criterias: {
+            start: {},
+            middle: {},
+            end: {}
+        }
+      }
+    },
+  methods: {
+    search () {
+        alert('G!!@');
+    },
+    chooseCriteriaWindow () {
+        this.seen = !this.seen
+    },
+    chooseCriteria (index) {
+      this.criterias.map(criteria => { return criteria.chosen = false });
+      this.criterias[index]['chosen'] = true;
+      this.$store.commit('changeCriteria', this.criterias[index]['action']);
+      this.search_criteria = this.criterias[index];
+    },
+    handleClick () {
+//      this.$store.commit('test', 'mooooooo')
     }
   },
-  methods: {
-      search () {
-          alert('G!!@');
-      },
-      chooseCriteriaWindow () {
-          this.seen = !this.seen
-      },
-      chooseCriteria (index) {
-        console.log(this.criterias[index])
-        this.criterias.map(criteria => { return criteria.chosen = false });
-        this.criterias[index]['chosen'] = true;
-        this.search_criteria = this.criterias[index];
+  computed: {
+      searchObject: {
+          get() {
+              return this.$store.state.searchObject
+          },
+//          set(value) {
+//              this.$store.commit('test', value)
+//          }
       }
+  },
+  created() {
+    console.log(this.$store.state.searchObject.search_criteria);
+    this.criterias.map(criteria => {
+        if (criteria.action == this.$store.state.searchObject.search_criteria) {
+            criteria.chosen = true;
+            this.search_criteria = criteria
+        } else {
+            criteria.chosen = false
+        }
+    });
   }
 }
 </script>
@@ -83,7 +113,6 @@ export default {
     height: 52px;
   }
   .main-search-control:focus{
-    /*color: #38c8b2;*/
     background-color: #fff;
     border-color: #38c8b2;
     outline: 0;

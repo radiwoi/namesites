@@ -1,5 +1,6 @@
 <template>
   <div class="start-page">
+    <main-header></main-header>
     <div class="container">
       <div class="start-page-title">Dags att hitta ett namn till er son?</div>
       <div class="start-page-subtitle">Sok bland Sveriges samthiga pojknamn</div>
@@ -49,7 +50,6 @@ export default {
 
 <style>
   .start-page {
-    margin-top: 40px;
     margin-bottom: 20px;
   }
   .start-page-title{

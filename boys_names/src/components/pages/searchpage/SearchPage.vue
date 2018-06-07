@@ -1,6 +1,9 @@
 <template>
   <div class="serach-page">
-    {{searchInput}}
+    <second-header></second-header>
+    <div class="search-page-wrapper">
+      {{searchInput}}
+    </div>
   </div>
 </template>
 
@@ -18,3 +21,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .search-page-wrapper{
+    min-height: 200px;
+  }
+</style>
