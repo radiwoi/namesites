@@ -1,11 +1,8 @@
 from django.db import models
-from django.db.models import Manager
 
 
 class NamesModel(models.Model):
-    objects = Manager()
-
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
     # TODO need to make these fields more optimized
     age_distribution_10 = models.IntegerField()
     age_distribution_20 = models.IntegerField()
@@ -29,11 +26,11 @@ class NamesModel(models.Model):
 
 
 class BoyName(NamesModel):
-    pass
+    variants = models.ManyToManyField('Variant', related_name='boy_names')
 
 
 class GirlName(NamesModel):
-    pass
+    variants = models.ManyToManyField('Variant', related_name='girl_names')
 
 
 class PopularName(models.Model):
@@ -47,12 +44,15 @@ class PopularName(models.Model):
 
 
 class Variant(models.Model):
+    # name = models.CharField(max_length=64)
+    language = models.CharField(max_length=64)
     name = models.CharField(max_length=64)
-    language = models.CharField(max_length=256)
-    variants = models.TextField()
 
     def __str__(self):
-        return self.name
+        return "{} {}".format(self.language, self.name)
+
+    class Meta:
+        unique_together = ('language', 'name', )
 
 
 class Email(models.Model):

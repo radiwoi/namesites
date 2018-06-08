@@ -27,7 +27,9 @@ export default {
 <style>
   .subheader{
     /*border-bottom: 1px solid #43c0ae;*/
-    box-shadow: 0px 2px 5px #8edcd1;
+    box-shadow: 0px 2px 5px rgba(142, 220, 206, .55);
+    padding-top: 15px;
+    padding-bottom: 5px;
   }
   .sub-menu{
     font-family: 'Quicksand-Bold';
@@ -52,6 +54,6 @@ export default {
     padding: 5px;
   }
   .sub-img{
-    max-width: 90%;
+    max-width: 82%;
   }
 </style>

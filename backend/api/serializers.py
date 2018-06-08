@@ -1,13 +1,19 @@
 from rest_framework import serializers
 from rest_framework import status
+from rest_framework.fields import SerializerMethodField
 
 from .models import BoyName, GirlName, PopularName, Variant
 
 
 class BoysNamesSerializer(serializers.ModelSerializer):
+    variants = SerializerMethodField()
+
+    def get_variants(self, boy_name):
+        return VariantNamesSerializer(boy_name.variants.all(), many=True).data
+
     class Meta:
         model = BoyName
-        fields = "__all__"
+        fields = ("name", "variants",)
 
 
 class GirlsNamesSerializer(serializers.ModelSerializer):
@@ -25,4 +31,4 @@ class PopularNamesSerializer(serializers.ModelSerializer):
 class VariantNamesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Variant
-        fields = "__all__"
+        fields = ("language", "name",)

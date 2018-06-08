@@ -1,6 +1,5 @@
 <template>
   <div class="search-form">
-
     <div class="input-group">
       <input type="text" class="form-control main-search-control" placeholder="Sok" v-model="searchObject.search_phrase">
       <span class="input-group-btn main-page-search">
@@ -36,17 +35,9 @@ export default {
             {name: "borjar med sokstrangen ", action: "start", chosen: true},
             {name: "slutar med sokstrangen", action: "end", chosen: false},
         ],
-        new_criterias: {
-            start: {},
-            middle: {},
-            end: {}
-        }
       }
     },
   methods: {
-    search () {
-        alert('G!!@');
-    },
     chooseCriteriaWindow () {
         this.seen = !this.seen
     },
@@ -57,10 +48,6 @@ export default {
       this.search_criteria = this.criterias[index];
     },
     handleClick () {
-//      this.$store.commit('test', 'mooooooo')
-//      this.$data.response = [{a: "b", c: "d"}];
-//      console.log(this.$data.response);
-//      return
       this.$store.commit('changeDoSearch', true);
       console.log(this.$store)
     }
@@ -70,13 +57,9 @@ export default {
           get() {
               return this.$store.state.searchObject
           },
-//          set(value) {
-//              this.$store.commit('test', value)
-//          }
       }
   },
   created() {
-//    console.log(this.$store.state.searchObject.search_criteria);
     this.criterias.map(criteria => {
         if (criteria.action == this.$store.state.searchObject.search_criteria) {
             criteria.chosen = true;

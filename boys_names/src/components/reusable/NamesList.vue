@@ -4,7 +4,10 @@
       <tbody>
         <tr v-for="nameObj in namesList">
           <td class="fav"><i class="fa fa-heart"></i></td>
-          <td class="table-cell">{{nameObj.name}} <i class="fa fa-info-circle"></i></td>
+          <td class="table-cell namn">
+            {{nameObj.name}} <i class="fa fa-info-circle"></i>
+            <div v-if="nameObj.meaning.length > 0" class="tooltip main-tooltip">{{nameObj.meaning}}</div>
+          </td>
           <td class="table-cell frequency">
             {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
             <div class="tooltip freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
@@ -14,7 +17,9 @@
       </tbody>
     </table>
     <div class="pagination">
-      <div class="top-pagination"></div>
+      <div class="top-pagination">
+
+      </div>
       <div class="names-counter">{{namesList.length}} names</div>
     </div>
   </div>
@@ -77,10 +82,17 @@ export default {
   .names-table {
     text-align: left;
     font-size: 15px;
+    border-color: #fafafa;
   }
-  .table td {
+  .names-table td {
     padding: 0.65rem;
+    border-color: #fafafa;
+    border-right: 2px solid #fff;
   }
+  .names-table tbody tr:nth-of-type(odd) {
+    background-color: #fafafa;
+    border-color: #fafafa;
+}
   .fav{
     text-align: center;
     color: #38c8b2;
@@ -104,13 +116,27 @@ export default {
     text-align: center;
     color: #ceced0;
   }
-  .frequency{
+  .frequency, .namn{
     position: relative;
   }
   .fa-info-circle:hover + .tooltip{
     /*opacity: 1;*/
     z-index: 2;
     display: block;
+  }
+  .main-tooltip{
+    font-family: 'Quicksand';
+    font-size:15px;
+    opacity: 1;
+    z-index: 0;
+    display: none;
+    padding: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background: #ffffff;
+    top:0px;
+    left: 0;
+    box-shadow: 0px 2px 15px #8edcd1;
   }
   .freq-tooltip{
     font-family: 'Quicksand';
@@ -123,6 +149,7 @@ export default {
     padding-left: 10px;
     background: #ffffff;
     top:0px;
+    left: 0;
     box-shadow: 0px 2px 15px #8edcd1;
   }
 </style>

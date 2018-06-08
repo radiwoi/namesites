@@ -3,6 +3,13 @@ from .models import BoyName, GirlName, PopularName, Variant
 import re
 
 
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        for z in l[i:i + n]:
+            yield z
+
+
 class CoreParser:
     def __init__(self, file_obj, sheet_name):
         self.sheet_name = sheet_name
@@ -105,10 +112,10 @@ class NamesParser(CoreParser):
         return headers
 
     def validate_data(self, row):
-        print("validation row", row)
+        # print("validation row", row)
 
-        if row["name"] in self.to_update:
-            print("EXISTS!")
+        if row["name"].lower() in self.to_update:
+            # print("EXISTS!")
             return False
 
         for key in self.rules:
@@ -124,7 +131,7 @@ class NamesParser(CoreParser):
         return row
 
     def check_existing(self):
-        self.to_update = self.model.objects.values_list('name', flat=True)
+        self.to_update = [item.lower() for item in self.model.objects.values_list('name', flat=True)]
 
     def assign_to_model_instance_and_save(self):
         data_to_save = []
@@ -132,14 +139,17 @@ class NamesParser(CoreParser):
         # todo remove or rewrite this
         self.model = model
         self.check_existing()
+
         # return False
         data = self.df.to_dict('records')
-        print("data", data)
+        # print("data", data)
         for row in data:
-            print("row", row["name"])
+            # print("row", row["name"])
             row = self.validate_data(row=row)
             if not row:
                 continue
+
+            self.to_update.append(row["name"].lower())
 
             data_to_save.append(
                 model(
@@ -158,11 +168,17 @@ class NamesParser(CoreParser):
                     meaning=row["meaning"]
                 )
             )
-        print(data_to_save)
+        # print(data_to_save)
         reason = ""
         if len(data_to_save) == 0:
             reason = "No unique records"
         model.objects.bulk_create(data_to_save)
+
+        for name in chunks(l=model.objects.all(), n=100):
+            variants = Variant.objects.filter(name=name.name).all()
+            print(variants)
+            name.variants.add(*variants)
+
         return len(data_to_save), reason
 
 
@@ -243,21 +259,43 @@ class VariantsParser(CoreParser):
 
     def assign_to_model_instance_and_save(self):
         data_to_save = []
+        self.df = self.df.reset_index()
+        mapped_data = self.df["variants"].str.split(",")
+        mapped_data = mapped_data.apply(pd.Series, 1).stack().map(lambda v: v.strip())
+        mapped_data.index = mapped_data.index.droplevel(-1)
+        mapped_data.name = 'variant_name'
+        self.df = self.df.join(mapped_data)
+        print(self.df)
+        del mapped_data
+        # return
         model = self.sheet_model_assigner[self.sheet_name]["model_name"]
         data = self.df.to_dict('records')
         print(model)
         for row in data:
-            print(row)
-        #     # row = self.validate_data(row=row)
-            data_to_save.append(
-                model(
-                    name=row["name"],
-                    language=row["language"],
-                    variants=row["variants"]
-                )
+            row_dict = {
+                "language": row["language"],
+                "name": row["variant_name"]
+            }
+            # print(row)
+
+            if model.objects.filter(**row_dict).first() is not None:
+                continue
+
+            variant = model(
+                **row_dict
             )
+
+            variant.save()
+
+            boy_name = BoyName.objects.filter(name__iexact=row["name"]).first()
+            girl_name = GirlName.objects.filter(name__iexact=row["name"]).first()
+            if boy_name is not None:
+                boy_name.variants.add(variant)
+            if girl_name is not None:
+                girl_name.variants.add(variant)
         print(data_to_save)
-        model.objects.bulk_create(data_to_save)
+
+        # model.objects.bulk_create(data_to_save)
         return len(data_to_save), ""
 
     def validate_data(self, row):

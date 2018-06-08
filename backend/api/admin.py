@@ -8,6 +8,8 @@ admin.site.register(Email)
 
 @admin.register(BoyName)
 class BoyNameAdmin(admin.ModelAdmin):
+    filter_horizontal = ('variants',)
+    search_fields = ("name", )
     list_display = [
         "name",
         "frequency",
@@ -43,4 +45,5 @@ class VariantsAdmin(admin.ModelAdmin):
         "name",
         "language"
     ]
+    search_fields = ("name",)
     clange_list_template = "admin/api/variant/change_list.html"
