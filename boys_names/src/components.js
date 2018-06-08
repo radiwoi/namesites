@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 import Header from './components/reusable/Header.vue'
 import SecondHeader from './components/reusable/SecondHeader.vue'
+import SubHeader from './components/reusable/SubHeader.vue'
 import Footer from './components/reusable/Footer.vue'
 import StartPage from './components/pages/startpage/StartPage.vue'
 import SearchPage from './components/pages/searchpage/SearchPage.vue'
@@ -20,3 +21,4 @@ Vue.component('popular-page', PopularPage);
 Vue.component('search-form', SearchForm);
 Vue.component('main-footer', Footer);
 Vue.component('names-list', NamesList);
+Vue.component('sub-header', SubHeader);

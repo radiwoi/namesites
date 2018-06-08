@@ -1,15 +1,15 @@
 <template>
   <div class="names-list container">
-    <!--{{ listener }}-->
-    <!--{{namesList}}-->
-    <div class="filters" style="height:50px"></div>
     <table class="table table-striped names-table">
       <tbody>
         <tr v-for="nameObj in namesList">
           <td class="fav"><i class="fa fa-heart"></i></td>
           <td class="table-cell">{{nameObj.name}} <i class="fa fa-info-circle"></i></td>
-          <td class="table-cell">{{nameObj.frequency}} <i class="fa fa-info-circle"></i></td>
-          <td class="table-cell">{{nameObj.age_distribution_10}} <i class="fa fa-info-circle"></i></td>
+          <td class="table-cell frequency">
+            {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
+            <div class="tooltip freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
+          </td>
+          <td class="table-cell">{{nameObj.average_age}} ar<i class="fa fa-info-circle"></i></td>
         </tr>
       </tbody>
     </table>
@@ -48,7 +48,6 @@ export default {
     })
   },
   mounted () {
-//    console.log(this.doSearch)
     axios.post('http://127.0.0.1:8000/api/v1/test/', this.$store.state.searchObject)
             .then(r => {
                 this.namesList = r.data
@@ -56,16 +55,15 @@ export default {
             })
   },
   watch: {
-      doSearch: function (n, o) {
-        console.log(n, o)
-        if (n) {
-            axios.post('http://127.0.0.1:8000/api/v1/test/', this.$store.state.searchObject)
-            .then(r => {
-                this.namesList = r.data
-                this.$store.commit('changeDoSearch', false);
-            })
-        }
+    doSearch: function (n, o) {
+      if (n) {
+          axios.post('http://127.0.0.1:8000/api/v1/test/', this.$store.state.searchObject)
+          .then(r => {
+              this.namesList = r.data;
+              this.$store.commit('changeDoSearch', false);
+          })
       }
+    }
   }
 }
 </script>
@@ -105,5 +103,26 @@ export default {
   .names-counter{
     text-align: center;
     color: #ceced0;
+  }
+  .frequency{
+    position: relative;
+  }
+  .fa-info-circle:hover + .tooltip{
+    /*opacity: 1;*/
+    z-index: 2;
+    display: block;
+  }
+  .freq-tooltip{
+    font-family: 'Quicksand';
+    font-size:16px;
+    opacity: 1;
+    z-index: 0;
+    display: none;
+    padding: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background: #ffffff;
+    top:0px;
+    box-shadow: 0px 2px 15px #8edcd1;
   }
 </style>

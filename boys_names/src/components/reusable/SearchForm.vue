@@ -116,6 +116,7 @@ export default {
   .main-search-control{
     border: 2px solid #38c8b2;
     height: 52px;
+    box-shadow: 0px 2px 5px #8edcd1;
   }
   .main-search-control:focus{
     background-color: #fff;

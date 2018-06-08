@@ -3,7 +3,9 @@
     <div class="container">
       <div class="row">
         <div class="col col-lg-2">
-          <img class="img-fluid" src="../../assets/Boy.png" alt="">
+          <router-link v-bind:to="'/'">
+            <img class="img-fluid" src="../../assets/Boy.png" alt="">
+          </router-link>
         </div>
       </div>
       <!--{{msg}}-->
