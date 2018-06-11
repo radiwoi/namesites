@@ -1,11 +1,11 @@
 export default {
   state: {
     searchObject: {
-      "frequency": ["Ovanligt", "Mindre vanligt", "Mycket vanligt"],
+      "frequency": ["Ovanligt", "Mindre vanligt", "Mycket vanligt", "Ganska vanligt", "Vanligt"],
       "age_distribution": [10,20,30],
       "popular_year": 2016,
       "double_name": false,
-      "letters_range": "4 - 5",
+      "letters_range": false,
       "search_phrase": "",
       "search_criteria": "start",
       "limit": 5,

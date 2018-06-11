@@ -15,41 +15,28 @@ from .models import BoyName, GirlName, PopularName, Variant
 from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNamesSerializer, PopularNamesSerializer
 
 
-class BoysNamesList(APIView):
+class BoysNamesList(generics.ListAPIView):
     parser_classes = (JSONParser,)
+    serializer_class = BoysNamesSerializer
+    pagination_class = LimitOffsetPagination
+    queryset = BoyName.objects.all()
 
-    def build_names_query(self):
-        pass
-
-    def get(self, request, format=None):
-        boy_names = BoyName.objects.all()
-
-        paginator = Paginator(boy_names, PER_PAGE)
-        page = request.GET.get('page')
-        if not page:
-            page = 1
-        boy_names = paginator.page(page)
-
-        serializer = BoysNamesSerializer(boy_names, many=True)
-
-        return Response(serializer.data)
-
-    def post(self, request):
+    def get_queryset(self):
         """
-        Method for search boys names
-        :param request: JSON string
-         search_phrase: str,
-         age_distribution: list
-         search_criteria: str (begin, end, middle)
-         frequency: list (based on NamesModel frequency field)
-         letters_range: str
-         double_name: bool
-         limit: int
-         skip: int
-        :return: Response object
-        """
+                Method for search boys names
+                :param request: JSON string
+                 search_phrase: str,
+                 age_distribution: list
+                 search_criteria: str (begin, end, middle)
+                 frequency: list (based on NamesModel frequency field)
+                 letters_range: str
+                 double_name: bool
+                 limit: int
+                 skip: int
+                :return: Response object
+                """
 
-        print(request.data)
+        request = self.request
         name = request.data.get("search_phrase")
         criteria = request.data.get("search_criteria")
         frequency = request.data.get("frequency")
@@ -59,19 +46,7 @@ class BoysNamesList(APIView):
         limit = request.data.get("limit", PER_PAGE)
         skip = request.data.get("skip", 0)
 
-        query = Q()
-
-        if frequency is not None:
-            q = [Q(frequency__iexact=f) for f in frequency]
-
-            query = q.pop()
-
-            for item in q:
-                query |= item
-
-        print(query)
-
-        resp = BoyName.objects.filter(query)
+        resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
 
         if double_name:
             resp = resp.filter(double_name=True)
@@ -99,7 +74,7 @@ class BoysNamesList(APIView):
             resp = resp.filter(or_query_set)
             # print(resp.query)
 
-        if criteria is not None:
+        if criteria is not None and len(name) > 0:
             if criteria == "begin":
                 resp = resp.filter(name__istartswith=name)
             elif criteria == "middle":
@@ -108,13 +83,27 @@ class BoysNamesList(APIView):
                 resp = resp.filter(name__iendswith=name)
             else:
                 resp = resp.filter(name__iexact=name)
+        # else:
 
-        resp = resp.filter(popular__year=2016)
+        # resp = resp.filter(popular__year=2016)
 
-        resp = resp.all()[skip:limit]
-        serializer = BoysNamesSerializer(resp, many=True)
+        return resp.all()
+
+    def get(self, request, *args, **kwargs):
+        boy_names = BoyName.objects.all()
+
+        paginator = Paginator(boy_names, PER_PAGE)
+        page = request.GET.get('page')
+        if not page:
+            page = 1
+        boy_names = paginator.page(page)
+
+        serializer = BoysNamesSerializer(boy_names, many=True)
 
         return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
 
 class GirlsNamesList(APIView):
@@ -177,7 +166,7 @@ class PopularNamesList(generics.ListAPIView):
             resp = resp.filter(or_query_set)
             # print(resp.query)
 
-        if criteria is not None:
+        if criteria is not None and len(name) > 0:
             if criteria == "begin":
                 resp = resp.filter(name__istartswith=name)
             elif criteria == "middle":
@@ -193,28 +182,21 @@ class PopularNamesList(generics.ListAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
-        # resp = resp.all()[skip:limit]
-        #
-        # print(resp.query)
-        #
-        # serializer = BoysNamesSerializer(resp, many=True)
-        # # print(serializer.data)
-        # return Response(serializer.data)
 
-    # def get(self, request, format=None):
-    #     order = request.GET.get('order')
-    #
-    #     if order:
-    #         popular_names = PopularName.objects.order_by('?')[:PER_PAGE_POPULAR]
-    #     else:
-    #         popular_names = PopularName.objects.all()
-    #         paginator = Paginator(popular_names, PER_PAGE)
-    #         page = request.GET.get('page', 1)
-    #         popular_names = paginator.page(page)
-    #
-    #     serializer = PopularNamesSerializer(popular_names, many=True)
-    #
-    #     return Response(serializer.data)
+    def get(self, request, *args, **kwargs):
+        order = request.GET.get('order')
+
+        if order:
+            popular_names = BoyName.objects.order_by('?')[:PER_PAGE_POPULAR]
+        else:
+            popular_names = BoyName.objects.all()
+            paginator = Paginator(popular_names, PER_PAGE)
+            page = request.GET.get('page', 1)
+            popular_names = paginator.page(page)
+
+        serializer = BoysNamesSerializer(popular_names, many=True)
+
+        return Response(serializer.data)
 
 
 class VariationsNamesList(APIView):

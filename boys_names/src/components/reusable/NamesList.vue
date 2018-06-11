@@ -7,7 +7,7 @@
           <td class="table-cell namn">
             <span class="popular-rate" v-if="page == 'popular-page'">{{nameObj.popular.position}}</span>
             <span>{{nameObj.name}}</span> <i class="fa fa-info-circle"></i>
-            <div class="tooltip main-tooltip">
+            <div v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="tooltip main-tooltip">
               <div v-if="nameObj.variants.length > 0" class="variants-list">
                 <div class="tooltip-title">
                   Variants
@@ -63,7 +63,7 @@ export default {
             .then(r => {
                 this.namesList = r.data.results;
                 this.total_results = r.data.count;
-                this.total_pages = this.total_results / this.namesList.length;
+                this.total_pages = Math.round(this.total_results / this.namesList.length);
                 this.prev = r.data.previous;
                 this.next = r.data.next;
                 this.$store.commit('changeDoSearch', false);
@@ -86,9 +86,13 @@ export default {
 //    console.log(this.$route);
     this.page = this.$route.name
     if (this.$route.name == 'search-page') {
-      axios.post('http://127.0.0.1:8000/api/v1/test/', this.$store.state.searchObject)
+      axios.post('http://127.0.0.1:8000/api/v1/test/?limit=5&offset=0', this.$store.state.searchObject)
             .then(r => {
-                this.namesList = r.data;
+                this.namesList = r.data.results;
+                this.total_results = r.data.count;
+                this.total_pages = Math.round(this.total_results / this.namesList.length);
+                this.prev = r.data.previous;
+                this.next = r.data.next;
                 this.$store.commit('changeDoSearch', false);
             })
     }
@@ -97,7 +101,7 @@ export default {
             .then(r => {
                 this.namesList = r.data.results;
                 this.total_results = r.data.count;
-                this.total_pages = this.total_results / this.namesList.length;
+                this.total_pages = Math.round(this.total_results / this.namesList.length);
                 this.prev = r.data.previous;
                 this.next = r.data.next;
                 this.$store.commit('changeDoSearch', false);
@@ -108,7 +112,7 @@ export default {
   watch: {
     doSearch: function (n, o) {
       if (n) {
-          axios.post('http://127.0.0.1:8000/api/v1/test/', this.$store.state.searchObject)
+          axios.post('http://127.0.0.1:8000/api/v1/test/?limit=5&offset=0', this.$store.state.searchObject)
           .then(r => {
               this.namesList = r.data;
               this.$store.commit('changeDoSearch', false);
