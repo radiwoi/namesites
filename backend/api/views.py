@@ -3,6 +3,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
+from rest_framework import generics
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
@@ -130,21 +132,89 @@ class GirlsNamesList(APIView):
         return Response(serializer.data)
 
 
-class PopularNamesList(APIView):
-    def get(self, request, format=None):
-        order = request.GET.get('order')
+class PopularNamesList(generics.ListAPIView):
+    serializer_class = BoysNamesSerializer
+    pagination_class = LimitOffsetPagination
+    queryset = BoyName.objects.all()
 
-        if order:
-            popular_names = PopularName.objects.order_by('?')[:PER_PAGE_POPULAR]
-        else:
-            popular_names = PopularName.objects.all()
-            paginator = Paginator(popular_names, PER_PAGE)
-            page = request.GET.get('page', 1)
-            popular_names = paginator.page(page)
+    def get_queryset(self):
+        request = self.request
+        name = request.data.get("search_phrase")
+        criteria = request.data.get("search_criteria")
+        frequency = request.data.get("frequency")
+        age_distribution = request.data.get("age_distribution")
+        double_name = request.data.get("double_name")
+        letters_range = request.data.get("letters_range")
+        limit = request.data.get("limit", PER_PAGE)
+        skip = request.data.get("skip", 0)
+        popular_name = request.data.get("popular_year", 2016)
 
-        serializer = PopularNamesSerializer(popular_names, many=True)
+        resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
 
-        return Response(serializer.data)
+        if double_name:
+            resp = resp.filter(double_name=True)
+
+        if letters_range:
+            resp = resp.filter(number_of_letters=letters_range)
+
+        if age_distribution is not None:
+            mask = "age_distribution_{}__gt"
+
+            # AND age_distribution way
+            # dd = {}
+            #
+            # for d in age_distribution:
+            #     key = mask.format(d)
+            #     dd[key] = 0
+            # resp = resp.filter(**dd)
+
+            # OR age_distribution way
+            or_query_set = Q()
+            for d in age_distribution:
+                tmp = Q(**{mask.format(d): 0})
+                or_query_set |= tmp
+
+            resp = resp.filter(or_query_set)
+            # print(resp.query)
+
+        if criteria is not None:
+            if criteria == "begin":
+                resp = resp.filter(name__istartswith=name)
+            elif criteria == "middle":
+                resp = resp.filter(name__icontains=name)
+            elif criteria == "end":
+                resp = resp.filter(name__iendswith=name)
+            else:
+                resp = resp.filter(name__iexact=name)
+
+        resp = resp.filter(popular__year=popular_name)
+        resp = resp.order_by('popular__position')
+        return resp.all()
+
+    def post(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+        # resp = resp.all()[skip:limit]
+        #
+        # print(resp.query)
+        #
+        # serializer = BoysNamesSerializer(resp, many=True)
+        # # print(serializer.data)
+        # return Response(serializer.data)
+
+    # def get(self, request, format=None):
+    #     order = request.GET.get('order')
+    #
+    #     if order:
+    #         popular_names = PopularName.objects.order_by('?')[:PER_PAGE_POPULAR]
+    #     else:
+    #         popular_names = PopularName.objects.all()
+    #         paginator = Paginator(popular_names, PER_PAGE)
+    #         page = request.GET.get('page', 1)
+    #         popular_names = paginator.page(page)
+    #
+    #     serializer = PopularNamesSerializer(popular_names, many=True)
+    #
+    #     return Response(serializer.data)
 
 
 class VariationsNamesList(APIView):

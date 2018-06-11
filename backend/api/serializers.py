@@ -13,7 +13,7 @@ class BoysNamesSerializer(serializers.ModelSerializer):
         return VariantNamesSerializer(boy_name.variants.all(), many=True).data
 
     def get_popular(self, boy_name):
-        return PopularNamesSerializer(boy_name.popular.all(), many=True).data
+        return PopularNamesSerializer(boy_name.popular.first()).data
 
     class Meta:
         model = BoyName

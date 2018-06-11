@@ -44,6 +44,9 @@ class PopularName(models.Model):
     def __str__(self):
         return "{} {}".format(self.year, self.position)
 
+    class Meta:
+        unique_together = ('year', 'position',)
+
 
 class Variant(models.Model):
     # name = models.CharField(max_length=64)
@@ -54,7 +57,7 @@ class Variant(models.Model):
         return "{} {}".format(self.language, self.name)
 
     class Meta:
-        unique_together = ('language', 'name', )
+        unique_together = ('language', 'name',)
 
 
 class Email(models.Model):

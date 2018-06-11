@@ -4,10 +4,10 @@
       <div class="row">
         <div class="col col-lg-4 sub-menu">
           <router-link v-bind:to="'/search-page'">
-            <span class="sub-menu-item active">Sokning</span>
+            <span class="sub-menu-item" v-bind:class="{active: page == 'search-page'}">Sokning</span>
           </router-link>
           <router-link v-bind:to="'/popular-page'">
-            <span class="sub-menu-item">Populara namn</span>
+            <span class="sub-menu-item" v-bind:class="{active: page == 'popular-page'}">Populara namn</span>
           </router-link>
         </div>
         <div class="col-lg-2 offset-lg-6">
@@ -21,6 +21,14 @@
 <script>
 export default {
   name: 'sub-header',
+  data () {
+      return {
+          page: ""
+      }
+  },
+  mounted () {
+      this.page = this.$route.name
+  }
 }
 </script>
 

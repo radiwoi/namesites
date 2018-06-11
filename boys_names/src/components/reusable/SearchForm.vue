@@ -73,35 +73,36 @@ export default {
 </script>
 
 <style>
-  .search-form{
+  .search-form {
     padding-left: 20px;
     padding-right: 20px;
   }
-  .input-group{
+  .input-group {
 
     border-color: #38c8b2;
   }
-  .input-group{
+  .input-group {
     position: relative;
   }
-  .main-page-search{
+  .main-page-search {
     position: absolute;
     right: 0;
     z-index: 4;
   }
-  .main-page-search-btn{
+  .main-page-search-btn {
     background: #38c8b2;
     color: #fff;
     height:52px;
     width: 53px;
     border: 2px solid #38c8b2;
   }
-  .main-search-control{
+  .main-search-control {
     border: 2px solid #38c8b2;
     height: 52px;
     box-shadow: 0px 2px 5px #8edcd1;
+    font-family: 'Quicksand';
   }
-  .main-search-control:focus{
+  .main-search-control:focus {
     background-color: #fff;
     border-color: #38c8b2;
     outline: 0;
