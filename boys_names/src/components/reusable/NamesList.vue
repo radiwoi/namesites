@@ -6,7 +6,14 @@
           <td class="fav"><i class="fa fa-heart"></i></td>
           <td class="table-cell namn">
             {{nameObj.name}} <i class="fa fa-info-circle"></i>
-            <div v-if="nameObj.meaning.length > 0" class="tooltip main-tooltip">{{nameObj.meaning}}</div>
+            <div class="tooltip main-tooltip">
+              <div v-for="variant in nameObj.variants">
+                {{variant.name}} ({{variant.language}}),
+              </div>
+              <div v-if="nameObj.meaning.length > 0">
+                {{nameObj.meaning}}
+              </div>
+            </div>
           </td>
           <td class="table-cell frequency">
             {{nameObj.frequency}} <i class="fa fa-info-circle"></i>

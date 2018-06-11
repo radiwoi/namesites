@@ -209,23 +209,56 @@ class PopularParser(CoreParser):
         return names
 
     def assign_to_model_instance_and_save(self):
+        # data_to_save = []
+        # model = self.sheet_model_assigner[self.sheet_name]["model_name"]
+        # data = self.df.to_dict('records')
+        # print(model)
+        # for row in data:
+        #     print(row)
+        #     #     # row = self.validate_data(row=row)
+        #     data_to_save.append(
+        #         model(
+        #             year=row["year"],
+        #             name=row["name"],
+        #             gender=row["gender"],
+        #             position=row["position"]
+        #         )
+        #     )
+        # print(data_to_save)
+        # model.objects.bulk_create(data_to_save)
+        #
+        # return len(data_to_save), ""
         data_to_save = []
+        self.df = self.df.reset_index()
+        print(self.df)
+        # return
         model = self.sheet_model_assigner[self.sheet_name]["model_name"]
         data = self.df.to_dict('records')
         print(model)
         for row in data:
-            print(row)
-            #     # row = self.validate_data(row=row)
-            data_to_save.append(
-                model(
-                    year=row["year"],
-                    name=row["name"],
-                    gender=row["gender"],
-                    position=row["position"]
+            row_dict = {
+                "year": row["year"],
+                "position": row["position"],
+            }
+            # print(row)
+
+            popular = model.objects.filter(**row_dict).first()
+
+            if popular is None:
+                popular = model(
+                    **row_dict
                 )
-            )
-        print(data_to_save)
-        model.objects.bulk_create(data_to_save)
+
+                popular.save()
+
+            if row['gender'] == 'boy':
+                boy_name = BoyName.objects.filter(name__iexact=row["name"]).first()
+                if boy_name is not None:
+                    boy_name.popular.add(popular)
+            else:
+                girl_name = GirlName.objects.filter(name__iexact=row["name"]).first()
+                if girl_name is not None:
+                    girl_name.popular.add(popular)
 
         return len(data_to_save), ""
 

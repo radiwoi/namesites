@@ -27,20 +27,22 @@ class NamesModel(models.Model):
 
 class BoyName(NamesModel):
     variants = models.ManyToManyField('Variant', related_name='boy_names')
+    popular = models.ManyToManyField('PopularName', related_name='boy_names')
 
 
 class GirlName(NamesModel):
     variants = models.ManyToManyField('Variant', related_name='girl_names')
+    popular = models.ManyToManyField('PopularName', related_name='girl_names')
 
 
 class PopularName(models.Model):
     year = models.IntegerField()
     position = models.IntegerField()
-    name = models.CharField(max_length=64)
-    gender = models.CharField(max_length=16)
+    # name = models.CharField(max_length=64)
+    # gender = models.CharField(max_length=16)
 
     def __str__(self):
-        return self.name
+        return "{} {}".format(self.year, self.position)
 
 
 class Variant(models.Model):
@@ -60,3 +62,10 @@ class Email(models.Model):
     domain = models.CharField(max_length=256)
     date = models.DateField()
     time = models.TimeField()
+
+
+class FooterTexts(models.Model):
+    title = models.CharField(max_length=64)
+    position = models.CharField(max_length=64)
+    text = models.TextField()
+    read_more_words = models.IntegerField()

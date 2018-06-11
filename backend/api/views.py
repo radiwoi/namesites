@@ -60,12 +60,14 @@ class BoysNamesList(APIView):
         query = Q()
 
         if frequency is not None:
-            q = [Q(frequency__exact=f) for f in frequency]
+            q = [Q(frequency__iexact=f) for f in frequency]
 
             query = q.pop()
 
             for item in q:
                 query |= item
+
+        print(query)
 
         resp = BoyName.objects.filter(query)
 
@@ -104,6 +106,8 @@ class BoysNamesList(APIView):
                 resp = resp.filter(name__iendswith=name)
             else:
                 resp = resp.filter(name__iexact=name)
+
+        resp = resp.filter(popular__year=2016)
 
         resp = resp.all()[skip:limit]
         serializer = BoysNamesSerializer(resp, many=True)

@@ -1,7 +1,7 @@
 export default {
   state: {
     searchObject: {
-      "frequency": ["Ovanligt", "Mindre vanligt"],
+      "frequency": ["Ovanligt", "Mindre vanligt", "Mycket vanligt"],
       "age_distribution": [10,20,30],
       "double_name": false,
       "letters_range": "4 - 5",
