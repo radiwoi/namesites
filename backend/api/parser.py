@@ -305,9 +305,9 @@ class VariantsParser(CoreParser):
         data = self.df.to_dict('records')
         del self.df
 
-        existing_variants = model.objects.values("language", "name")
+        # existing_variants = model.objects.values("language", "name")
 
-        print(existing_variants)
+        # print(existing_variants)
         return
 
         # print(model)
