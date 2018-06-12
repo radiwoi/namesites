@@ -4,10 +4,10 @@
       <div class="row">
         <div class="col col-lg-4 sub-menu">
           <router-link v-bind:to="'/search-page'">
-            <span class="sub-menu-item" v-bind:class="{active: page == 'search-page'}">Sokning</span>
+            <span class="sub-menu-item" v-bind:class="{active: page == 'search-page'}">Sökning</span>
           </router-link>
           <router-link v-bind:to="'/popular-page'">
-            <span class="sub-menu-item" v-bind:class="{active: page == 'popular-page'}">Populara namn</span>
+            <span class="sub-menu-item" v-bind:class="{active: page == 'popular-page'}">Populära namn</span>
           </router-link>
         </div>
         <div class="col-lg-2 offset-lg-6">

@@ -7,8 +7,11 @@
             <img class="sec-img img-fluid" src="../../assets/Boy.png" alt="">
           </router-link>
         </div>
-        <div class="col-lg-6 offset-lg-3">
+        <div class="col-lg-6 offset-lg-2">
           <search-form></search-form>
+        </div>
+        <div class="col-lg-1 popular-wrapper">
+          <img src="../../assets/Heart.png" alt="">
         </div>
       </div>
     </div>

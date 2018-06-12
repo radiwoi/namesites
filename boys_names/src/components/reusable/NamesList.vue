@@ -55,7 +55,8 @@ export default {
       next: "",
       total_pages: 1,
       page_number: 1,
-      part: 'test'
+      part: 'test',
+      backend_url: "http://127.0.0.1:8000/api/v1/"
     }
   },
   methods: {
@@ -96,13 +97,13 @@ export default {
   mounted () {
     this.currentPage = this.$route.name;
     if (this.$route.name == 'search-page') {
-      axios.post('http://127.0.0.1:8000/api/v1/test/?limit=5&offset=0', this.$store.state.searchObject)
+      axios.post(this.backend_url + 'test/?limit=5&offset=0', this.$store.state.searchObject)
             .then(r => {
                 this.prepareResponseData(r);
             })
     }
     if (this.currentPage == 'popular-page') {
-        axios.post('http://127.0.0.1:8000/api/v1/popular-names/?limit=5&offset=0', this.$store.state.searchObject)
+        axios.post(this.backend_url + 'popular-names/?limit=5&offset=0', this.$store.state.searchObject)
             .then(r => {
                 this.prepareResponseData(r);
             })
@@ -118,7 +119,7 @@ export default {
           this.part = 'test'
       }
       if (n) {
-          axios.post('http://127.0.0.1:8000/api/v1/' + this.part + '/?limit=5&offset=0', this.$store.state.searchObject)
+          axios.post(this.backend_url + this.part + '/?limit=5&offset=0', this.$store.state.searchObject)
           .then(r => {
               this.prepareResponseData(r);
           })
@@ -187,6 +188,9 @@ export default {
     text-align: center;
     color: #ceced0;
   }
+  .namn{
+    max-width: 297px;
+  }
   .frequency, .namn{
     position: relative;
   }
@@ -196,6 +200,11 @@ export default {
     /*opacity: 1;*/
     z-index: 2;
     display: block;
+  }
+  .fa-info-circle:hover{
+    /*z-index: 50;*/
+    /*opacity: 0;*/
+    /*position: absolute;*/
   }
   .main-tooltip{
     font-family: 'Quicksand';
@@ -208,7 +217,7 @@ export default {
     padding-right: 10px;
     padding-left: 10px;
     background: #ffffff;
-    top:0px;
+    top:25px;
     left: 0;
     box-shadow: 0px 2px 15px #8edcd1;
   }
@@ -230,7 +239,7 @@ export default {
     padding-right: 10px;
     padding-left: 10px;
     background: #ffffff;
-    top:0px;
+    top:25px;
     left: 0;
     box-shadow: 0px 2px 15px #8edcd1;
   }

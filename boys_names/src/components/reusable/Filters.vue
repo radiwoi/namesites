@@ -15,7 +15,7 @@
             </td>
             <td style="width: 474px;">
               <div class="title-filter">
-                Forecomst <span class="filter-sorting"></span>
+                Förecomst <span class="filter-sorting"></span>
               </div>
               <small class="filter-choises">All</small>
             </td>

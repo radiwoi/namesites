@@ -1,7 +1,7 @@
 <template>
   <div class="search-form">
     <div class="input-group">
-      <input type="text" class="form-control main-search-control" placeholder="Sok" v-model="searchObject.search_phrase">
+      <input type="text" class="form-control main-search-control" placeholder="Sök" v-model="searchObject.search_phrase">
       <span class="input-group-btn main-page-search">
       <router-link v-bind:to="{name: redirectTo}">
         <button class="btn btn-default main-page-search-btn" @click="handleClick" type="submit">
@@ -33,9 +33,9 @@ export default {
         currentPage: "",
         redirectTo: "search-page",
         criterias: [
-            {name: "innehar sokstrangen", action: "middle", chosen: false},
-            {name: "borjar med sokstrangen ", action: "start", chosen: true},
-            {name: "slutar med sokstrangen", action: "end", chosen: false},
+            {name: "innehar soksträngen", action: "middle", chosen: false},
+            {name: "börjar med söksträngen ", action: "start", chosen: true},
+            {name: "slutar med söksträngen", action: "end", chosen: false},
         ],
       }
     },
@@ -92,6 +92,7 @@ export default {
   }
   .main-page-search {
     position: absolute;
+    border-radius: 5px;
     right: 0;
     z-index: 4;
   }
@@ -101,12 +102,18 @@ export default {
     height:52px;
     width: 53px;
     border: 2px solid #38c8b2;
+    border-radius: 5px;
   }
   .main-search-control {
     border: 2px solid #38c8b2;
     height: 52px;
     box-shadow: 0px 2px 5px #8edcd1;
     font-family: 'Quicksand';
+    border-radius: 5px;
+  }
+  .input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child){
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
   .main-search-control:focus {
     background-color: #fff;
