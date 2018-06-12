@@ -3,7 +3,7 @@
     <div class="input-group">
       <input type="text" class="form-control main-search-control" placeholder="Sok" v-model="searchObject.search_phrase">
       <span class="input-group-btn main-page-search">
-      <router-link v-bind:to="{name: 'search-page'}">
+      <router-link v-bind:to="{name: redirectTo}">
         <button class="btn btn-default main-page-search-btn" @click="handleClick" type="submit">
             <i class="fa fa-search"></i>
         </button>
@@ -30,6 +30,8 @@ export default {
       return {
         seen: false,
         search_criteria: {},
+        currentPage: "",
+        redirectTo: "search-page",
         criterias: [
             {name: "innehar sokstrangen", action: "middle", chosen: false},
             {name: "borjar med sokstrangen ", action: "start", chosen: true},
@@ -60,6 +62,10 @@ export default {
       }
   },
   created() {
+    this.currentPage = this.$route.name;
+    if (this.currentPage != "start-page") {
+        this.redirectTo = this.currentPage
+    }
     this.criterias.map(criteria => {
         if (criteria.action == this.$store.state.searchObject.search_criteria) {
             criteria.chosen = true;

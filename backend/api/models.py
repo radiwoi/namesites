@@ -72,3 +72,6 @@ class FooterTexts(models.Model):
     position = models.CharField(max_length=64)
     text = models.TextField()
     read_more_words = models.IntegerField()
+
+    class Meta:
+        verbose_name_plural = "footer text"

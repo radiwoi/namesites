@@ -4,6 +4,7 @@ from .models import *
 
 
 admin.site.register(Email)
+admin.site.register(FooterTexts)
 
 
 @admin.register(BoyName)

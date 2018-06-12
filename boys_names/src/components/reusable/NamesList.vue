@@ -5,7 +5,7 @@
         <tr v-for="nameObj in namesList">
           <td class="fav"><i class="fa fa-heart"></i></td>
           <td class="table-cell namn">
-            <span class="popular-rate" v-if="page == 'popular-page'">{{nameObj.popular.position}}</span>
+            <span class="popular-rate" v-if="currentPage == 'popular-page'">{{nameObj.popular.position}}</span>
             <span>{{nameObj.name}}</span> <i class="fa fa-info-circle"></i>
             <div v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="tooltip main-tooltip">
               <div v-if="nameObj.variants.length > 0" class="variants-list">
@@ -49,25 +49,31 @@ export default {
   data () {
     return {
       namesList: [],
-      page: "",
+      currentPage: "",
       total_results: 0,
       prev: "",
       next: "",
       total_pages: 1,
-      page_number: 1
+      page_number: 1,
+      part: 'test'
     }
   },
   methods: {
     paginationClick (value) {
-        axios.post(value, this.$store.state.searchObject)
+        if(value !== null) {
+            axios.post(value, this.$store.state.searchObject)
             .then(r => {
-                this.namesList = r.data.results;
-                this.total_results = r.data.count;
-                this.total_pages = Math.round(this.total_results / this.namesList.length);
-                this.prev = r.data.previous;
-                this.next = r.data.next;
-                this.$store.commit('changeDoSearch', false);
+                this.prepareResponseData(r);
             })
+        }
+    },
+    prepareResponseData(r){
+        this.namesList = r.data.results;
+        this.total_results = r.data.count;
+        this.total_pages = Math.round(this.total_results / this.namesList.length);
+        this.prev = r.data.previous;
+        this.next = r.data.next;
+        this.$store.commit('changeDoSearch', false);
     }
   },
 //  beforeMount () {
@@ -83,39 +89,33 @@ export default {
     })
   },
   mounted () {
-//    console.log(this.$route);
-    this.page = this.$route.name
+    this.currentPage = this.$route.name;
     if (this.$route.name == 'search-page') {
       axios.post('http://127.0.0.1:8000/api/v1/test/?limit=5&offset=0', this.$store.state.searchObject)
             .then(r => {
-                this.namesList = r.data.results;
-                this.total_results = r.data.count;
-                this.total_pages = Math.round(this.total_results / this.namesList.length);
-                this.prev = r.data.previous;
-                this.next = r.data.next;
-                this.$store.commit('changeDoSearch', false);
+                this.prepareResponseData(r);
             })
     }
-    if (this.page == 'popular-page') {
+    if (this.currentPage == 'popular-page') {
         axios.post('http://127.0.0.1:8000/api/v1/popular-names/?limit=5&offset=0', this.$store.state.searchObject)
             .then(r => {
-                this.namesList = r.data.results;
-                this.total_results = r.data.count;
-                this.total_pages = Math.round(this.total_results / this.namesList.length);
-                this.prev = r.data.previous;
-                this.next = r.data.next;
-                this.$store.commit('changeDoSearch', false);
+                this.prepareResponseData(r);
             })
     }
 
   },
   watch: {
     doSearch: function (n, o) {
+//      todo from ALL pages
+      if(this.currentPage == 'popular-page'){
+          this.part = 'popular-names'
+      } else {
+          this.part = 'test'
+      }
       if (n) {
-          axios.post('http://127.0.0.1:8000/api/v1/test/?limit=5&offset=0', this.$store.state.searchObject)
+          axios.post('http://127.0.0.1:8000/api/v1/' + this.part + '/?limit=5&offset=0', this.$store.state.searchObject)
           .then(r => {
-              this.namesList = r.data;
-              this.$store.commit('changeDoSearch', false);
+              this.prepareResponseData(r);
           })
       }
     }
@@ -185,7 +185,9 @@ export default {
   .frequency, .namn{
     position: relative;
   }
-  .fa-info-circle:hover + .tooltip{
+  .fa-info-circle:hover + .tooltip,
+  .fa-info-circle:focus + .tooltip,
+  .fa-info-circle:active + .tooltip{
     /*opacity: 1;*/
     z-index: 2;
     display: block;

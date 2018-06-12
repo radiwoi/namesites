@@ -29,7 +29,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'start-header',
+  name: 'start-page',
 
   props: [''],
   data () {
