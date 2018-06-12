@@ -19,7 +19,7 @@ class BoysNamesList(generics.ListAPIView):
     parser_classes = (JSONParser,)
     serializer_class = BoysNamesSerializer
     pagination_class = LimitOffsetPagination
-    queryset = BoyName.objects.all()
+    # queryset = BoyName.objects.all()
 
     def get_queryset(self):
         """
@@ -72,10 +72,9 @@ class BoysNamesList(generics.ListAPIView):
                 or_query_set |= tmp
 
             resp = resp.filter(or_query_set)
-            # print(resp.query)
 
         if criteria is not None and len(name) > 0:
-            if criteria == "begin":
+            if criteria == "start":
                 resp = resp.filter(name__istartswith=name)
             elif criteria == "middle":
                 resp = resp.filter(name__icontains=name)
@@ -86,7 +85,7 @@ class BoysNamesList(generics.ListAPIView):
         # else:
 
         # resp = resp.filter(popular__year=2016)
-
+        # print(resp.query)
         return resp.all()
 
     def get(self, request, *args, **kwargs):
@@ -103,6 +102,7 @@ class BoysNamesList(generics.ListAPIView):
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
+        print(self.request)
         return self.list(request, *args, **kwargs)
 
 
@@ -167,7 +167,7 @@ class PopularNamesList(generics.ListAPIView):
             # print(resp.query)
 
         if criteria is not None and len(name) > 0:
-            if criteria == "begin":
+            if criteria == "start":
                 resp = resp.filter(name__istartswith=name)
             elif criteria == "middle":
                 resp = resp.filter(name__icontains=name)
