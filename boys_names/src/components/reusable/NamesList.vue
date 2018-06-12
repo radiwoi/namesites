@@ -133,6 +133,7 @@ export default {
       }
       this.isLoad = true;
       this.noResults = false;
+      this.namesList = []
       if(this.currentPage == 'popular-page'){
           this.part = 'popular-names'
       } else {

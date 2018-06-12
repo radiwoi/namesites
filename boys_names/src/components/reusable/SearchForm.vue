@@ -3,6 +3,7 @@
     <div class="input-group">
       <input type="text" class="form-control main-search-control" placeholder="Sök" v-model="localSearchPhrase">
       <span class="input-group-btn main-page-search">
+      <span @click="resetFilters" class="reset-filters"></span>
       <router-link v-bind:to="{name: redirectTo}">
         <button class="btn btn-default main-page-search-btn" @click="handleClick" type="submit">
             <i class="fa fa-search"></i>
@@ -36,8 +37,8 @@ export default {
         redirectTo: "search-page",
         errorMsg: "",
         criterias: [
-            {name: "innehar soksträngen", action: "middle", chosen: false},
             {name: "börjar med söksträngen ", action: "start", chosen: true},
+            {name: "innehar soksträngen", action: "middle", chosen: false},
             {name: "slutar med söksträngen", action: "end", chosen: false},
         ],
       }
@@ -62,6 +63,12 @@ export default {
       this.$store.commit('changeDoSearch', true);
       this.$store.commit('test', this.localSearchPhrase);
       console.log(this.$store.state)
+    },
+    resetFilters() {
+      this.chooseCriteria(0);
+      this.localSearchPhrase = "";
+      this.$store.commit('test', this.localSearchPhrase);
+      this.$store.commit('changeDoSearch', true);
     },
     checkInput () {
       let validRegEx = /^[a-zA-Z() ]+$/;
@@ -168,5 +175,16 @@ export default {
   }
   .error-msg{
     color: #ff6f72;
+  }
+  .reset-filters{
+    background: url("../../assets/Close.png");
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    top: 28%;
+    left:-25px;
+    z-index: 100;
+    cursor: pointer;
+    position: absolute;
   }
 </style>
