@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from api.views import upload_file
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('api.urls')),
     path('admin/file/', upload_file)
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
