@@ -39,7 +39,7 @@ export default {
   },
   mounted() {
       axios
-      .get("http://127.0.0.1:8000/api/v1/popular-names/?order=rand")
+      .get("http://names_project.devhost1.com/api/v1/popular-names/?order=rand")
       .then(response => (this.popular_names = response.data));
   },
   methods: {
