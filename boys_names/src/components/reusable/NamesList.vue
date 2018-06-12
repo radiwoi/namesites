@@ -30,14 +30,17 @@
         </tr>
       </tbody>
     </table>
-    <div class="pagination">
+    <div v-if="namesList.length > 0" class="pagination">
       <ul class="top-pagination pagination">
        <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev, 'prev')"><i class="fa fa-angle-left"></i></li>
-       Sida {{page_number}} / {{total_pages}} <i class="fa fa-angle-down"></i>
+       <span class="page-counter">
+         Sida {{page_number}} / {{total_pages}} <i class="fa fa-angle-down"></i>
+       </span>
       <li class="page-item page-next" v-bind:class="{disabled: !next}" @click="paginationClick(next, 'next')"><i class="fa fa-angle-right"></i></li>
       </ul>
       <div class="names-counter">{{total_results}} names</div>
     </div>
+    <div v-if="namesList.length == 0" class="alert alert-info">No results found</div>
   </div>
 </template>
 
@@ -56,20 +59,23 @@ export default {
       total_pages: 1,
       page_number: 1,
       part: 'test',
-//      backend_url: "http://127.0.0.1:8000/api/v1/",
-      backend_url: "http://names_project.devhost1.com/api/v1/"
+      backend_url: "http://127.0.0.1:8000/api/v1/",
+//      backend_url: "http://names_project.devhost1.com/api/v1/"
     }
   },
   methods: {
     paginationClick (value, direction) {
+        let urlParams = new URLSearchParams(value);
+
         if(value !== null) {
             axios.post(value, this.$store.state.searchObject)
             .then(r => {
                 this.prepareResponseData(r);
-                if(direction == 'prev'){
-                    this.page_number --;
-                } else {
-                    this.page_number ++;
+                if(!parseInt(urlParams.get('offset'))){
+                    this.page_number = 1;
+                }
+                else {
+                    this.page_number = parseInt(urlParams.get('offset')) / this.$store.state.searchObject.limit + 1;
                 }
             })
         }
@@ -77,9 +83,9 @@ export default {
     prepareResponseData(r){
         this.namesList = r.data.results;
         this.total_results = r.data.count;
-        this.total_pages = Math.round(this.total_results / this.namesList.length);
         this.prev = r.data.previous;
         this.next = r.data.next;
+        this.total_pages = Math.ceil(this.total_results / this.$store.state.searchObject.limit);
         this.$store.commit('changeDoSearch', false);
     }
   },
@@ -113,6 +119,7 @@ export default {
   },
   watch: {
     doSearch: function (n, o) {
+        console.log("watch", n, o);
 //      todo from ALL pages
       if(this.currentPage == 'popular-page'){
           this.part = 'popular-names'
@@ -123,6 +130,7 @@ export default {
           axios.post(this.backend_url + this.part + '/?limit=5&offset=0', this.$store.state.searchObject)
           .then(r => {
               this.prepareResponseData(r);
+              this.page_number = 1;
           })
       }
     }
@@ -168,6 +176,17 @@ export default {
     display: block;
     margin-top: 25px;
     margin-bottom: 25px;
+    outline-style:none;
+
+  }
+  .top-pagination, .top-pagination:before, .top-pagination:after {
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+}
+  .page-counter {
+    -webkit-tap-highlight-color:transparent;
+    outline-style:none;
   }
   .page-item {
     cursor: pointer;

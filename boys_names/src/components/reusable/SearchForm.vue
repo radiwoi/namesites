@@ -1,7 +1,7 @@
 <template>
   <div class="search-form">
     <div class="input-group">
-      <input type="text" class="form-control main-search-control" placeholder="Sök" v-model="searchObject.search_phrase">
+      <input type="text" class="form-control main-search-control" placeholder="Sök" v-model="localSearchPhrase">
       <span class="input-group-btn main-page-search">
       <router-link v-bind:to="{name: redirectTo}">
         <button class="btn btn-default main-page-search-btn" @click="handleClick" type="submit">
@@ -30,6 +30,7 @@ export default {
       return {
         seen: false,
         search_criteria: {},
+        localSearchPhrase: "",
         currentPage: "",
         redirectTo: "search-page",
         criterias: [
@@ -50,8 +51,22 @@ export default {
       this.search_criteria = this.criterias[index];
     },
     handleClick () {
+      let valid = this.checkInput();
+      if (!valid) {
+          return false;
+      }
       this.$store.commit('changeDoSearch', true);
-      console.log(this.$store)
+      this.$store.commit('test', this.localSearchPhrase);
+      console.log(this.$store.state)
+    },
+    checkInput () {
+      let validRegEx = /([a-zA-Z]*)$/;
+//      let validator = false;
+//      if(validRegEx.test(this.$store.state.searchObject.search_phrase)){
+//          validator = true
+//      }
+//      return validator
+      return true
     }
   },
   computed: {
@@ -63,6 +78,7 @@ export default {
   },
   created() {
     this.currentPage = this.$route.name;
+    this.localSearchPhrase = this.$store.state.searchObject.search_phrase;
     if (this.currentPage != "start-page") {
         this.redirectTo = this.currentPage
     }
@@ -96,13 +112,14 @@ export default {
     right: 0;
     z-index: 4;
   }
-  .main-page-search-btn {
+  .main-page-search-btn, .main-page-search-btn:hover, .main-page-search-btn:active, .main-page-search-btn:focus {
     background: #38c8b2;
     color: #fff;
     height:52px;
     width: 53px;
     border: 2px solid #38c8b2;
     border-radius: 5px;
+    box-shadow: none;
   }
   .main-search-control {
     border: 2px solid #38c8b2;
