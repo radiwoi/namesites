@@ -27,7 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-USE_X_FORWARDED_HOST = True
+# USE_X_FORWARDED_HOST = True
+
+HOST_URL = 'http://names_project.devhost1.com'
 
 # Application definition
 
