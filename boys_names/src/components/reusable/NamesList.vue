@@ -71,7 +71,8 @@ export default {
   methods: {
     paginationClick (value) {
         let urlParams = new URLSearchParams(value);
-
+        value = value.replace('http://localhost:8000/api/v1/', this.backend_url);
+//        alert(value)
         if(value !== null) {
             axios.post(value, this.$store.state.searchObject)
             .then(r => {
@@ -109,7 +110,7 @@ export default {
   mounted () {
     this.currentPage = this.$route.name;
     let limit = this.$store.state.searchObject.limit;
-    let offset = this.$store.state.searchObject.offset;
+    let offset = this.$store.state.searchObject.skip;
     if (this.$route.name == 'search-page') {
       axios.post(this.backend_url + "test/?limit=" + limit + "&offset=" + offset, this.$store.state.searchObject)
             .then(r => {
