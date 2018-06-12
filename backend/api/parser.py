@@ -298,12 +298,19 @@ class VariantsParser(CoreParser):
         mapped_data.index = mapped_data.index.droplevel(-1)
         mapped_data.name = 'variant_name'
         self.df = self.df.join(mapped_data)
-        print(self.df)
+        # print(self.df)
         del mapped_data
         # return
         model = self.sheet_model_assigner[self.sheet_name]["model_name"]
         data = self.df.to_dict('records')
-        print(model)
+        del self.df
+
+        existing_variants = model.objects.values("language", "name")
+
+        print(existing_variants)
+        return
+
+        # print(model)
         for row in data:
             row_dict = {
                 "language": row["language"],
