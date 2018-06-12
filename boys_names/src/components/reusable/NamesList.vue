@@ -32,9 +32,9 @@
     </table>
     <div class="pagination">
       <ul class="top-pagination pagination">
-       <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev)"><i class="fa fa-angle-left"></i></li>
+       <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev, 'prev')"><i class="fa fa-angle-left"></i></li>
        Sida {{page_number}} / {{total_pages}} <i class="fa fa-angle-down"></i>
-      <li class="page-item page-next" v-bind:class="{disabled: !next}" @click="paginationClick(next)"><i class="fa fa-angle-right"></i></li>
+      <li class="page-item page-next" v-bind:class="{disabled: !next}" @click="paginationClick(next, 'next')"><i class="fa fa-angle-right"></i></li>
       </ul>
       <div class="names-counter">{{total_results}} names</div>
     </div>
@@ -59,11 +59,16 @@ export default {
     }
   },
   methods: {
-    paginationClick (value) {
+    paginationClick (value, direction) {
         if(value !== null) {
             axios.post(value, this.$store.state.searchObject)
             .then(r => {
                 this.prepareResponseData(r);
+                if(direction == 'prev'){
+                    this.page_number --;
+                } else {
+                    this.page_number ++;
+                }
             })
         }
     },
