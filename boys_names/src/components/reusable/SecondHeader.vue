@@ -10,8 +10,9 @@
         <div class="col-lg-6 offset-lg-2">
           <search-form></search-form>
         </div>
-        <div class="col-lg-1 popular-wrapper">
-          <img src="../../assets/Heart.png" alt="">
+        <div class="col-lg-1 popular-wrapper" @click="">
+          <!--<img src="" alt="">-->
+          <span class="fav-counter">0</span>
         </div>
       </div>
     </div>
@@ -37,5 +38,21 @@ export default {
     max-width: 75%;
     text-align: left;
     margin-left: 0px;
+  }
+  .popular-wrapper{
+    background: url("../../assets/Heart.png");
+    background-repeat: no-repeat;
+    background-position: 10px 0px;
+    outline-style:none;
+    cursor: pointer;
+  }
+  .fav-counter{
+    font-family: "Quicksand";
+    font-size: 22px;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: -5px;
+    outline-style:none;
+    color: #38c8b2;
   }
 </style>

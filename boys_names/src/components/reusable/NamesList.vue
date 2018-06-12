@@ -3,8 +3,8 @@
     <table class="table table-striped names-table">
       <tbody>
         <tr v-for="nameObj in namesList">
-          <td class="fav"><i class="fa fa-heart"></i></td>
-          <td class="table-cell namn">
+          <td class="fav" width="10%"><i class="fa fa-heart"></i></td>
+          <td class="table-cell namn" width="35%">
             <span class="popular-rate" v-if="currentPage == 'popular-page'">{{nameObj.popular.position}}</span>
             <span>{{nameObj.name}}</span> <i class="fa fa-info-circle"></i>
             <div v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="tooltip main-tooltip">
@@ -22,28 +22,28 @@
               </div>
             </div>
           </td>
-          <td class="table-cell frequency">
+          <td class="table-cell frequency" width="35%">
             {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
             <div class="tooltip freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
           </td>
-          <td class="table-cell">{{nameObj.average_age}} år<i class="fa fa-info-circle"></i></td>
+          <td class="table-cell" width="20%">{{nameObj.average_age}} år<i class="fa fa-info-circle"></i></td>
         </tr>
       </tbody>
     </table>
     <div v-if="namesList.length > 0" class="pagination">
       <ul class="top-pagination pagination">
-       <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev, 'prev')"><i class="fa fa-angle-left"></i></li>
+       <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev)"><i class="fa fa-angle-left"></i></li>
        <span class="page-counter">
          Sida {{page_number}} / {{total_pages}} <i class="fa fa-angle-down"></i>
        </span>
-      <li class="page-item page-next" v-bind:class="{disabled: !next}" @click="paginationClick(next, 'next')"><i class="fa fa-angle-right"></i></li>
+      <li class="page-item page-next" v-bind:class="{disabled: !next}" @click="paginationClick(next)"><i class="fa fa-angle-right"></i></li>
       </ul>
       <div class="names-counter">{{total_results}} names</div>
     </div>
     <div v-if="isLoad" class="loader-wrapper">
       <div class="loader"></div>
     </div>
-    <div v-if="namesList.length == 0" class="alert alert-info">No results found</div>
+    <div v-if="noResults" class="alert alert-info">No results found</div>
   </div>
 </template>
 
@@ -54,9 +54,10 @@ export default {
   name: 'names-list',
   data () {
     return {
-      namesList: [[]],
+      namesList: [],
       currentPage: "",
       isLoad: true,
+      noResults: false,
       total_results: 0,
       prev: "",
       next: "",
@@ -68,7 +69,7 @@ export default {
     }
   },
   methods: {
-    paginationClick (value, direction) {
+    paginationClick (value) {
         let urlParams = new URLSearchParams(value);
 
         if(value !== null) {
@@ -85,6 +86,9 @@ export default {
         }
     },
     prepareResponseData(r){
+        if(r.data.results == 0){
+            this.noResults = true;
+        }
         this.namesList = r.data.results;
         this.total_results = r.data.count;
         this.prev = r.data.previous;
@@ -104,14 +108,16 @@ export default {
   },
   mounted () {
     this.currentPage = this.$route.name;
+    let limit = this.$store.state.searchObject.limit;
+    let offset = this.$store.state.searchObject.offset;
     if (this.$route.name == 'search-page') {
-      axios.post(this.backend_url + "test/?limit=" + this.$store.state.searchObject.limit + "&offset=0", this.$store.state.searchObject)
+      axios.post(this.backend_url + "test/?limit=" + limit + "&offset=" + offset, this.$store.state.searchObject)
             .then(r => {
                 this.prepareResponseData(r);
             })
     }
     if (this.currentPage == 'popular-page') {
-        axios.post(this.backend_url + 'popular-names/?limit=' + this.$store.state.searchObject.limit + '&offset=0', this.$store.state.searchObject)
+        axios.post(this.backend_url + 'popular-names/?limit=' + limit + '&offset=' + offset, this.$store.state.searchObject)
             .then(r => {
                 this.prepareResponseData(r);
             })
@@ -122,6 +128,11 @@ export default {
     doSearch: function (n, o) {
         console.log("watch", n, o);
 //      todo from ALL pages
+      if(!n){
+          return
+      }
+      this.isLoad = true;
+      this.noResults = false;
       if(this.currentPage == 'popular-page'){
           this.part = 'popular-names'
       } else {

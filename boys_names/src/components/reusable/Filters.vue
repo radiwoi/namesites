@@ -4,22 +4,22 @@
       <table class="table filters-table">
         <tbody>
           <tr>
-            <td class="fav" style="width: 118px;">
+            <td class="fav" style="width: 10%">
               <i style="visibility: hidden" class="fa fa-heart"></i>
             </td>
-            <td style="width:297px;">
+            <td style="width:35%">
               <div class="title-filter">
                 Namn <span class="filter-sorting"></span>
               </div>
               <small class="filter-choises">All</small>
             </td>
-            <td style="width: 474px;">
+            <td style="width: 35%">
               <div class="title-filter">
                 Förecomst <span class="filter-sorting"></span>
               </div>
               <small class="filter-choises">All</small>
             </td>
-            <td>
+            <td style="width: 20%">
               <div class="title-filter">
                 Snittalder <span class="filter-sorting"></span>
               </div>

@@ -2,9 +2,11 @@
   <div class="popular">
     <second-header></second-header>
     <sub-header></sub-header>
-    <div class="container">
-      <div class="year-filter">
-        Populara namn ar <span class="filter-year-bold">2016 <i class="fa fa-angle-down"></i></span>
+    <div class="popular-name-wrapper">
+      <div class="container popular-container">
+        <div class="year-filter">
+          Populara namn ar <span class="filter-year-bold">2016 <i class="fa fa-angle-down"></i></span>
+        </div>
       </div>
       <filters></filters>
       <names-list></names-list>
@@ -19,6 +21,9 @@
 <style>
   .popular{
     font-family: 'Quicksand';
+  }
+  .popular-name-wrapper {
+    min-height: 320px;
   }
   .year-filter{
     padding-top: 15px;
