@@ -17,6 +17,7 @@
           <div v-for="criteria, index in criterias" @click="chooseCriteria(index)" v-if="!criteria.chosen">{{criteria.name}}</div>
         </div>
       </span>
+      <span class="error-msg" v-if="errorMsg.length > 0">{{errorMsg}}</span>
     </small>
   </div>
 </template>
@@ -33,6 +34,7 @@ export default {
         localSearchPhrase: "",
         currentPage: "",
         redirectTo: "search-page",
+        errorMsg: "",
         criterias: [
             {name: "innehar soksträngen", action: "middle", chosen: false},
             {name: "börjar med söksträngen ", action: "start", chosen: true},
@@ -51,8 +53,10 @@ export default {
       this.search_criteria = this.criterias[index];
     },
     handleClick () {
+      this.errorMsg = "";
       let valid = this.checkInput();
       if (!valid) {
+          this.errorMsg = 'incorrect value';
           return false;
       }
       this.$store.commit('changeDoSearch', true);
@@ -60,13 +64,13 @@ export default {
       console.log(this.$store.state)
     },
     checkInput () {
-      let validRegEx = /([a-zA-Z]*)$/;
-//      let validator = false;
-//      if(validRegEx.test(this.$store.state.searchObject.search_phrase)){
-//          validator = true
-//      }
-//      return validator
-      return true
+      let validRegEx = /^[a-zA-Z() ]+$/;
+      let validator = false;
+      if(validRegEx.test(this.localSearchPhrase)){
+          validator = true;
+      }
+      return validator;
+//      return true
     }
   },
   computed: {
@@ -161,5 +165,8 @@ export default {
     background: #ffffff;
     z-index: 5;
     line-height: 25px;
+  }
+  .error-msg{
+    color: #ff6f72;
   }
 </style>
