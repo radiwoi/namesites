@@ -8,7 +8,7 @@ export default {
       "letters_range": false,
       "search_phrase": "",
       "search_criteria": "start",
-      "limit": 5,
+      "limit": 13,
       "skip": 0
     },
     availableYears: [],

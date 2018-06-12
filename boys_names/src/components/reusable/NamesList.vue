@@ -26,7 +26,7 @@
             {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
             <div class="tooltip freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
           </td>
-          <td class="table-cell">{{nameObj.average_age}} ar<i class="fa fa-info-circle"></i></td>
+          <td class="table-cell">{{nameObj.average_age}} år<i class="fa fa-info-circle"></i></td>
         </tr>
       </tbody>
     </table>
@@ -40,6 +40,9 @@
       </ul>
       <div class="names-counter">{{total_results}} names</div>
     </div>
+    <div v-if="isLoad" class="loader-wrapper">
+      <div class="loader"></div>
+    </div>
     <div v-if="namesList.length == 0" class="alert alert-info">No results found</div>
   </div>
 </template>
@@ -51,8 +54,9 @@ export default {
   name: 'names-list',
   data () {
     return {
-      namesList: [],
+      namesList: [[]],
       currentPage: "",
+      isLoad: true,
       total_results: 0,
       prev: "",
       next: "",
@@ -87,6 +91,7 @@ export default {
         this.next = r.data.next;
         this.total_pages = Math.ceil(this.total_results / this.$store.state.searchObject.limit);
         this.$store.commit('changeDoSearch', false);
+        this.isLoad = false;
     }
   },
   computed: {
@@ -100,13 +105,13 @@ export default {
   mounted () {
     this.currentPage = this.$route.name;
     if (this.$route.name == 'search-page') {
-      axios.post(this.backend_url + 'test/?limit=5&offset=0', this.$store.state.searchObject)
+      axios.post(this.backend_url + "test/?limit=" + this.$store.state.searchObject.limit + "&offset=0", this.$store.state.searchObject)
             .then(r => {
                 this.prepareResponseData(r);
             })
     }
     if (this.currentPage == 'popular-page') {
-        axios.post(this.backend_url + 'popular-names/?limit=5&offset=0', this.$store.state.searchObject)
+        axios.post(this.backend_url + 'popular-names/?limit=' + this.$store.state.searchObject.limit + '&offset=0', this.$store.state.searchObject)
             .then(r => {
                 this.prepareResponseData(r);
             })
@@ -123,7 +128,7 @@ export default {
           this.part = 'test'
       }
       if (n) {
-          axios.post(this.backend_url + this.part + '/?limit=5&offset=0', this.$store.state.searchObject)
+          axios.post(this.backend_url + this.part + '/?limit=' + this.$store.state.searchObject.limit + '&offset=0', this.$store.state.searchObject)
           .then(r => {
               this.prepareResponseData(r);
               this.page_number = 1;
@@ -262,5 +267,26 @@ export default {
   .popular-rate {
     font-family: 'Quicksand-Bold';
     color: #38c8b2;
+  }
+  .loader {
+    border: 8px solid rgba(239, 239, 240, 1);
+    border-radius: 50%;
+    border-top: 8px solid #38c8b2;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 </style>
