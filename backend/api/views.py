@@ -37,6 +37,7 @@ class BoysNamesList(generics.ListAPIView):
                 """
 
         request = self.request
+        print(request.data)
         name = request.data.get("search_phrase")
         criteria = request.data.get("search_criteria")
         frequency = request.data.get("frequency")
@@ -46,15 +47,19 @@ class BoysNamesList(generics.ListAPIView):
         limit = request.data.get("limit", PER_PAGE)
         skip = request.data.get("skip", 0)
 
-        resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
+        resp = BoyName.objects.filter()
 
+        if frequency is not None and len(frequency) > 0:
+            resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
+        # print(resp)
+        double_name = "Dubbelnamn" in letters_range
         if double_name:
             resp = resp.filter(double_name=True)
 
-        if letters_range:
-            resp = resp.filter(number_of_letters=letters_range)
+        if letters_range is not None and len(letters_range) > 0:
+            resp = resp.filter(number_of_letters__in=letters_range)
 
-        if age_distribution is not None:
+        if age_distribution is not None and len(age_distribution) > 0:
             mask = "age_distribution_{}__gt"
 
             # AND age_distribution way

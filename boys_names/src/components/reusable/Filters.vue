@@ -100,11 +100,11 @@ export default {
     return {
       namesLength: [
         {"name": "Dubbelnamn", "value": ""},
-        {"name": "1-3 bokstaver", "value": ""},
-        {"name": "4-5 bokstaver", "value": ""},
-        {"name": "6-7 bokstaver", "value": ""},
-        {"name": "8-9 bokstaver", "value": ""},
-        {"name": "10 > bokstaver", "value": ""},
+        {"name": "1-3 bokstaver", "value": "1 - 3"},
+        {"name": "4-5 bokstaver", "value": "4 - 5"},
+        {"name": "6-7 bokstaver", "value": "6 - 7"},
+        {"name": "8-9 bokstaver", "value": "8 - 9"},
+        {"name": "10 > bokstaver", "value": "9 >"},
       ],
       frequency: [
         {"name": "Mycket vanligt", "value": ""},
@@ -115,12 +115,12 @@ export default {
         {"name": "Mycket ovanligt", "value": ""},
       ],
       ageDistribution: [
-        {"name": "0 - 10 ar", "value": ""},
-        {"name": "11 - 20 ar", "value": ""},
-        {"name": "21 - 30 ar", "value": ""},
-        {"name": "31 - 50 ar", "value": ""},
-        {"name": "51 - 70 ar", "value": ""},
-        {"name": "71 > ar", "value": ""},
+        {"name": "0 - 10 ar", "value": 10},
+        {"name": "11 - 20 ar", "value": 20},
+        {"name": "21 - 30 ar", "value": 30},
+        {"name": "31 - 50 ar", "value": 50},
+        {"name": "51 - 70 ar", "value": 70},
+        {"name": "71 > ar", "value": 71},
       ],
       checkedFreqs: [],
       checkedNames: [],
@@ -144,6 +144,24 @@ export default {
     removeElement: function (index, what) {
       this[what].splice(index, 1);
     }
+  },
+  created() {
+//    console.log('qq',this.$store.state.searchObject.frequency);
+//    console.log('qq',this.$store.state.searchObject.age_distribution);
+    this.$store.state.searchObject.frequency.map(f => {
+        this.checkedFreqs.push(f)
+    });
+    this.ageDistribution.map(a => {
+      if(this.$store.state.searchObject.age_distribution.includes(a.value)) {
+          this.checkedAges.push(a.name)
+      }
+    });
+    this.namesLength.map(n => {
+      console.log(n)
+      if(this.$store.state.searchObject.letters_range.includes(n.value)) {
+          this.checkedNames.push(n.name)
+      }
+    });
   }
 }
 </script>
