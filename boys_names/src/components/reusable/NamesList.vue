@@ -156,7 +156,7 @@ export default {
   .names-list{
     font-family: 'Quicksand';
     margin-bottom: 15px;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
   }
   .names-table {
     text-align: left;

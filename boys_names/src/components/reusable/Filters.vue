@@ -27,8 +27,8 @@
               </div>
               <small class="filter-choises">
                 <span v-if="checkedNames.length == 0">All</span>
-                <span v-for="freqName in checkedNames">
-                  {{freqName}}
+                <span class="item-check" v-for="(cName, ind) in checkedNames">
+                  <i @click="removeElement(ind, 'checkedNames')" class="fa fa-times"></i> {{cName}}
                 </span>
               </small>
             </td>
@@ -53,8 +53,8 @@
               </div>
               <small class="filter-choises">
                 <span v-if="checkedFreqs.length == 0">All</span>
-                <span v-for="freqName in checkedFreqs">
-                  {{freqName}}
+                <span class="item-check" v-for="(freqName, ind) in checkedFreqs">
+                  <i @click="removeElement(ind, 'checkedFreqs')" class="fa fa-times"></i> {{freqName}}
                 </span>
               </small>
             </td>
@@ -79,8 +79,8 @@
               </div>
               <small class="filter-choises">
                 <span v-if="checkedAges.length == 0">All</span>
-                <span v-for="checkedAge in checkedAges">
-                  {{checkedAge}}
+                <span class="item-check" v-for="(checkedAge, ind) in checkedAges">
+                  <i @click="removeElement(ind, 'checkedAges')" class="fa fa-times"></i> {{checkedAge}}
                 </span>
               </small>
             </td>
@@ -131,16 +131,19 @@ export default {
     }
   },
   methods: {
-      frequencyApply() {
+    frequencyApply() {
 //        alert('apply')
-        this.freqTooltip = false;
-      },
-      namesLengthApply() {
-        this.namesTooltip = false;
-      },
-      ageDistributionApply() {
-        this.ageTooltip = false;
-      }
+      this.freqTooltip = false;
+    },
+    namesLengthApply() {
+      this.namesTooltip = false;
+    },
+    ageDistributionApply() {
+      this.ageTooltip = false;
+    },
+    removeElement: function (index, what) {
+      this[what].splice(index, 1);
+    }
   }
 }
 </script>
@@ -153,6 +156,8 @@ export default {
 
   .filters-table{
     text-align: left;
+    margin-top: 10px;
+    margin-bottom: 0rem;
   }
   .table td{
     padding: 0.65 rem;
@@ -161,6 +166,24 @@ export default {
   .filter-choises{
     font-family: 'Quicksand';
     font-size: 13px;
+  }
+
+  .filter-choises {
+    height: 40px;
+    display: inline-block;
+  }
+  .item-check:first-of-type {
+    margin-left: 0px;
+  }
+  .item-check {
+    display: inline-block;
+    margin-left: 1px;
+    /*width: 100px;*/
+  }
+
+  .item-check .fa {
+    color: #39c8b2;
+    cursor: pointer;
   }
   .title-filter{
     position: relative;
@@ -177,7 +200,7 @@ export default {
   .freq-filter-tooltip {
     font-family: 'Quicksand';
     display: block;
-    top: 60%;
+    top: 40%;
     opacity: 1;
     background: #fff;
     padding-top: 3px;
