@@ -55,6 +55,7 @@ class BoysNamesList(generics.ListAPIView):
         double_name = True in letters_range
         if double_name:
             resp = resp.filter(double_name=True)
+            letters_range.remove(True)
 
         if letters_range is not None and len(letters_range) > 0:
             resp = resp.filter(number_of_letters__in=letters_range)
@@ -151,6 +152,7 @@ class PopularNamesList(generics.ListAPIView):
         double_name = True in letters_range
         if double_name:
             resp = resp.filter(double_name=True)
+            letters_range.remove(True)
 
         if letters_range is not None and len(letters_range) > 0:
             resp = resp.filter(number_of_letters__in=letters_range)
