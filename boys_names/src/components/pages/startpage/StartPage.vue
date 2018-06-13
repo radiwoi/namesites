@@ -14,7 +14,9 @@
             </router-link>
             <div class="results-wrapper row">
               <div v-for="item in popular_names" class="col-lg-3">
-                {{item.name}}
+                <router-link v-bind:to="'/popular-page'">
+                  {{item.name}}
+                </router-link>
               </div>
             </div>
           </div>

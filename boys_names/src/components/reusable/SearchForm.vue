@@ -3,7 +3,7 @@
     <div class="input-group">
       <input type="text" class="form-control main-search-control" placeholder="Sök" v-model="localSearchPhrase">
       <span class="input-group-btn main-page-search">
-      <span @click="resetFilters" class="reset-filters"></span>
+      <span v-if="localSearchPhrase.length > 0" @click="resetFilters" class="reset-filters"></span>
       <router-link v-bind:to="{name: redirectTo}">
         <button class="btn btn-default main-page-search-btn" @click="handleClick" type="submit">
             <i class="fa fa-search"></i>
