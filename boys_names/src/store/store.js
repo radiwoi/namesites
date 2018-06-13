@@ -23,6 +23,15 @@ export default {
     changeCriteria (state, value) {
       state.searchObject.search_criteria = value
     },
+    changeLettersRange (state, value) {
+      state.searchObject.letters_range = value
+    },
+    changeAgeDistribution (state, value) {
+      state.searchObject.age_distribution = value
+    },
+    changeFrequency (state, value) {
+      state.searchObject.frequency = value
+    },
     changeDoSearch (state, value) {
       state.doSearch = value
     }

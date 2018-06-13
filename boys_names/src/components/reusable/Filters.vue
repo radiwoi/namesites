@@ -99,7 +99,7 @@ export default {
   data () {
     return {
       namesLength: [
-        {"name": "Dubbelnamn", "value": ""},
+        {"name": "Dubbelnamn", "value": true},
         {"name": "1-3 bokstaver", "value": "1 - 3"},
         {"name": "4-5 bokstaver", "value": "4 - 5"},
         {"name": "6-7 bokstaver", "value": "6 - 7"},
@@ -132,17 +132,34 @@ export default {
   },
   methods: {
     frequencyApply() {
-//        alert('apply')
+      this.$store.commit('changeFrequency', this.checkedFreqs);
       this.freqTooltip = false;
     },
     namesLengthApply() {
+      let tmp = [];
+      this.namesLength.map(n => {
+        if(this.checkedNames.includes(n.name)) {
+            tmp.push(n.value)
+        }
+      });
+      this.$store.commit('changeLettersRange', tmp);
       this.namesTooltip = false;
     },
     ageDistributionApply() {
+      let tmp = [];
+      this.ageDistribution.map(n => {
+        if(this.checkedAges.includes(n.name)) {
+            tmp.push(n.value)
+        }
+      });
+      this.$store.commit('changeAgeDistribution', tmp);
       this.ageTooltip = false;
     },
     removeElement: function (index, what) {
       this[what].splice(index, 1);
+      this.ageDistributionApply();
+      this.namesLengthApply();
+      this.frequencyApply();
     }
   },
   created() {
@@ -157,7 +174,6 @@ export default {
       }
     });
     this.namesLength.map(n => {
-      console.log(n)
       if(this.$store.state.searchObject.letters_range.includes(n.value)) {
           this.checkedNames.push(n.name)
       }

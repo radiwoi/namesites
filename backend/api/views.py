@@ -52,7 +52,7 @@ class BoysNamesList(generics.ListAPIView):
         if frequency is not None and len(frequency) > 0:
             resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
         # print(resp)
-        double_name = "Dubbelnamn" in letters_range
+        double_name = True in letters_range
         if double_name:
             resp = resp.filter(double_name=True)
 
@@ -143,15 +143,19 @@ class PopularNamesList(generics.ListAPIView):
         skip = request.data.get("skip", 0)
         popular_name = request.data.get("popular_year", 2016)
 
-        resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
+        resp = BoyName.objects.filter()
 
+        if frequency is not None and len(frequency) > 0:
+            resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
+        # print(resp)
+        double_name = True in letters_range
         if double_name:
             resp = resp.filter(double_name=True)
 
-        if letters_range:
-            resp = resp.filter(number_of_letters=letters_range)
+        if letters_range is not None and len(letters_range) > 0:
+            resp = resp.filter(number_of_letters__in=letters_range)
 
-        if age_distribution is not None:
+        if age_distribution is not None and len(age_distribution) > 0:
             mask = "age_distribution_{}__gt"
 
             # AND age_distribution way
