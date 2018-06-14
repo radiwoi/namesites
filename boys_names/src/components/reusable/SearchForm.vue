@@ -139,6 +139,21 @@ export default {
     font-family: 'Quicksand';
     border-radius: 5px;
   }
+  /*input::-webkit-input-placeholder {*/
+    /*!*color: #d7d7d7;*!*/
+    /*color: red;*/
+  /*}*/
+  input::-webkit-input-placeholder {
+     color: #d7d7d7 !important;
+  }
+
+  input::-moz-placeholder {
+     color: #d7d7d7 !important;
+  }
+
+  input:-ms-input-placeholder {
+     color: #d7d7d7 !important;
+  }
   .input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child){
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;

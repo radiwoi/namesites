@@ -325,6 +325,9 @@ export default {
     border: 2px solid #39c8b4;
     color: #39c8b2;
   }
+  .btn-filter:focus {
+    box-shadow: none;
+  }
   .freq-title-cell, .names-title-cell, .distribution-title-cell {
     position: relative;
   }

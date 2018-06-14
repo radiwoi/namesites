@@ -123,6 +123,12 @@ export default {
                 this.prepareResponseData(r);
             })
     }
+    if(this.currentPage == 'favorite-page') {
+        this.noResults = true;
+        this.namesList = [];
+        this.$store.commit('changeDoSearch', false);
+        this.isLoad = false;
+    }
 
   },
   watch: {
@@ -134,7 +140,8 @@ export default {
       }
       this.isLoad = true;
       this.noResults = false;
-      this.namesList = []
+      this.namesList = [];
+//      todo rename as backend routes
       if(this.currentPage == 'popular-page'){
           this.part = 'popular-names'
       } else {
