@@ -60,8 +60,6 @@ export default {
       currentPage: "",
       isLoad: true,
       noResults: false,
-//      listFav: [24450],
-//      listFav: typeof localStorage.getItem('listFav') === 'undefined' ?  localStorage.getItem('listFav'): [],
       total_results: 0,
       prev: "",
       next: "",
@@ -76,7 +74,6 @@ export default {
     paginationClick (value) {
         let urlParams = new URLSearchParams(value);
         value = value.replace('http://localhost:8000/api/v1/', this.backend_url);
-//        alert(value)
         if(value !== null) {
             axios.post(value, this.$store.state.searchObject)
             .then(r => {
@@ -103,21 +100,15 @@ export default {
         this.isLoad = false;
     },
     makeFavorite(nameId) {
-//        this.$store.commit('listFav', false);
         console.log(this.listFav.push(nameId));
     },
     checkIfFavorite(id){
-//        this.listFav =
         if(this.listFav.includes(id)){
           return true;
         }
-//        return false
     }
   },
   computed: {
-//    listener () {
-//      return this.$store.state.doSearch
-//    },
     ...mapGetters({
       doSearch: 'getDoSearch',
       listFav: 'getListFav'
@@ -141,16 +132,12 @@ export default {
             })
     }
     if(this.currentPage == 'favorite-page') {
-        axios.post(this.backend_url + 'favorite-names/?limit=' + limit + '&offset=' + offset, {"ids": this.listFav})
+        let obj = this.$store.state.searchObject;
+        obj.ids = this.listFav
+        axios.post(this.backend_url + 'favorite-names/?limit=' + limit + '&offset=' + offset, obj)
             .then(r => {
                 this.prepareResponseData(r);
             });
-//        this.noResults = true;
-//        this.namesList = [];
-//        this.$store.commit('changeDoSearch', false);
-//        this.isLoad = false;
-//        console.log(localStorage);
-//        console.log(typeof localStorage);
     }
 
   },

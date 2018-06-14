@@ -15,28 +15,25 @@ from .models import BoyName, GirlName, PopularName, Variant
 from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNamesSerializer, PopularNamesSerializer
 
 
-class BoysNamesList(generics.ListAPIView):
-    parser_classes = (JSONParser,)
-    serializer_class = BoysNamesSerializer
-    pagination_class = LimitOffsetPagination
-    # queryset = BoyName.objects.all()
+class QueryRepository:
+    def __init__(self):
+        pass
 
-    def get_queryset(self):
+    @staticmethod
+    def build_query(cls, request):
         """
-                Method for search boys names
-                :param request: JSON string
-                 search_phrase: str,
-                 age_distribution: list
-                 search_criteria: str (begin, end, middle)
-                 frequency: list (based on NamesModel frequency field)
-                 letters_range: str
-                 double_name: bool
-                 limit: int
-                 skip: int
-                :return: Response object
-                """
-
-        request = self.request
+        Method for search boys names
+        :param request: JSON string
+         search_phrase: str,
+         age_distribution: list
+         search_criteria: str (begin, end, middle)
+         frequency: list (based on NamesModel frequency field)
+         letters_range: str
+         double_name: bool
+         limit: int
+         skip: int
+        :return: Response object
+        """
         print(request.data)
         name = request.data.get("search_phrase")
         criteria = request.data.get("search_criteria")
@@ -88,10 +85,19 @@ class BoysNamesList(generics.ListAPIView):
                 resp = resp.filter(name__iendswith=name)
             else:
                 resp = resp.filter(name__iexact=name)
-        # else:
 
-        # resp = resp.filter(popular__year=2016)
-        # print(resp.query)
+        return resp
+
+
+class BoysNamesList(generics.ListAPIView):
+    parser_classes = (JSONParser,)
+    serializer_class = BoysNamesSerializer
+    pagination_class = LimitOffsetPagination
+
+    def get_queryset(self):
+        request = self.request
+        resp = QueryRepository.build_query(QueryRepository, request)
+
         return resp.all()
 
     def get(self, request, *args, **kwargs):
@@ -130,62 +136,11 @@ class GirlsNamesList(APIView):
 class PopularNamesList(generics.ListAPIView):
     serializer_class = BoysNamesSerializer
     pagination_class = LimitOffsetPagination
-    queryset = BoyName.objects.all()
 
     def get_queryset(self):
         request = self.request
-        name = request.data.get("search_phrase")
-        criteria = request.data.get("search_criteria")
-        frequency = request.data.get("frequency")
-        age_distribution = request.data.get("age_distribution")
-        double_name = request.data.get("double_name")
-        letters_range = request.data.get("letters_range")
-        limit = request.data.get("limit", PER_PAGE)
-        skip = request.data.get("skip", 0)
         popular_name = request.data.get("popular_year", 2016)
-
-        resp = BoyName.objects.filter()
-
-        if frequency is not None and len(frequency) > 0:
-            resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
-        # print(resp)
-        double_name = True in letters_range
-        if double_name:
-            resp = resp.filter(double_name=True)
-            letters_range.remove(True)
-
-        if letters_range is not None and len(letters_range) > 0:
-            resp = resp.filter(number_of_letters__in=letters_range)
-
-        if age_distribution is not None and len(age_distribution) > 0:
-            mask = "age_distribution_{}__gt"
-
-            # AND age_distribution way
-            # dd = {}
-            #
-            # for d in age_distribution:
-            #     key = mask.format(d)
-            #     dd[key] = 0
-            # resp = resp.filter(**dd)
-
-            # OR age_distribution way
-            or_query_set = Q()
-            for d in age_distribution:
-                tmp = Q(**{mask.format(d): 0})
-                or_query_set |= tmp
-
-            resp = resp.filter(or_query_set)
-            # print(resp.query)
-
-        if criteria is not None and len(name) > 0:
-            if criteria == "start":
-                resp = resp.filter(name__istartswith=name)
-            elif criteria == "middle":
-                resp = resp.filter(name__icontains=name)
-            elif criteria == "end":
-                resp = resp.filter(name__iendswith=name)
-            else:
-                resp = resp.filter(name__iexact=name)
+        resp = QueryRepository.build_query(QueryRepository, request)
 
         resp = resp.filter(popular__year=popular_name)
         resp = resp.order_by('popular__position')
@@ -232,10 +187,10 @@ class FavoriteNamesList(generics.ListAPIView):
     def get_queryset(self):
         request = self.request
         ids = request.data.get("ids")
-        queryset = BoyName.objects.all()
-        # [7, 89, 90]
-        queryset = queryset.filter(pk__in=ids)
-        return queryset
+        resp = QueryRepository.build_query(QueryRepository, request)
+
+        resp = resp.filter(pk__in=ids)
+        return resp
 
     def post(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
