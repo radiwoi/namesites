@@ -39,16 +39,13 @@ class QueryRepository:
         criteria = request.data.get("search_criteria")
         frequency = request.data.get("frequency")
         age_distribution = request.data.get("age_distribution")
-        double_name = request.data.get("double_name")
         letters_range = request.data.get("letters_range")
-        limit = request.data.get("limit", PER_PAGE)
-        skip = request.data.get("skip", 0)
 
         resp = BoyName.objects.filter()
 
         if frequency is not None and len(frequency) > 0:
             resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
-        # print(resp)
+
         double_name = True in letters_range
         if double_name:
             resp = resp.filter(double_name=True)
@@ -114,7 +111,6 @@ class BoysNamesList(generics.ListAPIView):
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
-        print(self.request)
         return self.list(request, *args, **kwargs)
 
 

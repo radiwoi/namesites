@@ -40,7 +40,7 @@ export default {
   },
   watch: {
       listFav(o, n) {
-          console.log('fav', o, n);
+//          console.log('fav', o, n);
           this.favoriteCount = n.length;
       }
   }

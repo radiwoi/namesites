@@ -56,6 +56,11 @@ export default {
   name: 'names-list',
   data () {
     return {
+      urlsMapper:{
+        "search-page": "test",
+        "popular-page": "popular-names",
+        "favorite-page": "favorite-names",
+      },
       namesList: [],
       currentPage: "",
       isLoad: true,
@@ -75,14 +80,14 @@ export default {
         let urlParams = new URLSearchParams(value);
         value = value.replace('http://localhost:8000/api/v1/', this.backend_url);
         if(value !== null) {
-            axios.post(value, this.$store.state.searchObject)
+            axios.post(value, this.searchObject)
             .then(r => {
                 this.prepareResponseData(r);
                 if(!parseInt(urlParams.get('offset'))){
                     this.page_number = 1;
                 }
                 else {
-                    this.page_number = parseInt(urlParams.get('offset')) / this.$store.state.searchObject.limit + 1;
+                    this.page_number = parseInt(urlParams.get('offset')) / this.searchObject.limit + 1;
                 }
             })
         }
@@ -95,71 +100,70 @@ export default {
         this.total_results = r.data.count;
         this.prev = r.data.previous;
         this.next = r.data.next;
-        this.total_pages = Math.ceil(this.total_results / this.$store.state.searchObject.limit);
+        this.total_pages = Math.ceil(this.total_results / this.searchObject.limit);
         this.$store.commit('changeDoSearch', false);
         this.isLoad = false;
     },
     makeFavorite(nameId) {
-        console.log(this.listFav.push(nameId));
+        //      todo make through store commit
+        if (this.checkIfFavorite(nameId)){
+          let index = this.listFav.indexOf(nameId);
+          this.listFav.splice(index, 1);
+        } else {
+          this.listFav.push(nameId);
+        }
+        this.$store.commit('changeListFav', this.listFav);
+
     },
     checkIfFavorite(id){
         if(this.listFav.includes(id)){
           return true;
         }
+    },
+    getRequestData(){
+      let postData = this.searchObject;
+      postData.ids = this.listFav;
+      let url = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.skip;
+      let requestData = {
+        "postData": postData,
+        "url": url
+      };
+      return requestData;
     }
   },
   computed: {
     ...mapGetters({
       doSearch: 'getDoSearch',
-      listFav: 'getListFav'
+      listFav: 'getListFav',
+      searchObject: "getSearchObject"
     })
   },
   mounted () {
     this.currentPage = this.$route.name;
-    let limit = this.$store.state.searchObject.limit;
-    let offset = this.$store.state.searchObject.skip;
-    //      todo rename as backend routes
-    if (this.$route.name == 'search-page') {
-      axios.post(this.backend_url + "test/?limit=" + limit + "&offset=" + offset, this.$store.state.searchObject)
-            .then(r => {
-                this.prepareResponseData(r);
-            })
-    }
-    if (this.currentPage == 'popular-page') {
-        axios.post(this.backend_url + 'popular-names/?limit=' + limit + '&offset=' + offset, this.$store.state.searchObject)
-            .then(r => {
-                this.prepareResponseData(r);
-            })
-    }
-    if(this.currentPage == 'favorite-page') {
-        let obj = this.$store.state.searchObject;
-        obj.ids = this.listFav
-        axios.post(this.backend_url + 'favorite-names/?limit=' + limit + '&offset=' + offset, obj)
-            .then(r => {
-                this.prepareResponseData(r);
-            });
-    }
-
+    let requestData = this.getRequestData();
+      axios
+      .post(
+        requestData['url'],
+        requestData["postData"]
+      )
+      .then(r => { this.prepareResponseData(r);});
   },
   watch: {
     doSearch: function (n, o) {
-        console.log("watch", n, o);
-//      todo from ALL pages
       if(!n){
           return
       }
       this.isLoad = true;
       this.noResults = false;
       this.namesList = [];
-//      todo rename as backend routes
-      if(this.currentPage == 'popular-page'){
-          this.part = 'popular-names'
-      } else {
-          this.part = 'test'
-      }
+
+      let requestData = this.getRequestData();
+
       if (n) {
-          axios.post(this.backend_url + this.part + '/?limit=' + this.$store.state.searchObject.limit + '&offset=0', this.$store.state.searchObject)
-          .then(r => {
+          axios.post(
+            requestData['url'],
+            requestData["postData"]
+          ).then(r => {
               this.prepareResponseData(r);
               this.page_number = 1;
           })
