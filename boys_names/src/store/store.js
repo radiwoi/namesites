@@ -14,7 +14,8 @@ export default {
       "skip": 0
     },
     availableYears: [],
-    doSearch: false
+    doSearch: false,
+    listFav: typeof localStorage.getItem('listFav') === 'undefined' ?  localStorage.getItem('listFav'): [],
   },
   mutations: {
     test (state, value) {
@@ -32,6 +33,9 @@ export default {
     changeFrequency (state, value) {
       state.searchObject.frequency = value
     },
+    changeListFav (state, value) {
+      state.listFav = value
+    },
     changeDoSearch (state, value) {
       state.doSearch = value
     }
@@ -42,6 +46,7 @@ export default {
     }
   },
   getters: {
-    getDoSearch: state => state.doSearch
+    getDoSearch: state => state.doSearch,
+    getListFav: state => state.listFav
   }
 }

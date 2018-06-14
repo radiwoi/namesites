@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import BoysNamesList, GirlsNamesList, VariationsNamesList, PopularNamesList
+from .views import BoysNamesList, GirlsNamesList, VariationsNamesList, PopularNamesList, FavoriteNamesList
 
 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path("girls-names/", GirlsNamesList.as_view()),
     path("variant-names/", VariationsNamesList.as_view()),
     path("popular-names/", PopularNamesList.as_view()),
+    path("favorite-names/", FavoriteNamesList.as_view()),
 ]

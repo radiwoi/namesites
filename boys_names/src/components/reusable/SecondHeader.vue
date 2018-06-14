@@ -13,7 +13,7 @@
         <div class="col-lg-1">
           <!--<img src="" alt="">-->
           <router-link  v-bind:class="{'active':favoriteCount > 0}" class="popular-wrapper" to="/favorite-page">
-            <span class="fav-counter">0</span>
+            <span class="fav-counter">{{favoriteCount}}</span>
           </router-link>
         </div>
       </div>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'second-header',
   data () {
@@ -32,8 +33,19 @@ export default {
   methods: {
 
   },
-  created() {
-
+  computed: {
+    ...mapGetters({
+      listFav: 'getListFav'
+    })
+  },
+  mounted() {
+    this.favoriteCount = this.listFav.length;
+  },
+  watch: {
+      listFav(o, n) {
+          console.log('fav', o, n);
+          this.favoriteCount = n.length;
+      }
   }
 }
 </script>

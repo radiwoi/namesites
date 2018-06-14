@@ -225,6 +225,22 @@ class VariationsNamesList(APIView):
         return Response(serializer.data)
 
 
+class FavoriteNamesList(generics.ListAPIView):
+    serializer_class = BoysNamesSerializer
+    pagination_class = LimitOffsetPagination
+
+    def get_queryset(self):
+        request = self.request
+        ids = request.data.get("ids")
+        queryset = BoyName.objects.all()
+        # [7, 89, 90]
+        queryset = queryset.filter(pk__in=ids)
+        return queryset
+
+    def post(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
 def upload_file(request):
     print(repr(request.FILES['db_file']))
     model_name = request.POST.get("db_name")

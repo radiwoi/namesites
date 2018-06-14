@@ -60,7 +60,8 @@ export default {
       currentPage: "",
       isLoad: true,
       noResults: false,
-      listFav: [24450],
+//      listFav: [24450],
+//      listFav: typeof localStorage.getItem('listFav') === 'undefined' ?  localStorage.getItem('listFav'): [],
       total_results: 0,
       prev: "",
       next: "",
@@ -102,9 +103,11 @@ export default {
         this.isLoad = false;
     },
     makeFavorite(nameId) {
-        alert(nameId)
+//        this.$store.commit('listFav', false);
+        console.log(this.listFav.push(nameId));
     },
     checkIfFavorite(id){
+//        this.listFav =
         if(this.listFav.includes(id)){
           return true;
         }
@@ -112,11 +115,12 @@ export default {
     }
   },
   computed: {
-    listener () {
-      return this.$store.state.doSearch
-    },
+//    listener () {
+//      return this.$store.state.doSearch
+//    },
     ...mapGetters({
-      doSearch: 'getDoSearch'
+      doSearch: 'getDoSearch',
+      listFav: 'getListFav'
     })
   },
   mounted () {
@@ -137,12 +141,16 @@ export default {
             })
     }
     if(this.currentPage == 'favorite-page') {
-        this.noResults = true;
-        this.namesList = [];
-        this.$store.commit('changeDoSearch', false);
-        this.isLoad = false;
-        console.log(localStorage);
-        console.log(typeof localStorage);
+        axios.post(this.backend_url + 'favorite-names/?limit=' + limit + '&offset=' + offset, {"ids": this.listFav})
+            .then(r => {
+                this.prepareResponseData(r);
+            });
+//        this.noResults = true;
+//        this.namesList = [];
+//        this.$store.commit('changeDoSearch', false);
+//        this.isLoad = false;
+//        console.log(localStorage);
+//        console.log(typeof localStorage);
     }
 
   },
