@@ -7,7 +7,7 @@ export default {
       "age_distribution": [],
       "popular_year": 2016,
       "double_name": false,
-      "letters_range": ["6 - 7"],
+      "letters_range": [],
       "search_phrase": "",
       "search_criteria": "start",
       "limit": 13,
