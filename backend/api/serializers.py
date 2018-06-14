@@ -17,7 +17,8 @@ class BoysNamesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BoyName
-        fields = ('name',
+        fields = ('id',
+                  'name',
                   'frequency',
                   'average_age',
                   'variants',

@@ -10,9 +10,11 @@
         <div class="col-lg-6 offset-lg-2">
           <search-form></search-form>
         </div>
-        <div class="col-lg-1 popular-wrapper" @click="">
+        <div class="col-lg-1">
           <!--<img src="" alt="">-->
-          <span class="fav-counter">0</span>
+          <router-link  v-bind:class="{'active':favoriteCount > 0}" class="popular-wrapper" to="/favorite-page">
+            <span class="fav-counter">0</span>
+          </router-link>
         </div>
       </div>
     </div>
@@ -22,6 +24,17 @@
 <script>
 export default {
   name: 'second-header',
+  data () {
+    return {
+      favoriteCount: 0
+    }
+  },
+  methods: {
+
+  },
+  created() {
+
+  }
 }
 </script>
 
@@ -42,9 +55,26 @@ export default {
   .popular-wrapper{
     background: url("../../assets/Heart.png");
     background-repeat: no-repeat;
-    background-position: 10px 0px;
+    background-position: -1px 1px;
+    background-size: contain;
     outline-style:none;
     cursor: pointer;
+    color: #38c8b2 !important;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+  }
+  .popular-wrapper.active {
+    background: url("../../assets/Heart-filled.png");
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: contain;
+    outline-style: none;
+    width: 100%;
+    cursor: pointer;
+    color: #fff !important;
+    display: inline-block;
+    height: 100%;
   }
   .fav-counter{
     font-family: "Quicksand";
@@ -53,6 +83,7 @@ export default {
     margin-top: 10px;
     margin-left: -5px;
     outline-style:none;
-    color: #38c8b2;
+
   }
+
 </style>

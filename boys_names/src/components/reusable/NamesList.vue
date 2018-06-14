@@ -3,7 +3,9 @@
     <table class="table table-striped names-table">
       <tbody>
         <tr v-for="nameObj in namesList">
-          <td class="fav" width="10%"><i class="fa fa-heart"></i></td>
+          <td class="fav" width="10%">
+            <div class="make-fav"  v-bind:class="{'active':checkIfFavorite(nameObj.id)}" @click="makeFavorite(nameObj.id)"></div>
+          </td>
           <td class="table-cell namn" width="35%">
             <span class="popular-rate" v-if="currentPage == 'popular-page'">{{nameObj.popular.position}}</span>
             <span>{{nameObj.name}}</span> <i class="fa fa-info-circle"></i>
@@ -58,14 +60,15 @@ export default {
       currentPage: "",
       isLoad: true,
       noResults: false,
+      listFav: [24450],
       total_results: 0,
       prev: "",
       next: "",
       total_pages: 1,
       page_number: 1,
       part: 'test',
-//      backend_url: "http://127.0.0.1:8000/api/v1/",
-      backend_url: "http://names_project.devhost1.com/api/v1/"
+      backend_url: "http://127.0.0.1:8000/api/v1/",
+//      backend_url: "http://names_project.devhost1.com/api/v1/"
     }
   },
   methods: {
@@ -97,6 +100,15 @@ export default {
         this.total_pages = Math.ceil(this.total_results / this.$store.state.searchObject.limit);
         this.$store.commit('changeDoSearch', false);
         this.isLoad = false;
+    },
+    makeFavorite(nameId) {
+        alert(nameId)
+    },
+    checkIfFavorite(id){
+        if(this.listFav.includes(id)){
+          return true;
+        }
+//        return false
     }
   },
   computed: {
@@ -111,6 +123,7 @@ export default {
     this.currentPage = this.$route.name;
     let limit = this.$store.state.searchObject.limit;
     let offset = this.$store.state.searchObject.skip;
+    //      todo rename as backend routes
     if (this.$route.name == 'search-page') {
       axios.post(this.backend_url + "test/?limit=" + limit + "&offset=" + offset, this.$store.state.searchObject)
             .then(r => {
@@ -128,6 +141,8 @@ export default {
         this.namesList = [];
         this.$store.commit('changeDoSearch', false);
         this.isLoad = false;
+        console.log(localStorage);
+        console.log(typeof localStorage);
     }
 
   },
@@ -185,6 +200,26 @@ export default {
 
   }
   .fav i{
+    cursor: pointer;
+  }
+  .make-fav{
+    background: url("../../assets/Heart.png");
+    background-repeat: no-repeat;
+    background-position: 1px 5px;
+    width: 25px;
+    height: 25px;
+    background-size: contain;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  .make-fav.active {
+    background: url("../../assets/Heart-filled.png");
+    background-repeat: no-repeat;
+    background-position: 1px 5px;
+    width: 25px;
+    height: 25px;
+    background-size: contain;
+    margin: 0 auto;
     cursor: pointer;
   }
   .table-cell i{
