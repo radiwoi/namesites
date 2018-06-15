@@ -40,6 +40,9 @@ export default {
 
       localStorage.setItem('listFav', JSON.stringify(state.listFav))
     },
+    changePopularYear(state, value) {
+      state.searchObject.popular_year = value;
+    },
     changeDoSearch (state, value) {
       state.doSearch = value
     }
