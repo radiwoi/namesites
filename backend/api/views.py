@@ -34,7 +34,7 @@ class QueryRepository:
          skip: int
         :return: Response object
         """
-        print(request.data)
+        # print(request.data)
         name = request.data.get("search_phrase")
         criteria = request.data.get("search_criteria")
         frequency = request.data.get("frequency")

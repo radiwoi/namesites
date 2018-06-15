@@ -25,7 +25,7 @@
 </template>
 
 <script>
-//import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'popular-page',
   data () {
@@ -33,7 +33,7 @@ export default {
       yearTooltip: false,
       years: [1999, 2017],
       yearsRange: [],
-      selectedYear: 2016,
+      selectedYear: 2017,
     }
   },
   methods: {
@@ -47,6 +47,13 @@ export default {
       for(let i=this.years[1]; i > this.years[0]; i--){
           this.yearsRange.push(i);
       }
+      this.selectedYear = this.searchObject.popular_year
+  },
+    computed: {
+    ...mapGetters({
+      doSearch: 'getDoSearch',
+      searchObject: "getSearchObject"
+    })
   },
 }
 </script>
