@@ -8,7 +8,7 @@
               <i style="visibility: hidden" class="fa fa-heart"></i>
             </td>
             <td class="names-title-cell" style="width:35%">
-              <div @click="namesTooltip = !namesTooltip" class="title-filter names-length-filter">
+              <div @click="namesTooltip = !namesTooltip, checkedNames = [], showNameFilters = false" class="title-filter names-length-filter">
                 Namn <span class="filter-sorting"></span>
               </div>
               <div v-if="namesTooltip" class="tooltip freq-filter-tooltip">
@@ -26,15 +26,16 @@
                 </div>
               </div>
               <small class="filter-choises">
-                <span v-if="checkedNames.length == 0">All</span>
-                <span class="item-check" v-for="(cName, ind) in checkedNames">
+                <span v-if="checkedNames.length == 0">None</span>
+                <span v-if="checkedNames.length == 6">All</span>
+                <span v-if="checkedNames.length > 0 && checkedNames.length < 6 && showNameFilters" class="item-check" v-for="(cName, ind) in checkedNames">
                   <i @click="removeElement(ind, 'checkedNames')" class="fa fa-times"></i> {{cName}}
                 </span>
               </small>
             </td>
 
             <td class="freq-title-cell" style="width: 35%">
-              <div @click="freqTooltip = !freqTooltip" class="title-filter freq-filter">
+              <div @click="freqTooltip = !freqTooltip, checkedFreqs=[], showFreqFilters = false" class="title-filter freq-filter">
                 Förecomst <span class="filter-sorting"></span>
               </div>
               <div v-if="freqTooltip" class="tooltip freq-filter-tooltip">
@@ -52,15 +53,16 @@
                 </div>
               </div>
               <small class="filter-choises">
-                <span v-if="checkedFreqs.length == 0">All</span>
-                <span class="item-check" v-for="(freqName, ind) in checkedFreqs">
+                <span v-if="checkedFreqs.length == 0">None</span>
+                <span v-if="checkedFreqs.length == 6">All</span>
+                <span v-if="checkedFreqs.length > 0 && checkedFreqs.length < 6 && showFreqFilters" class="item-check" v-for="(freqName, ind) in checkedFreqs">
                   <i @click="removeElement(ind, 'checkedFreqs')" class="fa fa-times"></i> {{freqName}}
                 </span>
               </small>
             </td>
 
             <td class="distribution-title-cell" style="width: 20%">
-              <div @click="ageTooltip = !ageTooltip" class="title-filter">
+              <div @click="ageTooltip = !ageTooltip, checkedAges=[], showAgeFilters = false" class="title-filter">
                 Snittalder <span class="filter-sorting"></span>
               </div>
               <div v-if="ageTooltip" class="tooltip freq-filter-tooltip">
@@ -78,8 +80,9 @@
                 </div>
               </div>
               <small class="filter-choises">
-                <span v-if="checkedAges.length == 0">All</span>
-                <span class="item-check" v-for="(checkedAge, ind) in checkedAges">
+                <span v-if="checkedAges.length == 0">None</span>
+                <span v-if="checkedAges.length == 6">All</span>
+                <span v-if="checkedAges.length > 0 && checkedAges.length < 6 && showAgeFilters" class="item-check" v-for="(checkedAge, ind) in checkedAges">
                   <i @click="removeElement(ind, 'checkedAges')" class="fa fa-times"></i> {{checkedAge}}
                 </span>
               </small>
@@ -99,6 +102,9 @@ export default {
   data () {
     return {
 //      z: 1,
+      showNameFilters: true,
+      showFreqFilters: true,
+      showAgeFilters: true,
       namesLength: [
         {"name": "Dubbelnamn", "value": true},
         {"name": "1-3 bokstaver", "value": "1 - 3"},
@@ -136,6 +142,7 @@ export default {
 //      this.z=0;
       this.$store.commit('changeFrequency', this.checkedFreqs);
       this.freqTooltip = false;
+      this.showFreqFilters = true;
     },
     namesLengthApply() {
       let tmp = [];
@@ -146,6 +153,7 @@ export default {
       });
       this.$store.commit('changeLettersRange', tmp);
       this.namesTooltip = false;
+      this.showNameFilters = true;
     },
     ageDistributionApply() {
       let tmp = [];
@@ -156,6 +164,7 @@ export default {
       });
       this.$store.commit('changeAgeDistribution', tmp);
       this.ageTooltip = false;
+      this.showAgeFilters = true;
     },
     removeElement: function (index, what) {
       this[what].splice(index, 1);
@@ -166,7 +175,8 @@ export default {
   },
   created() {
 //    console.log('qq',this.$store.state.searchObject.frequency);
-//    console.log('qq',this.$store.state.searchObject.age_distribution);
+    console.log('age_distribution',this.$store.state.searchObject.age_distribution.length);
+    console.log('checkedAges',this.ageDistribution.length);
     this.$store.state.searchObject.frequency.map(f => {
         this.checkedFreqs.push(f)
     });
