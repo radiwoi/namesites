@@ -8,7 +8,7 @@
               <i style="visibility: hidden" class="fa fa-heart"></i>
             </td>
             <td class="names-title-cell" style="width:35%">
-              <div @click="namesTooltip = !namesTooltip, checkedNames = [], showNameFilters = false" class="title-filter names-length-filter">
+              <div @click="namesTooltip = !namesTooltip, checkedNames = []" class="title-filter names-length-filter">
                 Namn <span class="filter-sorting"></span>
               </div>
               <div v-if="namesTooltip" class="tooltip freq-filter-tooltip">
@@ -26,16 +26,16 @@
                 </div>
               </div>
               <small class="filter-choises">
-                <span v-if="checkedNames.length == 0">None</span>
-                <span v-if="checkedNames.length == 6">All</span>
-                <span v-if="checkedNames.length > 0 && checkedNames.length < 6 && showNameFilters" class="item-check" v-for="(cName, ind) in checkedNames">
+                <!--<span v-if="checkedNames.length == 0">None</span>-->
+                <span v-if="checkedNames.length == 6 || checkedNames.length == 0">All</span>
+                <span v-if="checkedNames.length > 0 && checkedNames.length < 6 && !namesTooltip" class="item-check" v-for="(cName, ind) in checkedNames">
                   <i @click="removeElement(ind, 'checkedNames')" class="fa fa-times"></i> {{cName}}
                 </span>
               </small>
             </td>
 
             <td class="freq-title-cell" style="width: 35%">
-              <div @click="freqTooltip = !freqTooltip, checkedFreqs=[], showFreqFilters = false" class="title-filter freq-filter">
+              <div @click="freqTooltip = !freqTooltip, checkedFreqs=[]" class="title-filter freq-filter">
                 Förecomst <span class="filter-sorting"></span>
               </div>
               <div v-if="freqTooltip" class="tooltip freq-filter-tooltip">
@@ -53,16 +53,16 @@
                 </div>
               </div>
               <small class="filter-choises">
-                <span v-if="checkedFreqs.length == 0">None</span>
-                <span v-if="checkedFreqs.length == 6">All</span>
-                <span v-if="checkedFreqs.length > 0 && checkedFreqs.length < 6 && showFreqFilters" class="item-check" v-for="(freqName, ind) in checkedFreqs">
+                <!--<span v-if="checkedFreqs.length == 0">None</span>-->
+                <span v-if="checkedFreqs.length == 6 || checkedFreqs.length == 0">All</span>
+                <span v-if="checkedFreqs.length > 0 && checkedFreqs.length < 6 && !freqTooltip" class="item-check" v-for="(freqName, ind) in checkedFreqs">
                   <i @click="removeElement(ind, 'checkedFreqs')" class="fa fa-times"></i> {{freqName}}
                 </span>
               </small>
             </td>
 
             <td class="distribution-title-cell" style="width: 20%">
-              <div @click="ageTooltip = !ageTooltip, checkedAges=[], showAgeFilters = false" class="title-filter">
+              <div @click="ageTooltip = !ageTooltip, checkedAges=[]" class="title-filter">
                 Snittalder <span class="filter-sorting"></span>
               </div>
               <div v-if="ageTooltip" class="tooltip freq-filter-tooltip">
@@ -80,9 +80,9 @@
                 </div>
               </div>
               <small class="filter-choises">
-                <span v-if="checkedAges.length == 0">None</span>
-                <span v-if="checkedAges.length == 6">All</span>
-                <span v-if="checkedAges.length > 0 && checkedAges.length < 6 && showAgeFilters" class="item-check" v-for="(checkedAge, ind) in checkedAges">
+                <!--<span v-if="checkedAges.length == 0">None</span>-->
+                <span v-if="checkedAges.length == 6 || checkedAges.length == 0">All</span>
+                <span v-if="checkedAges.length > 0 && checkedAges.length < 6 && !ageTooltip" class="item-check" v-for="(checkedAge, ind) in checkedAges">
                   <i @click="removeElement(ind, 'checkedAges')" class="fa fa-times"></i> {{checkedAge}}
                 </span>
               </small>

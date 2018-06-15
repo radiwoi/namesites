@@ -113,7 +113,9 @@ export default {
           this.listFav.push(nameId);
         }
         this.$store.commit('changeListFav', this.listFav);
-
+        if(this.$route.name == 'favorite-page') {
+            this.$store.commit('changeDoSearch', true);
+        }
     },
     checkIfFavorite(id){
         if(this.listFav.includes(id)){
