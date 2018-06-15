@@ -118,6 +118,7 @@ export default {
         }
     },
     checkIfFavorite(id){
+//        console.log(this.listFav)
         if(this.listFav.includes(id)){
           return true;
         }

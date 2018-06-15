@@ -1,3 +1,4 @@
+// console.log(localStorage.getItem('listFav'))
 export default {
   state: {
     searchObject: {
@@ -15,8 +16,9 @@ export default {
     },
     availableYears: [],
     doSearch: false,
-    listFav: localStorage.getItem('listFav') === undefined ?  [] : JSON.parse(localStorage.getItem('listFav')),
+    listFav: localStorage.getItem("listFav") == null || localStorage.getItem("listFav") == undefined ?  [] : JSON.parse(localStorage.getItem('listFav')),
   },
+
   mutations: {
     test (state, value) {
       state.searchObject.search_phrase = value
