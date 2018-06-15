@@ -34,7 +34,7 @@
             </td>
 
             <td class="freq-title-cell" style="width: 35%">
-              <div @click="freqTooltip = !freqTooltip" class="title-filter freq-filter">
+              <div @click="freqTooltip = !freqTooltip, z = 1" class="title-filter freq-filter">
                 Förecomst <span class="filter-sorting"></span>
               </div>
               <div v-if="freqTooltip" class="tooltip freq-filter-tooltip">
@@ -47,13 +47,13 @@
                   </div>
                 </div>
                 <div class="footer-filter">
-                  <!--{{checkedFreqs}}-->
+                  <!--{{checkedFreqs}}-->{{z}}
                   <button @click="frequencyApply" class="btn btn-filter freq-btn">Accept</button>
                 </div>
               </div>
               <small class="filter-choises">
-                <span v-if="checkedFreqs.length == 0">All</span>
-                <span class="item-check" v-for="(freqName, ind) in checkedFreqs">
+                <span v-if="checkedFreqs.length == 0 || z == 1">All</span>
+                <span class="item-check" v-if="z != 1" v-for="(freqName, ind) in checkedFreqs">
                   <i @click="removeElement(ind, 'checkedFreqs')" class="fa fa-times"></i> {{freqName}}
                 </span>
               </small>
@@ -98,6 +98,7 @@ export default {
   name: 'filters',
   data () {
     return {
+      z: 1,
       namesLength: [
         {"name": "Dubbelnamn", "value": true},
         {"name": "1-3 bokstaver", "value": "1 - 3"},
@@ -132,6 +133,7 @@ export default {
   },
   methods: {
     frequencyApply() {
+      this.z=0;
       this.$store.commit('changeFrequency', this.checkedFreqs);
       this.freqTooltip = false;
     },

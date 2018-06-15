@@ -47,12 +47,16 @@ class QueryRepository:
             resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
 
         double_name = True in letters_range
-        if double_name:
-            resp = resp.filter(double_name=True)
-            letters_range.remove(True)
+
+        # resp = resp.filter(double_name=True)
 
         if letters_range is not None and len(letters_range) > 0:
-            resp = resp.filter(number_of_letters__in=letters_range)
+            if double_name:
+                letters_range.remove(True)
+                resp = resp.filter(Q(number_of_letters__in=letters_range) | Q(double_name=True))
+            else:
+                resp = resp.filter(double_name=False)
+                resp = resp.filter(number_of_letters__in=letters_range)
 
         if age_distribution is not None and len(age_distribution) > 0:
             mask = "age_distribution_{}__gt"
@@ -94,7 +98,6 @@ class BoysNamesList(generics.ListAPIView):
     def get_queryset(self):
         request = self.request
         resp = QueryRepository.build_query(QueryRepository, request)
-
         return resp.all()
 
     def get(self, request, *args, **kwargs):
