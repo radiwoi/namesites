@@ -98,6 +98,7 @@ class BoysNamesList(generics.ListAPIView):
     def get_queryset(self):
         request = self.request
         resp = QueryRepository.build_query(QueryRepository, request)
+        # print(resp.query)
         return resp.all()
 
     def get(self, request, *args, **kwargs):

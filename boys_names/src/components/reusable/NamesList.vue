@@ -8,7 +8,7 @@
           </td>
           <td class="table-cell namn" width="35%">
             <span class="popular-rate" v-if="currentPage == 'popular-page'">{{nameObj.popular.position}}</span>
-            <span>{{nameObj.name}}</span> <i class="fa fa-info-circle"></i>
+            <span >{{nameObj.name}}</span> <i v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="fa fa-info-circle"></i>
             <div v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="tooltip main-tooltip">
               <div v-if="nameObj.variants.length > 0" class="variants-list">
                 <div class="tooltip-title">
