@@ -9,7 +9,6 @@
           Populara namn ar <span @click="yearTooltip = !yearTooltip" class="filter-year-bold">{{selectedYear}} <i class="fa fa-angle-down"></i></span>
           <div v-if="yearTooltip" class="tooltip year-tooltip">
             <div v-for="y in yearsRange">
-              <!--<input v-on:change="changeYear(y)" :value="y" v-model="selectedYear" type="radio"> {{y}}-->
               <label class="checkbox-container-radio"> {{y}}
                 <input v-on:change="changeYear(y)" type="radio" :value="y" v-model="selectedYear">
                 <span class="checkmark-radio"></span>
@@ -49,12 +48,6 @@ export default {
           this.yearsRange.push(i);
       }
   },
-//  computed: {
-//    ...mapGetters({
-//      doSearch: 'getDoSearch',
-//      searchObject: "getSearchObject"
-//    })
-//  }
 }
 </script>
 
