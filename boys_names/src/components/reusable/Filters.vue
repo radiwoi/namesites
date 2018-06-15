@@ -143,6 +143,7 @@ export default {
       this.$store.commit('changeFrequency', this.checkedFreqs);
       this.freqTooltip = false;
       this.showFreqFilters = true;
+      this.$store.commit('changeDoSearch', true);
     },
     namesLengthApply() {
       let tmp = [];
@@ -154,6 +155,7 @@ export default {
       this.$store.commit('changeLettersRange', tmp);
       this.namesTooltip = false;
       this.showNameFilters = true;
+      this.$store.commit('changeDoSearch', true);
     },
     ageDistributionApply() {
       let tmp = [];
@@ -165,6 +167,7 @@ export default {
       this.$store.commit('changeAgeDistribution', tmp);
       this.ageTooltip = false;
       this.showAgeFilters = true;
+      this.$store.commit('changeDoSearch', true);
     },
     removeElement: function (index, what) {
       this[what].splice(index, 1);
