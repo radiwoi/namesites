@@ -6,7 +6,7 @@ export default {
       // "frequency": [],
       "age_distribution": [10,20,30,50,70,71],
       // "age_distribution": [],
-      "popular_year": 2016,
+      "popular_year": 2017,
       "double_name": false,
       "letters_range": [true, "1 - 3", "4 - 5", "6 - 7", "8 - 9", "9 >"],
       "search_phrase": "",

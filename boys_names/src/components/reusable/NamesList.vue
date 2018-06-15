@@ -71,8 +71,8 @@ export default {
       total_pages: 1,
       page_number: 1,
       part: 'test',
-      backend_url: "http://127.0.0.1:8000/api/v1/",
-//      backend_url: "http://names_project.devhost1.com/api/v1/"
+//      backend_url: "http://127.0.0.1:8000/api/v1/",
+      backend_url: "http://names_project.devhost1.com/api/v1/"
     }
   },
   methods: {

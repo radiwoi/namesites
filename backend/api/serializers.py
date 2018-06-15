@@ -13,9 +13,12 @@ class BoysNamesSerializer(serializers.ModelSerializer):
         return VariantNamesSerializer(boy_name.variants.all(), many=True).data
 
     def get_popular(self, boy_name):
-        try:
-            d = boy_name.popular.get(year=self.context["request"].data.get("popular_year"))
-        except PopularName.DoesNotExist:
+        if self.context.get("request"):
+            try:
+                d = boy_name.popular.get(year=self.context.get("request").data.get("popular_year"))
+            except PopularName.DoesNotExist:
+                d = boy_name.popular.first()
+        else:
             d = boy_name.popular.first()
         return PopularNamesSerializer(d).data
         # return PopularNamesSerializer(boy_name.popular.first()).data
