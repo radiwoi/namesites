@@ -139,7 +139,7 @@ class PopularNamesList(generics.ListAPIView):
 
     def get_queryset(self):
         request = self.request
-        popular_name = request.data.get("popular_year", 2016)
+        popular_name = request.data.get("popular_year", 2017)
         resp = QueryRepository.build_query(QueryRepository, request)
 
         resp = resp.filter(popular__year=popular_name)
