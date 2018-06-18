@@ -127,6 +127,7 @@ export default {
                     this.page_number = parseInt(urlParams.get('offset')) / this.searchObject.limit + 1;
                 }
             })
+            .catch(error => {console.log(error.response)});
         }
     },
     prepareResponseData(r){
@@ -189,7 +190,8 @@ export default {
         requestData['url'],
         requestData["postData"]
       )
-      .then(r => { this.prepareResponseData(r);});
+      .then(r => { this.prepareResponseData(r);})
+      .catch(error => {console.log(error.response)});
   },
   watch: {
     doSearch: function (n, o) {
@@ -210,6 +212,7 @@ export default {
               this.prepareResponseData(r);
               this.page_number = 1;
           })
+          .catch(error => {console.log(error.response)});
       }
     }
   }

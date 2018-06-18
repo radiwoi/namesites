@@ -14,6 +14,19 @@ from .parser import dispatcher
 from .models import BoyName, GirlName, PopularName, Variant
 from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNamesSerializer, PopularNamesSerializer
 
+from django.db.models import Transform
+from django.db.models import CharField, TextField
+
+
+class LowerCase(Transform):
+    lookup_name = 'lower'
+    function = 'LOWER'
+    # bilateral = True
+
+
+CharField.register_lookup(LowerCase)
+TextField.register_lookup(LowerCase)
+
 
 class QueryRepository:
     def __init__(self):
@@ -79,13 +92,13 @@ class QueryRepository:
 
         if criteria is not None and len(name) > 0:
             if criteria == "start":
-                resp = resp.filter(name__istartswith=name)
+                resp = resp.filter(name__lower__istartswith=name.lower())
             elif criteria == "middle":
-                resp = resp.filter(name__icontains=name)
+                resp = resp.filter(name__lower__icontains=name.lower())
             elif criteria == "end":
-                resp = resp.filter(name__iendswith=name)
+                resp = resp.filter(name__lower__iendswith=name.lower())
             else:
-                resp = resp.filter(name__iexact=name)
+                resp = resp.filter(name__lower=name)
 
         return resp
 
