@@ -34,22 +34,36 @@
               <div class="chart-top">
                 <div class="green-cols-wrapper">
                   <span class="a" style="height:100%; width: 30px; background: transparent"></span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_10) + '%'}"></span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_20) + '%'}"></span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_30) + '%'}"></span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_50) + '%'}"></span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_70) + '%'}"></span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_71) + '%'}"></span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_10) + '%'}">
+                    <span class="percents">{{nameObj.age_distribution_10}}%</span>
+                  </span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_20) + '%'}">
+                    <span class="percents">{{nameObj.age_distribution_20}}%</span>
+                  </span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_30) + '%'}">
+                    <span class="percents">{{nameObj.age_distribution_30}}%</span>
+                  </span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_50) + '%'}">
+                    <span class="percents">{{nameObj.age_distribution_50}}%</span>
+                  </span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_70) + '%'}">
+                    <span class="percents">{{nameObj.age_distribution_70}}%</span>
+                  </span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_71) + '%'}">
+                    <span class="percents">{{nameObj.age_distribution_71}}%</span>
+                  </span>
                 </div>
               </div>
-              <div class="chart-bottom"></div>
-              Alder:
-              0-10
-              11-20
-              21-30
-              31-50
-              51-70
-              70 >
+              <div class="chart-bottom">
+                <span style="width: 45px;" class="item-chart-label">Alder:</span>
+                <span class="item-chart-label">0-10</span>
+                <span class="item-chart-label">11-20</span>
+                <span class="item-chart-label">21-30</span>
+                <span class="item-chart-label">31-50</span>
+                <span class="item-chart-label">51-70</span>
+                <span class="item-chart-label">71 ></span>
+              </div>
+
             </div>
           </td>
         </tr>
@@ -157,7 +171,7 @@ export default {
       return requestData;
     },
     style (width) {
-      return width
+      return width + 10
     }
   },
   computed: {
@@ -358,12 +372,11 @@ export default {
     background: #ffffff;
     top:25px;
     right:0%;
-    min-width: 370px;
+    min-width: 400px;
     box-shadow: 0px 2px 15px #8edcd1;
   }
   .chart-top {
     height: 100px;
-    border-bottom: 1px solid red;
     position: relative;
   }
   .green-cols-wrapper{
@@ -373,12 +386,24 @@ export default {
     height: 100%;
   }
   .a{
-    background: red;
+    background: #38c8b2;
     display: inline-block;
-    width: 30px;
+    width: 40px;
     margin-right: 10px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    position: relative;
+  }
+  .item-chart-label{
+    width: 50px;
+    display: inline-block;
+    font-size: 13px;
+  }
+  .percents{
+    font-family: "Quicksand-Bold";
+    position: absolute;
+    top: -22px;
+    left: 8px;
   }
   .popular-rate {
     font-family: 'Quicksand-Bold';
