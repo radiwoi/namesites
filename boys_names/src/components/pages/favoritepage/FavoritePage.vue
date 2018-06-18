@@ -9,14 +9,14 @@
             <div class="input-group">
               <input type="email" class="form-control main-search-control" placeholder="Ex. namn@gmail.com">
               <span class="input-group-btn main-page-search">
-                <button class="btn btn-default fav-page-send-btn" @click="alert('not implemented yet')" type="submit">
+                <button class="btn btn-default fav-page-send-btn" @click="sendEmail" type="submit">
                   Send
                 </button>
               </span>
             </div>
           </div>
           <div class="col col-lg-2 offset-lg-6 girl-logo-wrapper">
-            <img class="img-fluid sub-img" src="../../../assets/Logo-girl.png" alt="">
+            <img class="img-fluid sub-fav-img" src="../../../assets/Logo-girl.png" alt="">
           </div>
         </div>
       </div>
@@ -27,7 +27,17 @@
 </template>
 
 <script>
-
+export default{
+  name: 'favorite-page',
+//  data(){
+//    return {}
+//  },
+  methods: {
+      sendEmail(){
+          alert('not implemented yet')
+      }
+  }
+}
 </script>
 
 <style>
@@ -55,5 +65,9 @@
   border: 2px solid #38c8b2;
   border-radius: 5px;
   box-shadow: none;
+}
+.sub-fav-img {
+  width: 90%;
+  margin-top: 20px;
 }
 </style>

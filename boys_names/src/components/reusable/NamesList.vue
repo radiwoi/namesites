@@ -28,7 +28,30 @@
             {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
             <div class="tooltip freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
           </td>
-          <td class="table-cell" width="20%">{{nameObj.average_age}} år<i class="fa fa-info-circle"></i></td>
+          <td class="table-cell dist-age" width="20%">
+            {{nameObj.average_age}} år<i class="fa fa-info-circle"></i>
+            <div class="tooltip chart-tooltip">
+              <div class="chart-top">
+                <div class="green-cols-wrapper">
+                  <span class="a" style="height:100%; width: 30px; background: transparent"></span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_10) + '%'}"></span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_20) + '%'}"></span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_30) + '%'}"></span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_50) + '%'}"></span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_70) + '%'}"></span>
+                  <span class="a" :style="{'height': style(nameObj.age_distribution_71) + '%'}"></span>
+                </div>
+              </div>
+              <div class="chart-bottom"></div>
+              Alder:
+              0-10
+              11-20
+              21-30
+              31-50
+              51-70
+              70 >
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -132,6 +155,9 @@ export default {
         "url": url
       };
       return requestData;
+    },
+    style (width) {
+      return width
     }
   },
   computed: {
@@ -235,7 +261,6 @@ export default {
     margin-top: 25px;
     margin-bottom: 25px;
     outline-style:none;
-
   }
   .top-pagination, .top-pagination:before, .top-pagination:after {
     -webkit-user-select: none; /* Chrome/Safari */
@@ -269,7 +294,7 @@ export default {
   .namn{
     max-width: 297px;
   }
-  .frequency, .namn{
+  .frequency, .namn, .dist-age{
     position: relative;
   }
   .fa-info-circle:hover + .tooltip,
@@ -284,7 +309,7 @@ export default {
     /*opacity: 0;*/
     /*position: absolute;*/
   }
-  .main-tooltip{
+  .main-tooltip {
     font-family: 'Quicksand';
     font-size:14px;
     width: 200%;
@@ -320,6 +345,40 @@ export default {
     top:25px;
     left: 0;
     box-shadow: 0px 2px 15px #8edcd1;
+  }
+  .chart-tooltip{
+    font-family: 'Quicksand';
+    font-size:16px;
+    opacity: 1;
+    z-index: 0;
+    display: none;
+    padding: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    background: #ffffff;
+    top:25px;
+    right:0%;
+    min-width: 370px;
+    box-shadow: 0px 2px 15px #8edcd1;
+  }
+  .chart-top {
+    height: 100px;
+    border-bottom: 1px solid red;
+    position: relative;
+  }
+  .green-cols-wrapper{
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    height: 100%;
+  }
+  .a{
+    background: red;
+    display: inline-block;
+    width: 30px;
+    margin-right: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
   }
   .popular-rate {
     font-family: 'Quicksand-Bold';

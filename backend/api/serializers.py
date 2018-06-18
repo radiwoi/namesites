@@ -33,7 +33,13 @@ class BoysNamesSerializer(serializers.ModelSerializer):
                   'variants',
                   'popular',
                   'total_bearing_name',
-                  'meaning'
+                  'meaning',
+                  'age_distribution_10',
+                  'age_distribution_20',
+                  'age_distribution_30',
+                  'age_distribution_50',
+                  'age_distribution_70',
+                  'age_distribution_71',
                   )
 
 
