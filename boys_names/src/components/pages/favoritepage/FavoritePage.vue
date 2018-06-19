@@ -5,7 +5,7 @@
     <div class="fav-subheader">
       <div class="container">
         <div class="row">
-          <div class="col col-lg-4 email-send-wrapper">
+          <div class="col-12 col-lg-4 email-send-wrapper">
             <span class="fav-label">Send this favorite list to</span>
             <div class="input-group">
               <input type="email" class="form-control main-search-control" placeholder="Ex. namn@gmail.com">

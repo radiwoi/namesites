@@ -448,4 +448,18 @@ export default {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+
+  @media (max-width: 1200px) {}
+
+  @media (max-width: 992px) {}
+
+  @media (max-width: 768px) {}
+
+  @media (max-width: 576px) {
+    .names-table td{
+      padding: 0.25rem;
+    }
+  }
+
 </style>
