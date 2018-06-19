@@ -224,3 +224,8 @@ def upload_file(request):
 
     return redirect(reverse("admin:api_{}_changelist".format(model_name)))
 
+
+def send_email(request):
+    print(request)
+
+    return Response({"a": "b"})

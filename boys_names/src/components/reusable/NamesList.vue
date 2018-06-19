@@ -127,7 +127,7 @@ export default {
                     this.page_number = parseInt(urlParams.get('offset')) / this.searchObject.limit + 1;
                 }
             })
-            .catch(error => {console.log(error.response)});
+            .catch(error => { this.prepareRejectData(error) });
         }
     },
     prepareResponseData(r){
@@ -141,6 +141,15 @@ export default {
         this.total_pages = Math.ceil(this.total_results / this.searchObject.limit);
         this.$store.commit('changeDoSearch', false);
         this.isLoad = false;
+    },
+    prepareRejectData(error){
+      console.log(error);
+      this.noResults = true;
+      this.isLoad = false;
+      this.page_number = 1;
+      this.prev = false;
+      this.next = false;
+      this.$store.commit('changeDoSearch', false);
     },
     makeFavorite(nameId) {
         //      todo make through store commit
@@ -172,7 +181,13 @@ export default {
       return requestData;
     },
     style (width) {
-      return width + 10
+      if(width == 100){
+          return 70;
+      } if(width == 0) {
+          return 5;
+      } else {
+        return width + 10
+      }
     }
   },
   computed: {
@@ -191,7 +206,7 @@ export default {
         requestData["postData"]
       )
       .then(r => { this.prepareResponseData(r);})
-      .catch(error => {console.log(error.response)});
+      .catch(error => { this.prepareRejectData(error) });
   },
   watch: {
     doSearch: function (n, o) {
@@ -212,7 +227,7 @@ export default {
               this.prepareResponseData(r);
               this.page_number = 1;
           })
-          .catch(error => {console.log(error.response)});
+          .catch(error => { this.prepareRejectData(error) });
       }
     }
   }
