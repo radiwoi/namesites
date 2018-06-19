@@ -15,7 +15,7 @@
                   Variants
                 </div>
                 <span v-for="variant in nameObj.variants">
-                  {{variant.name}} ({{variant.language}}),
+                  {{variant.variants}} ({{variant.language}}),
                 </span>
               </div>
               <div v-if="nameObj.meaning.length > 0">

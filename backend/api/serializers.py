@@ -11,18 +11,26 @@ class BoysNamesSerializer(serializers.ModelSerializer):
     popular = SerializerMethodField()
 
     def get_variants(self, boy_name):
-        query = boy_name.variants.all().extra(select={"variants": "concat(name,',')"}).values("language", "variants").annotate(cnt=Count("language"))
-        print(query.query)
-
+        # query = boy_name.variants.all().extra(select={"variants": "concat(name,',')"}).values("language", "variants").annotate(cnt=Count("language"))
+        # print(query.query)
+        # print(boy_name.variants)
+        query = Variant.objects.raw("""
+            SELECT max(`api_variant`.`id`) as id, group_concat(name SEPARATOR ', ') AS `variants`, `api_variant`.`language`, COUNT(`api_variant`.`language`) AS `cnt`
+            FROM `api_variant`
+            INNER JOIN `api_boyname_variants`
+            ON (`api_variant`.`id` = `api_boyname_variants`.`variant_id`)
+            WHERE `api_boyname_variants`.`boyname_id` = %s GROUP BY `api_variant`.`language` ORDER BY NULL
+        """, [boy_name.pk])
+        # print(list(query))
+        # print(boy_name.variants.values_list('id', flat=True))
         # query = boy_name.variants.all()\
         #     .extra(select={"variants": "group_concat(name)"}) \
         #     .values("language", "variants") \
         #     .order_by("language") \
         #     .annotate(cnt=Count("language"))
         # print(query.query)
-        # return query
 
-        return query
+        return VariantNamesSerializer(query, many=True).data
 
     def get_popular(self, boy_name):
         d = None
@@ -68,6 +76,11 @@ class PopularNamesSerializer(serializers.ModelSerializer):
 
 
 class VariantNamesSerializer(serializers.ModelSerializer):
+    variants = SerializerMethodField()
+
+    def get_variants(self, variant):
+        return variant.variants
+
     class Meta:
         model = Variant
-        fields = ('language', 'name',)
+        fields = ('language', 'variants',)
