@@ -28,7 +28,7 @@
             {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
             <div class="tooltip freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
           </td>
-          <td class="table-cell dist-age" width="20%">
+          <td class="table-cell dist-age d-none d-sm-table-cell" width="20%">
             {{nameObj.average_age}} år<i class="fa fa-info-circle"></i>
             <div class="tooltip chart-tooltip">
               <div class="chart-top">
