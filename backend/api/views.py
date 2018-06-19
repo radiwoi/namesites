@@ -1,8 +1,14 @@
+import json
+
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
@@ -209,6 +215,40 @@ class FavoriteNamesList(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 
+class EmailSender(generics.ListAPIView):
+    serializer_class = BoysNamesSerializer
+    pagination_class = LimitOffsetPagination
+
+    def get_queryset(self):
+        request = self.request
+        ids = request.data.get("ids")
+        resp = QueryRepository.build_query(QueryRepository, request)
+
+        resp = resp.filter(pk__in=ids)
+        return resp
+
+    def post(self, request, *args, **kwargs):
+        data = self.get_queryset()
+        email = request.data.get("user_email")
+        message = "You choose names: "
+        for d in data:
+            message += d.name + " "
+            # print(d.frequency)
+
+        # print(message)
+        # print(email)
+
+        # send_mail(
+        #     'Subject here',
+        #     message,
+        #     'from@example.com',
+        #     [email],
+        #     fail_silently=False,
+        # )
+
+        return JsonResponse({'foo': 'bar'})
+
+
 def upload_file(request):
     print(repr(request.FILES['db_file']))
     model_name = request.POST.get("db_name")
@@ -225,7 +265,12 @@ def upload_file(request):
     return redirect(reverse("admin:api_{}_changelist".format(model_name)))
 
 
+@csrf_exempt
 def send_email(request):
-    print(request)
+    ids = request.data.get("ids")
+    resp = QueryRepository.build_query(QueryRepository, request)
 
-    return Response({"a": "b"})
+    resp = resp.filter(pk__in=ids)
+    print(resp)
+
+    return JsonResponse({'foo': 'bar'})

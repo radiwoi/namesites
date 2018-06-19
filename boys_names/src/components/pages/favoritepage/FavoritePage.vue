@@ -8,7 +8,7 @@
           <div class="col-12 col-lg-4 email-send-wrapper">
             <span class="fav-label">Send this favorite list to</span>
             <div class="input-group">
-              <input type="email" class="form-control main-search-control" placeholder="Ex. namn@gmail.com">
+              <input type="email" class="form-control main-search-control" v-model="userEmail" placeholder="Ex. namn@gmail.com">
               <span class="input-group-btn main-page-search">
                 <button class="btn btn-default fav-page-send-btn" @click="sendEmail" type="submit">
                   Send
@@ -28,16 +28,40 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default{
   name: 'favorite-page',
-//  data(){
-//    return {}
-//  },
+  data(){
+    return {
+      userEmail: "",
+      backend_url: "http://127.0.0.1:8000/api/v1/",
+//      backend_url: "http://names_project.devhost1.com/api/v1/"
+    }
+  },
   methods: {
-      sendEmail(){
-          alert('not implemented yet')
-      }
-  }
+    sendEmail(){
+      console.log(this.searchObject);
+      console.log(this.listFav);
+      console.log(this.userEmail);
+
+      let obj = this.searchObject;
+      obj["ids"] = this.listFav;
+      obj["user_email"] = this.userEmail;
+
+      axios.post(this.backend_url + 'send/email/', obj)
+        .then(r => {})
+        .catch(e => {})
+//      alert('not implemented yet');
+//      send/email/
+    }
+  },
+  computed: {
+    ...mapGetters({
+      listFav: 'getListFav',
+      searchObject: "getSearchObject"
+    })
+  },
 }
 </script>
 
