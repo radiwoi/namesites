@@ -2,15 +2,12 @@
   <div class="header">
     <div class="container">
       <div class="row">
-        <div class="col col-lg-2">
+        <div class="col col-lg-3 logo-wrapper">
           <router-link v-bind:to="'/'">
             <img class="img-fluid" src="../../assets/Boy.png" alt="">
           </router-link>
         </div>
       </div>
-      <!--{{msg}}-->
-      <!--<div class="subheader" @click="test">subheader</div>-->
-      <!--<button>button</button>-->
     </div>
   </div>
 </template>
@@ -34,5 +31,9 @@ export default {
 <style>
   .header {
     margin-bottom: 40px;
+    padding-top: 15px;
+  }
+  .header .img-fluid{
+    width: 75%;
   }
 </style>

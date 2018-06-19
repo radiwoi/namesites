@@ -90,9 +90,9 @@ export default {
   created() {
     this.currentPage = this.$route.name;
     this.localSearchPhrase = this.$store.state.searchObject.search_phrase;
-    if (this.currentPage != "start-page") {
-        this.redirectTo = this.currentPage
-    }
+//    if (this.currentPage != "start-page") {
+//        this.redirectTo = this.currentPage
+//    }
     this.criterias.map(criteria => {
         if (criteria.action == this.$store.state.searchObject.search_criteria) {
             criteria.chosen = true;

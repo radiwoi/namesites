@@ -2,15 +2,18 @@
   <div class="subheader">
     <div class="container">
       <div class="row">
-        <div class="col col-lg-4 sub-menu">
+        <div class="col col-lg-5 sub-menu">
           <router-link v-bind:to="'/search-page'">
             <span class="sub-menu-item" v-bind:class="{active: page == 'search-page'}">Sökning</span>
           </router-link>
           <router-link v-bind:to="'/popular-page'">
             <span class="sub-menu-item" v-bind:class="{active: page == 'popular-page'}">Populära namn</span>
           </router-link>
+          <router-link v-bind:to="'/favorite-page'">
+            <span class="sub-menu-item" v-bind:class="{active: page == 'favorite-page'}">Mina favoriter</span>
+          </router-link>
         </div>
-        <div class="col-lg-2 offset-lg-6">
+        <div class="col-lg-2 offset-lg-5">
           <img class="img-fluid sub-img" src="../../assets/Logo-girl.png" alt="">
         </div>
       </div>

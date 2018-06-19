@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import serializers
 from rest_framework import status
 from rest_framework.fields import SerializerMethodField
@@ -10,7 +11,18 @@ class BoysNamesSerializer(serializers.ModelSerializer):
     popular = SerializerMethodField()
 
     def get_variants(self, boy_name):
-        return VariantNamesSerializer(boy_name.variants.all(), many=True).data
+        query = boy_name.variants.all().extra(select={"variants": "concat(name,',')"}).values("language", "variants").annotate(cnt=Count("language"))
+        print(query.query)
+
+        # query = boy_name.variants.all()\
+        #     .extra(select={"variants": "group_concat(name)"}) \
+        #     .values("language", "variants") \
+        #     .order_by("language") \
+        #     .annotate(cnt=Count("language"))
+        # print(query.query)
+        # return query
+
+        return query
 
     def get_popular(self, boy_name):
         d = None

@@ -1,6 +1,7 @@
 import pandas as pd
 from .models import BoyName, GirlName, PopularName, Variant
 import re
+# from .views import LowerCase
 
 
 def chunks(l, n):
@@ -298,7 +299,7 @@ class VariantsParser(CoreParser):
         mapped_data.index = mapped_data.index.droplevel(-1)
         mapped_data.name = 'variant_name'
         self.df = self.df.join(mapped_data)
-        # print(self.df)
+        print(self.df)
         del mapped_data
         # return
         model = self.sheet_model_assigner[self.sheet_name]["model_name"]
@@ -308,7 +309,7 @@ class VariantsParser(CoreParser):
         # existing_variants = model.objects.values("language", "name")
 
         # print(existing_variants)
-        return
+        # return
 
         # print(model)
         for row in data:
@@ -316,19 +317,25 @@ class VariantsParser(CoreParser):
                 "language": row["language"],
                 "name": row["variant_name"]
             }
-            # print(row)
+            # print(row_dict)
 
-            if model.objects.filter(**row_dict).first() is not None:
-                continue
+            variant = model.objects.filter(**row_dict).first()
 
-            variant = model(
-                **row_dict
-            )
+            # if row['name'] == 'Abraham' and row['language'] == 'Arabiska':
+            #     print(variant)
+            #     print(BoyName.objects.filter(name__lower=row["name"]).query)
+            #     boy_name = BoyName.objects.filter(name__lower=row["name"]).first()
+            #     print(boy_name)
 
-            variant.save()
+            if variant is None:
+                variant = model(
+                    **row_dict
+                )
 
-            boy_name = BoyName.objects.filter(name__iexact=row["name"]).first()
-            girl_name = GirlName.objects.filter(name__iexact=row["name"]).first()
+                variant.save()
+
+            boy_name = BoyName.objects.filter(name__lower=row["name"].lower()).first()
+            girl_name = GirlName.objects.filter(name__lower=row["name"].lower()).first()
             if boy_name is not None:
                 boy_name.variants.add(variant)
             if girl_name is not None:

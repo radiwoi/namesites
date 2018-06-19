@@ -1,6 +1,7 @@
 <template>
   <div class="favorite-page">
     <second-header></second-header>
+    <sub-header></sub-header>
     <div class="fav-subheader">
       <div class="container">
         <div class="row">
@@ -16,7 +17,7 @@
             </div>
           </div>
           <div class="col col-lg-2 offset-lg-6 girl-logo-wrapper">
-            <img class="img-fluid sub-fav-img" src="../../../assets/Logo-girl.png" alt="">
+            <!--<img class="img-fluid sub-fav-img" src="../../../assets/Logo-girl.png" alt="">-->
           </div>
         </div>
       </div>
@@ -43,7 +44,7 @@ export default{
 <style>
 .fav-subheader {
   font-family: 'Quicksand';
-  box-shadow: 0px 2px 5px rgba(142, 220, 206, .55);
+  /*box-shadow: 0px 2px 5px rgba(142, 220, 206, .55);*/
   padding-top: 15px;
   /*padding-bottom: 5px;*/
   padding-bottom: 20px;
