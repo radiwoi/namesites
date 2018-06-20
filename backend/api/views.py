@@ -178,10 +178,6 @@ class PopularNamesList(generics.ListAPIView):
 
         popular_name = request.data.get("popular_year", 2017)
 
-        print(request.META['HTTP_REFERER'])
-        print(self.model)
-        print(self.serializer_class)
-
         resp = QueryRepository.build_query(QueryRepository, request, self.model)
 
         resp = resp.filter(popular__year=popular_name)
@@ -229,13 +225,23 @@ class VariationsNamesList(APIView):
 class FavoriteNamesList(generics.ListAPIView):
     serializer_class = BoysNamesSerializer
     pagination_class = LimitOffsetPagination
+    model = BoyName
 
     def get_queryset(self):
         request = self.request
+        if 'http://localhost:8082/' in request.META['HTTP_REFERER']:
+            self.serializer_class = GirlsNamesSerializer
+            self.model = GirlName
+
+        print(request.META['HTTP_REFERER'])
+        print(self.model)
+        print(self.serializer_class)
+
         ids = request.data.get("ids")
-        resp = QueryRepository.build_query(QueryRepository, request, BoyName)
+        resp = QueryRepository.build_query(QueryRepository, request, self.model)
 
         resp = resp.filter(pk__in=ids)
+        print(resp.query)
         return resp
 
     def post(self, request, *args, **kwargs):

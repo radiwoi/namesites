@@ -62,11 +62,11 @@ class GirlsNamesSerializer(serializers.ModelSerializer):
 
         return VariantNamesSerializer(query, many=True).data
 
-    def get_popular(self, boy_name):
+    def get_popular(self, girl_name):
         d = None
         if self.context.get("request"):
             # try:
-            d = boy_name.popular.filter(year=self.context.get("request").data.get("popular_year")).first()
+            d = girl_name.popular.filter(year=self.context.get("request").data.get("popular_year")).first()
         return PopularNamesSerializer(d).data
 
     class Meta:

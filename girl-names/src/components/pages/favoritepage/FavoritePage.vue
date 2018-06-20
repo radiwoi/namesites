@@ -83,11 +83,11 @@ export default{
 .fav-page-send-btn, .fav-page-send-btn:hover, .fav-page-send-btn:active, .fav-page-send-btn:focus {
   font-family: 'Quicksand-Bold';
   font-size: 18px;
-  background: #38c8b2;
+  background: #F88580;
   color: #fff;
   height:52px;
   min-width: 95px;
-  border: 2px solid #38c8b2;
+  border: 2px solid #F88580;
   border-radius: 5px;
   box-shadow: none;
 }
