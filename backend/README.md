@@ -100,5 +100,5 @@ EMAIL_HEADER = 'Trololo'
 
 
 Running Celery
-$ celery -A my_app worker -l info and keep the terminal session opened.
+$ celery -A names_project worker -l info and keep the terminal session opened.
 ```
