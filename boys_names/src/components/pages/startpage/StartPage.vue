@@ -5,15 +5,15 @@
       <div class="start-page-title">Dags att hitta ett namn till er son?</div>
       <div class="start-page-subtitle">Sok bland Sveriges samthiga pojknamn</div>
       <div class="row start-page-form">
-        <div class="col col-lg-2"><img class="img-fluid1 woman-png" src="../../../assets/Woman.png" alt=""></div>
-        <div class="col col-lg-6 offset-lg-1 start-page-core">
+        <div class="col col-lg-2 d-none d-sm-block"><img class="img-fluid1 woman-png hidden-sm" src="../../../assets/Woman.png" alt=""></div>
+        <div class="col col-lg-6 offset-lg-1 start-page-core col-sm-12">
           <search-form></search-form>
           <div class="results">
             <router-link v-bind:to="'/popular-page'">
               <div class="results-head">Popular names</div>
             </router-link>
             <div class="results-wrapper row">
-              <div v-for="item in popular_names" class="col-lg-3">
+              <div v-for="item in popular_names" class="col-lg-3 col-4">
                 <router-link v-bind:to="'/popular-page'">
                   {{item.name}}
                 </router-link>
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div class="col col-lg-3"><img class="img-fluid1" src="../../../assets/Man.png" alt=""></div>
+        <div class="col col-lg-3 d-none d-sm-block"><img class="img-fluid1" src="../../../assets/Man.png" alt=""></div>
       </div>
     </div>
   </div>
@@ -86,5 +86,18 @@ export default {
     font-family: 'Quicksand';
     line-height: 32px;
     font-size: 15px;
+  }
+
+  @media (max-width: 1200px) {}
+
+  @media (max-width: 992px) {}
+
+  @media (max-width: 768px) {}
+
+  @media (max-width: 576px) {
+    .start-page-subtitle{
+      margin-top: 20px;
+      line-height: 1;
+    }
   }
 </style>

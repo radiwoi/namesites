@@ -28,7 +28,7 @@
             {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
             <div class="tooltip freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
           </td>
-          <td class="table-cell dist-age" width="20%">
+          <td class="table-cell dist-age d-none d-sm-table-cell" width="20%">
             {{nameObj.average_age}} år<i class="fa fa-info-circle"></i>
             <div class="tooltip chart-tooltip">
               <div class="chart-top">
@@ -142,7 +142,7 @@ export default {
         this.$store.commit('changeDoSearch', false);
         this.isLoad = false;
     },
-    prepareRejectData(error){
+    prepareRejectData(error) {
       console.log(error);
       this.noResults = true;
       this.isLoad = false;
@@ -181,7 +181,7 @@ export default {
       return requestData;
     },
     style (width) {
-      if(width == 100){
+      if(width == 100) {
           return 70;
       } if(width == 0) {
           return 5;
@@ -448,4 +448,18 @@ export default {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+
+  @media (max-width: 1200px) {}
+
+  @media (max-width: 992px) {}
+
+  @media (max-width: 768px) {}
+
+  @media (max-width: 576px) {
+    .names-table td{
+      padding: 0.25rem;
+    }
+  }
+
 </style>

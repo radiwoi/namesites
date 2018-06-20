@@ -2,19 +2,20 @@
   <div class="subheader">
     <div class="container">
       <div class="row">
-        <div class="col col-lg-5 sub-menu">
+        <div class="col-9 col-lg-6 sub-menu">
           <router-link v-bind:to="'/search-page'">
             <span class="sub-menu-item" v-bind:class="{active: page == 'search-page'}">Sökning</span>
           </router-link>
           <router-link v-bind:to="'/popular-page'">
             <span class="sub-menu-item" v-bind:class="{active: page == 'popular-page'}">Populära namn</span>
           </router-link>
-          <router-link v-bind:to="'/favorite-page'">
+          <router-link class="d-none d-sm-inline" v-bind:to="'/favorite-page'">
             <span class="sub-menu-item" v-bind:class="{active: page == 'favorite-page'}">Mina favoriter</span>
           </router-link>
         </div>
-        <div class="col-lg-2 offset-lg-5">
-          <img class="img-fluid sub-img" src="../../assets/Logo-girl.png" alt="">
+        <div class="col-3 col-lg-2 offset-lg-4 right-sub">
+          <img class="img-fluid sub-img d-none d-sm-block" src="../../assets/Logo-girl.png" alt="">
+          <img class="img-fluid1 sub-img d-block d-sm-none" src="../../assets/Logo-girl-mobile.png" alt="">
         </div>
       </div>
     </div>
@@ -66,5 +67,26 @@ export default {
   }
   .sub-img{
     max-width: 82%;
+  }
+  @media (max-width: 1200px) {}
+
+  @media (max-width: 992px) {}
+
+  @media (max-width: 768px) {}
+
+  @media (max-width: 576px) {
+    /*.sub-menu-item{*/
+      /*height: 100%;*/
+    /*}*/
+    .sub-menu-item {
+      margin-right: 5px;
+    }
+    .right-sub{
+      text-align: right;
+    }
+    .sub-img{
+      max-width: 100%;
+
+    }
   }
 </style>

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import BoysNamesList, GirlsNamesList, VariationsNamesList, PopularNamesList, FavoriteNamesList
+from .views import BoysNamesList, GirlsNamesList, VariationsNamesList, PopularNamesList, FavoriteNamesList, EmailSender
 
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     path("variant-names/", VariationsNamesList.as_view()),
     path("popular-names/", PopularNamesList.as_view()),
     path("favorite-names/", FavoriteNamesList.as_view()),
+    path('send/email/', EmailSender.as_view()),
 ]

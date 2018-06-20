@@ -8,7 +8,7 @@
               <i style="visibility: hidden" class="fa fa-heart"></i>
             </td>
             <td class="names-title-cell" style="width:35%">
-              <div @click="namesTooltip = !namesTooltip, checkedNames = []" class="title-filter names-length-filter">
+              <div @click="namesTooltip = !namesTooltip, checkedNames.length == 6 ? checkedNames = [] : checkedNames=checkedNames" class="title-filter names-length-filter">
                 Namn <span class="filter-sorting"></span>
               </div>
               <div v-if="namesTooltip" class="tooltip freq-filter-tooltip">
@@ -35,7 +35,7 @@
             </td>
 
             <td class="freq-title-cell" style="width: 35%">
-              <div @click="freqTooltip = !freqTooltip, checkedFreqs=[]" class="title-filter freq-filter">
+              <div @click="freqTooltip = !freqTooltip, checkedFreqs.length == 6 ? checkedFreqs = [] : checkedFreqs=checkedFreqs" class="title-filter freq-filter">
                 Förecomst <span class="filter-sorting"></span>
               </div>
               <div v-if="freqTooltip" class="tooltip freq-filter-tooltip">
@@ -61,8 +61,8 @@
               </small>
             </td>
 
-            <td class="distribution-title-cell" style="width: 20%">
-              <div @click="ageTooltip = !ageTooltip, checkedAges=[]" class="title-filter">
+            <td class="distribution-title-cell d-none d-sm-table-cell" style="width: 20%">
+              <div @click="ageTooltip = !ageTooltip, checkedAges.length == 6 ? checkedAges = [] : checkedAges=checkedAges" class="title-filter">
                 Snittalder <span class="filter-sorting"></span>
               </div>
               <div v-if="ageTooltip" class="tooltip freq-filter-tooltip">
@@ -345,5 +345,16 @@ export default {
   }
   .freq-title-cell, .names-title-cell, .distribution-title-cell {
     position: relative;
+  }
+  @media (max-width: 1200px) {}
+
+  @media (max-width: 992px) {}
+
+  @media (max-width: 768px) {}
+
+  @media (max-width: 576px) {
+    .freq-filter-tooltip{
+      left: -30px;
+    }
   }
 </style>
