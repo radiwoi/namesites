@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'djcelery',
+    'djcelery_email',
     'api'
 ]
 
@@ -118,6 +120,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# CELERY setup
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+
+# SetUp Celery Email backend, and the SMTP server configurations
+
+EMAIL_HOST = 'SMTP_HOST'
+
+EMAIL_PORT = 'SMTP_PORT'
+
+EMAIL_HOST_USER = 'SMTP_USER'
+
+EMAIL_HOST_PASSWORD = 'SMTP_PASSWORD'
+
+EMAIL_USE_TLS = True   # TLS settings
+
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+
+EMAIL_HEADER = 'Trololo'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
