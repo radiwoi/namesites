@@ -58,3 +58,47 @@ method: POST
  
  Returns json response
 ```
+
+PS: setup email sender using Celery
+
+```
+$ sudo rabbitmqctl add_user myuser mypassword
+$ sudo rabbitmqctl add_vhost myvhost
+$ sudo rabbitmqctl set_user_tags myuser mytag
+$ sudo rabbitmqctl set_permissions -p myvhost myuser ".*" ".*" ".*"
+
+To start the server:
+
+$ sudo rabbitmq-server
+you can also run it in the background by adding the -detached option (note: only one dash):
+
+$ sudo rabbitmq-server -detached
+Never use kill (kill(1)) to stop the RabbitMQ server, but rather use the rabbitmqctl command:
+
+$ sudo rabbitmqctl stop
+
+
+
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+
+# SetUp Celery Email backend, and the SMTP server configurations
+
+EMAIL_HOST = 'SMTP_HOST'
+
+EMAIL_PORT = 'SMTP_PORT'
+
+EMAIL_HOST_USER = 'SMTP_USER'
+
+EMAIL_HOST_PASSWORD = 'SMTP_PASSWORD'
+
+EMAIL_USE_TLS = True   # TLS settings
+
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+
+EMAIL_HEADER = 'Trololo'
+
+
+
+Running Celery
+$ celery -A my_app worker -l info and keep the terminal session opened.
+```

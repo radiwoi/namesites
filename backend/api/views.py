@@ -1,27 +1,25 @@
-import json
-
 from django.contrib import messages
-from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import HttpResponse
-from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.parsers import JSONParser
+from rest_framework import status
+from rest_framework.decorators import api_view
 
 from names_project.settings import PER_PAGE, PER_PAGE_POPULAR
 from .parser import dispatcher
-from .models import BoyName, GirlName, PopularName, Variant, Email
+from .models import BoyName, GirlName, PopularName, Variant
 from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNamesSerializer, PopularNamesSerializer
 
 from django.db.models import Transform
 from django.db.models import CharField, TextField
+
+from .email_sender import Mailer
 
 
 class LowerCase(Transform):
@@ -32,6 +30,16 @@ class LowerCase(Transform):
 
 CharField.register_lookup(LowerCase)
 TextField.register_lookup(LowerCase)
+
+
+class ModelsMixin:
+    model = BoyName
+    serializer_class = BoysNamesSerializer
+
+    def assign_model(self, request):
+        if 'http://localhost:8082/' in request.META['HTTP_REFERER']:
+            self.serializer_class = GirlsNamesSerializer
+            self.model = GirlName
 
 
 class QueryRepository:
@@ -165,17 +173,14 @@ class GirlsNamesList(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 
-class PopularNamesList(generics.ListAPIView):
+class PopularNamesList(generics.ListAPIView, ModelsMixin):
     serializer_class = BoysNamesSerializer
     pagination_class = LimitOffsetPagination
-    model = BoyName
+    # model = BoyName
 
     def get_queryset(self):
         request = self.request
-        if 'http://localhost:8082/' in request.META['HTTP_REFERER']:
-            self.serializer_class = GirlsNamesSerializer
-            self.model = GirlName
-
+        self.assign_model(request)
         popular_name = request.data.get("popular_year", 2017)
 
         resp = QueryRepository.build_query(QueryRepository, request, self.model)
@@ -222,20 +227,14 @@ class VariationsNamesList(APIView):
         return Response(serializer.data)
 
 
-class FavoriteNamesList(generics.ListAPIView):
+class FavoriteNamesList(generics.ListAPIView, ModelsMixin):
     serializer_class = BoysNamesSerializer
     pagination_class = LimitOffsetPagination
     model = BoyName
 
     def get_queryset(self):
         request = self.request
-        if 'http://localhost:8082/' in request.META['HTTP_REFERER']:
-            self.serializer_class = GirlsNamesSerializer
-            self.model = GirlName
-
-        print(request.META['HTTP_REFERER'])
-        print(self.model)
-        print(self.serializer_class)
+        self.assign_model(request)
 
         ids = request.data.get("ids")
         resp = QueryRepository.build_query(QueryRepository, request, self.model)
@@ -246,43 +245,6 @@ class FavoriteNamesList(generics.ListAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
-
-
-class EmailSender(generics.ListAPIView):
-    serializer_class = BoysNamesSerializer
-    pagination_class = LimitOffsetPagination
-
-    def get_queryset(self):
-        request = self.request
-        ids = request.data.get("ids")
-        resp = QueryRepository.build_query(QueryRepository, request, BoyName)
-
-        resp = resp.filter(pk__in=ids)
-        return resp
-
-    def post(self, request, *args, **kwargs):
-        data = self.get_queryset()
-        email = request.data.get("user_email")
-        message = "You choose names: "
-        for d in data:
-            message += d.name + " "
-            # print(d.frequency)
-
-        log = Email(domain="", email=email)
-        log.save()
-
-        # print(message)
-        # print(email)
-
-        # send_mail(
-        #     'Subject here',
-        #     message,
-        #     'from@example.com',
-        #     [email],
-        #     fail_silently=False,
-        # )
-
-        return JsonResponse({'foo': 'bar'})
 
 
 def upload_file(request):
@@ -301,12 +263,3 @@ def upload_file(request):
     return redirect(reverse("admin:api_{}_changelist".format(model_name)))
 
 
-@csrf_exempt
-def send_email(request):
-    ids = request.data.get("ids")
-    resp = QueryRepository.build_query(QueryRepository, request, BoyName)
-
-    resp = resp.filter(pk__in=ids)
-    print(resp)
-
-    return JsonResponse({'foo': 'bar'})
