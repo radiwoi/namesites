@@ -27,7 +27,7 @@
   </div>
 </template>
 
-
+<!--http://names_project.devhost1.com-->
 <script>
 import axios from 'axios'
 export default {
@@ -41,7 +41,7 @@ export default {
   },
   mounted() {
       axios
-      .get("http://names_project.devhost1.com/api/v1/popular-names/?order=rand")
+      .get("http://127.0.0.1:8000/api/v1/popular-names/?order=rand")
       .then(response => (this.popular_names = response.data));
   },
   methods: {

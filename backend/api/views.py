@@ -39,7 +39,7 @@ class QueryRepository:
         pass
 
     @staticmethod
-    def build_query(cls, request):
+    def build_query(cls, request, model=BoyName):
         """
         Method for search boys names
         :param request: JSON string
@@ -137,8 +137,12 @@ class BoysNamesList(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 
-class GirlsNamesList(APIView):
-    def get(self, request, format=None):
+class GirlsNamesList(generics.ListAPIView):
+
+    def get_queryset(self):
+        pass
+
+    def get(self, request, *args, **kwargs):
         girl_names = GirlName.objects.all()
 
         paginator = Paginator(girl_names, PER_PAGE)
@@ -151,10 +155,14 @@ class GirlsNamesList(APIView):
 
         return Response(serializer.data)
 
+    def post(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
 
 class PopularNamesList(generics.ListAPIView):
     serializer_class = BoysNamesSerializer
     pagination_class = LimitOffsetPagination
+    model = BoyName
 
     def get_queryset(self):
         request = self.request
@@ -169,17 +177,20 @@ class PopularNamesList(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
+        if request.META['HTTP_REFERER'] == 'http://localhost:8082/':
+            self.serializer_class = GirlsNamesSerializer
+            self.model = GirlName
         order = request.GET.get('order')
 
         if order:
-            popular_names = BoyName.objects.order_by('?')[:PER_PAGE_POPULAR]
+            popular_names = self.model.objects.order_by('?')[:PER_PAGE_POPULAR]
         else:
-            popular_names = BoyName.objects.all()
+            popular_names = self.model.objects.all()
             paginator = Paginator(popular_names, PER_PAGE)
             page = request.GET.get('page', 1)
             popular_names = paginator.page(page)
 
-        serializer = BoysNamesSerializer(popular_names, many=True)
+        serializer = self.serializer_class(popular_names, many=True)
 
         return Response(serializer.data)
 

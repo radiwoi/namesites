@@ -1,0 +1,118 @@
+<template>
+  <div class="second-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-6 col-lg-3 logo-wrapper">
+          <router-link v-bind:to="'/'">
+            <img class="sec-img img-fluid" src="../../assets/Girl.png" alt="">
+          </router-link>
+        </div>
+        <div class="col-lg-6 offset-lg-2 d-none d-sm-block">
+          <search-form></search-form>
+        </div>
+        <div class="col-3 d-block d-xs-block d-sm-block d-md-none">
+          <img class="img-fluid" src="../../assets/Search-mobile.png" alt="">
+        </div>
+        <div class="col-3 col-lg-1 right-heart-wrapper">
+          <!--<img src="" alt="">-->
+          <router-link  v-bind:class="{'active':favoriteCount > 0}" class="popular-wrapper" to="/favorite-page">
+            <span class="fav-counter">{{favoriteCount}}</span>
+          </router-link>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  name: 'second-header',
+  data () {
+    return {
+      favoriteCount: 0
+    }
+  },
+  computed: {
+    ...mapGetters({
+      listFav: 'getListFav'
+    })
+  },
+  mounted() {
+    this.favoriteCount = this.listFav.length;
+  },
+  watch: {
+      listFav(o, n) {
+//          console.log('fav', o, n);
+          this.favoriteCount = n.length;
+      }
+  }
+}
+</script>
+
+<style>
+  .second-header {
+    background-image: url('http://api.thumbr.it/whitenoise-600x370.png?background=fff8f8ff&noise=dbd4d7&density=31&opacity=35');
+    padding-top: 15px;
+    padding-bottom: 20px;
+  }
+  .logo-wrapper {
+    text-align: left;
+  }
+  .sec-img{
+    max-width: 75%;
+    text-align: left;
+    margin-left: 0px;
+  }
+  .popular-wrapper{
+    background: url("../../assets/Heart-red.png");
+    background-repeat: no-repeat;
+    background-position: -3px -5px;
+    background-size: contain;
+    outline-style:none;
+    cursor: pointer;
+    color: #F88580 !important;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+  }
+  .popular-wrapper.active {
+    background: url("../../assets/Heart-red-filled.png");
+    background-repeat: no-repeat;
+    background-position: 0px -5px;
+    background-size: contain;
+    outline-style: none;
+    width: 100%;
+    cursor: pointer;
+    color: #fff !important;
+    display: inline-block;
+    height: 100%;
+  }
+  .fav-counter{
+    font-family: "Quicksand";
+    font-size: 22px;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: -5px;
+    outline-style:none;
+  }
+
+  @media (max-width: 1200px) {}
+
+  @media (max-width: 992px) {}
+
+  @media (max-width: 768px) {}
+
+  @media (max-width: 576px) {
+    .sec-img{
+      max-width: 100%;
+    }
+    .right-heart-wrapper{
+      text-align: right;
+    }
+    .popular-wrapper, .popular-wrapper.active{
+      /*width: 50%;*/
+    }
+  }
+
+</style>

@@ -49,24 +49,24 @@
                 {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
               </a>
             </li>
-            <!--&lt;!&ndash;TODO REFACTOR THIS!&ndash;&gt;-->
-            <!--<li>-->
-              <!--&lt;!&ndash;{% url cl.opts|admin_urlname:'add' as add_url %}&ndash;&gt;-->
+            <!--TODO REFACTOR THIS!-->
+            <li>
+              <!--{% url cl.opts|admin_urlname:'add' as add_url %}-->
 
-              <!--<form enctype="multipart/form-data" action="/admin/file/" method="post" id="importform">-->
-                  <!--{% csrf_token %}-->
-                  <!--<input type="hidden" name="db_name" value="girlname">-->
-                  <!--<input id="parse_file" name="db_file" type="file" value="load">-->
-              <!--</form>-->
-                                <!--<script>-->
-                    <!--document.getElementById("parse_file").onchange = function() {-->
-                        <!--document.getElementById("importform").submit();-->
-                    <!--};-->
-                <!--</script>-->
-              <!--&lt;!&ndash;<a href="#" class="addlink">&ndash;&gt;-->
-                <!--&lt;!&ndash;{% blocktrans with cl.opts.verbose_name as name %}Import {{ name }}{% endblocktrans %}&ndash;&gt;-->
-              <!--&lt;!&ndash;</a>&ndash;&gt;-->
-            <!--</li>-->
+              <form enctype="multipart/form-data" action="/admin/file/" method="post" id="importform">
+                  {% csrf_token %}
+                  <input type="hidden" name="db_name" value="girlname">
+                  <input id="parse_file" name="db_file" type="file" value="load">
+              </form>
+                                <script>
+                    document.getElementById("parse_file").onchange = function() {
+                        document.getElementById("importform").submit();
+                    };
+                </script>
+              <!--<a href="#" class="addlink">-->
+                <!--{% blocktrans with cl.opts.verbose_name as name %}Import {{ name }}{% endblocktrans %}-->
+              <!--</a>-->
+            </li>
             {% endif %}
           {% endblock %}
         </ul>
