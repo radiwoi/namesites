@@ -82,7 +82,7 @@
     <div v-if="isLoad" class="loader-wrapper">
       <div class="loader"></div>
     </div>
-    <div v-if="noResults" class="alert alert-info">No results found</div>
+    <div v-if="noResults" class="alert alert-danger">No results found</div>
   </div>
 </template>
 
@@ -94,7 +94,7 @@ export default {
   data () {
     return {
       urlsMapper:{
-        "search-page": "test",
+        "search-page": "girls-names",
         "popular-page": "popular-names",
         "favorite-page": "favorite-names",
       },

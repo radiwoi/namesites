@@ -39,7 +39,7 @@ class QueryRepository:
         pass
 
     @staticmethod
-    def build_query(cls, request, model=BoyName):
+    def build_query(cls, request, model):
         """
         Method for search boys names
         :param request: JSON string
@@ -60,10 +60,10 @@ class QueryRepository:
         age_distribution = request.data.get("age_distribution")
         letters_range = request.data.get("letters_range")
 
-        resp = BoyName.objects.filter()
+        resp = model.objects.filter()
 
         if frequency is not None and len(frequency) > 0:
-            resp = BoyName.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
+            resp = model.objects.filter(frequency__in=frequency).defer("double_name", "number_of_letters")
 
         double_name = True in letters_range
 
@@ -116,7 +116,7 @@ class BoysNamesList(generics.ListAPIView):
 
     def get_queryset(self):
         request = self.request
-        resp = QueryRepository.build_query(QueryRepository, request)
+        resp = QueryRepository.build_query(QueryRepository, request, BoyName)
         # print(resp.query)
         return resp.all()
 
@@ -138,9 +138,15 @@ class BoysNamesList(generics.ListAPIView):
 
 
 class GirlsNamesList(generics.ListAPIView):
+    serializer_class = GirlsNamesSerializer
+    pagination_class = LimitOffsetPagination
+    parser_classes = (JSONParser,)
 
     def get_queryset(self):
-        pass
+        request = self.request
+        resp = QueryRepository.build_query(QueryRepository, request, GirlName)
+        # print(resp.query)
+        return resp.all()
 
     def get(self, request, *args, **kwargs):
         girl_names = GirlName.objects.all()
@@ -167,7 +173,7 @@ class PopularNamesList(generics.ListAPIView):
     def get_queryset(self):
         request = self.request
         popular_name = request.data.get("popular_year", 2017)
-        resp = QueryRepository.build_query(QueryRepository, request)
+        resp = QueryRepository.build_query(QueryRepository, request, BoyName)
 
         resp = resp.filter(popular__year=popular_name)
         resp = resp.order_by('popular__position')
@@ -217,7 +223,7 @@ class FavoriteNamesList(generics.ListAPIView):
     def get_queryset(self):
         request = self.request
         ids = request.data.get("ids")
-        resp = QueryRepository.build_query(QueryRepository, request)
+        resp = QueryRepository.build_query(QueryRepository, request, BoyName)
 
         resp = resp.filter(pk__in=ids)
         return resp
@@ -233,7 +239,7 @@ class EmailSender(generics.ListAPIView):
     def get_queryset(self):
         request = self.request
         ids = request.data.get("ids")
-        resp = QueryRepository.build_query(QueryRepository, request)
+        resp = QueryRepository.build_query(QueryRepository, request, BoyName)
 
         resp = resp.filter(pk__in=ids)
         return resp
@@ -282,7 +288,7 @@ def upload_file(request):
 @csrf_exempt
 def send_email(request):
     ids = request.data.get("ids")
-    resp = QueryRepository.build_query(QueryRepository, request)
+    resp = QueryRepository.build_query(QueryRepository, request, BoyName)
 
     resp = resp.filter(pk__in=ids)
     print(resp)
