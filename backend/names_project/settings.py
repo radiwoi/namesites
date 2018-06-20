@@ -153,6 +153,10 @@ USE_L10N = True
 USE_TZ = True
 
 
+BOY_NAMES_URL = "http://localhost:8081/"
+GIRL_NAMES_URL = "http://localhost:8082/"
+
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 # CORS_ORIGIN_WHITELIST = (

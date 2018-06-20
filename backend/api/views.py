@@ -19,7 +19,7 @@ from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNames
 from django.db.models import Transform
 from django.db.models import CharField, TextField
 
-from .email_sender import Mailer
+from django.conf import settings
 
 
 class LowerCase(Transform):
@@ -37,7 +37,7 @@ class ModelsMixin:
     serializer_class = BoysNamesSerializer
 
     def assign_model(self, request):
-        if 'http://localhost:8082/' in request.META['HTTP_REFERER']:
+        if settings.GIRL_NAMES_URL in request.META['HTTP_REFERER']:
             self.serializer_class = GirlsNamesSerializer
             self.model = GirlName
 
@@ -208,21 +208,6 @@ class PopularNamesList(generics.ListAPIView, ModelsMixin):
             popular_names = paginator.page(page)
 
         serializer = self.serializer_class(popular_names, many=True)
-
-        return Response(serializer.data)
-
-
-class VariationsNamesList(APIView):
-    def get(self, request, format=None):
-        variation_names = Variant.objects.all()
-
-        paginator = Paginator(variation_names, PER_PAGE)
-        page = request.GET.get('page')
-        if not page:
-            page = 1
-        variation_names = paginator.page(page)
-
-        serializer = VariantNamesSerializer(variation_names, many=True)
 
         return Response(serializer.data)
 
