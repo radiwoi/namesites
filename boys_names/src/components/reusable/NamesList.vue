@@ -142,7 +142,7 @@ export default {
         this.$store.commit('changeDoSearch', false);
         this.isLoad = false;
     },
-    prepareRejectData(error){
+    prepareRejectData(error) {
       console.log(error);
       this.noResults = true;
       this.isLoad = false;
@@ -181,7 +181,7 @@ export default {
       return requestData;
     },
     style (width) {
-      if(width == 100){
+      if(width == 100) {
           return 70;
       } if(width == 0) {
           return 5;

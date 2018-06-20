@@ -17,7 +17,7 @@ from rest_framework.parsers import JSONParser
 
 from names_project.settings import PER_PAGE, PER_PAGE_POPULAR
 from .parser import dispatcher
-from .models import BoyName, GirlName, PopularName, Variant
+from .models import BoyName, GirlName, PopularName, Variant, Email
 from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNamesSerializer, PopularNamesSerializer
 
 from django.db.models import Transform
@@ -234,6 +234,9 @@ class EmailSender(generics.ListAPIView):
         for d in data:
             message += d.name + " "
             # print(d.frequency)
+
+        log = Email(domain="", email=email)
+        log.save()
 
         # print(message)
         # print(email)
