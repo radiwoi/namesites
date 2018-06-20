@@ -172,11 +172,21 @@ class PopularNamesList(generics.ListAPIView):
 
     def get_queryset(self):
         request = self.request
+        if 'http://localhost:8082/' in request.META['HTTP_REFERER']:
+            self.serializer_class = GirlsNamesSerializer
+            self.model = GirlName
+
         popular_name = request.data.get("popular_year", 2017)
-        resp = QueryRepository.build_query(QueryRepository, request, BoyName)
+
+        print(request.META['HTTP_REFERER'])
+        print(self.model)
+        print(self.serializer_class)
+
+        resp = QueryRepository.build_query(QueryRepository, request, self.model)
 
         resp = resp.filter(popular__year=popular_name)
         resp = resp.order_by('popular__position')
+        # print(resp.query)
         return resp.all()
 
     def post(self, request, *args, **kwargs):

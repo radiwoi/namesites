@@ -51,14 +51,14 @@ class GirlsNamesSerializer(serializers.ModelSerializer):
     variants = SerializerMethodField()
     popular = SerializerMethodField()
 
-    def get_variants(self, boy_name):
+    def get_variants(self, girl_name):
         query = Variant.objects.raw("""
             SELECT max(`api_variant`.`id`) as id, group_concat(name SEPARATOR ', ') AS `variants`, `api_variant`.`language`, COUNT(`api_variant`.`language`) AS `cnt`
             FROM `api_variant`
             INNER JOIN `api_girlname_variants`
             ON (`api_variant`.`id` = `api_girlname_variants`.`variant_id`)
             WHERE `api_girlname_variants`.`girlname_id` = %s GROUP BY `api_variant`.`language` ORDER BY NULL
-        """, [boy_name.pk])
+        """, [girl_name.pk])
 
         return VariantNamesSerializer(query, many=True).data
 

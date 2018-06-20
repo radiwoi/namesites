@@ -9,11 +9,13 @@ import SearchForm from './components/reusable/SearchForm.vue'
 import Filters from './components/reusable/Filters.vue'
 import NamesList from './components/reusable/NamesList.vue'
 import SearchPage from './components/pages/searchpage/SearchPage.vue'
+import PopularPage from './components/pages/popularpage/PopularPage.vue'
 
 Vue.component('main-header', Header);
 Vue.component('second-header', SecondHeader);
 Vue.component('start-page', StartPage);
 Vue.component('search-page', SearchPage);
+Vue.component('popular-page', PopularPage);
 
 
 // reusable components
