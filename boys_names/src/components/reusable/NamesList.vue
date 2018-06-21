@@ -121,9 +121,9 @@ export default {
   },
   methods: {
     paginationClick (value) {
-        let urlParams = new URLSearchParams(value);
-        value = value.replace('http://localhost:8000/api/v1/', this.backend_url);
         if(value !== null) {
+            let urlParams = new URLSearchParams(value);
+            value = value.replace('http://localhost:8000/api/v1/', this.backend_url);
             axios.post(value, this.searchObject)
             .then(r => {
                 this.prepareResponseData(r);
