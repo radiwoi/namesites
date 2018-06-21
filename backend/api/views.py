@@ -192,9 +192,12 @@ class PopularNamesList(generics.ListAPIView, ModelsMixin):
         return self.list(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        if request.META['HTTP_REFERER'] == 'http://localhost:8082/':
-            self.serializer_class = GirlsNamesSerializer
-            self.model = GirlName
+        # if request.META['HTTP_REFERER'] == 'http://localhost:8082/':
+        #     self.serializer_class = GirlsNamesSerializer
+        #     self.model = GirlName
+
+        self.assign_model(request)
+
         order = request.GET.get('order')
 
         if order:
