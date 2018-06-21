@@ -153,12 +153,12 @@ USE_L10N = True
 USE_TZ = True
 
 # local
-# BOY_NAMES_URL = "http://localhost:8081/"
-# GIRL_NAMES_URL = "http://localhost:8082/"
+BOY_NAMES_URL = "http://localhost:8081/"
+GIRL_NAMES_URL = "http://localhost:8082/"
 
 # dev
-BOY_NAMES_URL = "http://boy_names.devhost1.com/"
-GIRL_NAMES_URL = "http://girl_names.devhost1.com/"
+# BOY_NAMES_URL = "http://boy_names.devhost1.com/"
+# GIRL_NAMES_URL = "http://girl_names.devhost1.com/"
 
 CORS_ORIGIN_ALLOW_ALL = True
 

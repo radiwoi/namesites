@@ -72,8 +72,13 @@
     <div v-if="namesList.length > 0" class="pagination">
       <ul class="top-pagination pagination">
        <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev)"><i class="fa fa-angle-left"></i></li>
-       <span class="page-counter">
+       <span @click="showPageTooltip = !showPageTooltip" class="page-counter">
          Sida {{page_number}} / {{total_pages}} <i class="fa fa-angle-down"></i>
+         <div v-if="showPageTooltip" class="tooltip page-tooltip">
+           <div class="p-item" @click="pagesTooltipClick(p)" v-for="p in total_pages_arr">
+              {{p}} / {{total_pages}}
+           </div>
+         </div>
        </span>
       <li class="page-item page-next" v-bind:class="{disabled: !next}" @click="paginationClick(next)"><i class="fa fa-angle-right"></i></li>
       </ul>
@@ -99,6 +104,8 @@ export default {
         "favorite-page": "favorite-names",
       },
       namesList: [],
+      total_pages_arr: [],
+      showPageTooltip:false,
       currentPage: "",
       isLoad: true,
       noResults: false,
@@ -130,17 +137,32 @@ export default {
             .catch(error => { this.prepareRejectData(error) });
         }
     },
+    pagesTooltipClick(value){
+      let data = this.getRequestData();
+      data['url'] = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.limit * (value - 1);
+      axios.post(
+        data['url'],
+        data["postData"]
+      ).then(r => {
+          this.prepareResponseData(r);
+          this.page_number = value;
+      })
+      .catch(error => { this.prepareRejectData(error) });
+    },
     prepareResponseData(r){
-        if(r.data.results == 0){
-            this.noResults = true;
-        }
-        this.namesList = r.data.results;
-        this.total_results = r.data.count;
-        this.prev = r.data.previous;
-        this.next = r.data.next;
-        this.total_pages = Math.ceil(this.total_results / this.searchObject.limit);
-        this.$store.commit('changeDoSearch', false);
-        this.isLoad = false;
+      if(r.data.results == 0){
+          this.noResults = true;
+      }
+      this.namesList = r.data.results;
+      this.total_results = r.data.count;
+      this.prev = r.data.previous;
+      this.next = r.data.next;
+      this.total_pages = Math.ceil(this.total_results / this.searchObject.limit);
+      this.$store.commit('changeDoSearch', false);
+      this.isLoad = false;
+      for(let i=1; i <= this.total_pages; i++){
+          this.total_pages_arr.push(i);
+      }
     },
     prepareRejectData(error) {
       console.log(error);
@@ -302,6 +324,8 @@ export default {
   .page-counter {
     -webkit-tap-highlight-color:transparent;
     outline-style:none;
+    position: relative;
+    cursor: pointer;
   }
   .page-item {
     cursor: pointer;
@@ -436,6 +460,33 @@ export default {
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
     margin: 0 auto;
+  }
+  .page-tooltip {
+    font-family: 'Quicksand';
+    display: block;
+    top: 100%;
+    right:-10px;
+    opacity: 1;
+    background: #fff;
+    padding-top: 3px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    box-shadow: 0px 2px 15px #dc8796;
+    width: 120px;
+    max-height: 288px;
+    overflow: auto;
+    text-align: left;
+    font-size: 16px;
+  }
+  .p-item{
+    cursor: pointer;
+    width: 100%;
+    padding-left: 25px;
+  }
+  .p-item:hover{
+    cursor: pointer;
+    background: #fff9f8;
   }
 
   /* Safari */

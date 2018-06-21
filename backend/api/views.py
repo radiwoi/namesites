@@ -226,7 +226,7 @@ class FavoriteNamesList(generics.ListAPIView, ModelsMixin):
         resp = QueryRepository.build_query(QueryRepository, request, self.model)
 
         resp = resp.filter(pk__in=ids)
-        print(resp.query)
+        # print(resp.query)
         return resp
 
     def post(self, request, *args, **kwargs):
