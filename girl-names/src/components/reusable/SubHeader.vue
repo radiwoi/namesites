@@ -14,8 +14,12 @@
           </router-link>
         </div>
         <div class="col-3 col-lg-2 offset-lg-4 right-sub">
-          <img class="img-fluid sub-img d-none d-sm-block" src="../../assets/Logo-boy.png" alt="">
-          <img class="img-fluid1 sub-img d-block d-sm-none" src="../../assets/Logo-boy-mobile.png" alt="">
+          <a :href="boy_names_site">
+            <img class="img-fluid sub-img d-none d-sm-block" src="../../assets/Logo-boy.png" alt="">
+          </a>
+          <a :href="boy_names_site">
+            <img class="img-fluid1 sub-img d-block d-sm-none" src="../../assets/Logo-boy-mobile.png" alt="">
+          </a>
         </div>
       </div>
     </div>
@@ -27,7 +31,8 @@ export default {
   name: 'sub-header',
   data () {
       return {
-          page: ""
+        page: "",
+        boy_names_site: "http://boy_names.devhost.com"
       }
   },
   mounted () {
