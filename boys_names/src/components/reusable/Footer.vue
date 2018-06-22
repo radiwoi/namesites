@@ -2,21 +2,13 @@
   <div class="footer">
     <div class="container">
       <div class="row">
-        <div class="footer-text-col col-12 col-lg-4">
-          Pojknamn / Killnamn
-          Vi har samlat folkbokförda svenska namn och varianter av dessa som traditionellt sorteras in under pojknamn och unisexnamn. Att välja ett namn till ditt barn kan ibland kännas överväldigande. Förutom de olika alternativ du själv tar fram så kommer du troligtvis också få förslag från vänner och släktingar - oavsett om du vill ha dem eller inte.
-          Det finns ingen metod som är rätt eller fel när man väljer namn. Det viktigaste är att välja ett namn som du verkligen tycker om. Oavsett vilket namn du väljer så växer ditt barn tids nog in i sitt namn och det kommer att kännas naturligt. Nedan är några saker som kan vara bra att tänka på innan du bestämmer dig.
-
-        </div>
-        <div class="footer-text-col col-12 col-lg-4">
-          Pojknamn / Killnamn
-          Vi har samlat folkbokförda svenska namn och varianter av dessa som traditionellt sorteras in under pojknamn och unisexnamn. Att välja ett namn till ditt barn kan ibland kännas överväldigande. Förutom de olika alternativ du själv tar fram så kommer du troligtvis också få förslag från vänner och släktingar - oavsett om du vill ha dem eller inte.
-          Det finns ingen metod som är rätt eller fel när man väljer namn. Det viktigaste är att välja ett namn som du verkligen tycker om. Oavsett vilket namn du väljer så växer ditt barn tids nog in i sitt namn och det kommer att kännas naturligt. Nedan är några saker som kan vara bra att tänka på innan du bestämmer dig.
-        </div>
-        <div class="footer-text-col col-12 col-lg-4">
-          Pojknamn / Killnamn
-          Vi har samlat folkbokförda svenska namn och varianter av dessa som traditionellt sorteras in under pojknamn och unisexnamn. Att välja ett namn till ditt barn kan ibland kännas överväldigande. Förutom de olika alternativ du själv tar fram så kommer du troligtvis också få förslag från vänner och släktingar - oavsett om du vill ha dem eller inte.
-          Det finns ingen metod som är rätt eller fel när man väljer namn. Det viktigaste är att välja ett namn som du verkligen tycker om. Oavsett vilket namn du väljer så växer ditt barn tids nog in i sitt namn och det kommer att kännas naturligt. Nedan är några saker som kan vara bra att tänka på innan du bestämmer dig.
+        <div v-for="text in footerTexts" class="footer-text-col col-12 col-lg-4">
+          <div class="footer-title">
+            {{text.boy_title}}
+          </div>
+          <div class="col-text-wrapper">
+            {{text.boy_names}}
+          </div>
         </div>
       </div>
     </div>
@@ -40,7 +32,7 @@ export default{
 //  .get("http://names_project.devhost1.com/api/v1/footer-texts/")
   mounted() {
     axios
-      .get("http://127.0.0.1:8000/api/v1/footer-texts/")
+      .get("http://names_project.devhost1.com/api/v1/footer-texts/")
       .then(response => (this.footerTexts = response.data));
   }
 }
@@ -58,5 +50,10 @@ export default{
   .footer-text-col{
     font-size: 12px;
     text-align: left;
+  }
+  .footer-title{
+    font-family: 'Quicksand-Bold';
+    margin-bottom: 15px;
+    font-size: 15px;
   }
 </style>

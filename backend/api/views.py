@@ -239,7 +239,7 @@ class FooterTextsList(generics.ListAPIView):
     model = FooterTexts
 
     def get(self, request, *args, **kwargs):
-        footer_texts = self.model.objects.order_by('?')[:PER_PAGE_POPULAR]
+        footer_texts = self.model.objects.order_by('position')[:PER_PAGE_POPULAR]
         serializer = self.serializer_class(footer_texts, many=True)
 
         return Response(serializer.data)
