@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework import status
 from rest_framework.fields import SerializerMethodField
 
-from .models import BoyName, GirlName, PopularName, Variant
+from .models import BoyName, GirlName, PopularName, Variant, FooterTexts
 
 
 class BoysNamesSerializer(serializers.ModelSerializer):
@@ -89,3 +89,9 @@ class VariantNamesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Variant
         fields = ('language', 'variants',)
+
+
+class FooterTextsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FooterTexts
+        fields = '__all__'

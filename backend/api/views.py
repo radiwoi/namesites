@@ -11,8 +11,9 @@ from rest_framework.parsers import JSONParser
 
 from names_project.settings import PER_PAGE, PER_PAGE_POPULAR
 from .parser import dispatcher
-from .models import BoyName, GirlName, PopularName, Variant
+from .models import BoyName, GirlName, PopularName, Variant, FooterTexts
 from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNamesSerializer, PopularNamesSerializer
+from .serializers import FooterTextsSerializer
 
 from django.db.models import Transform
 from django.db.models import CharField, TextField
@@ -231,6 +232,17 @@ class FavoriteNamesList(generics.ListAPIView, ModelsMixin):
 
     def post(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+
+class FooterTextsList(generics.ListAPIView):
+    serializer_class = FooterTextsSerializer
+    model = FooterTexts
+
+    def get(self, request, *args, **kwargs):
+        footer_texts = self.model.objects.order_by('?')[:PER_PAGE_POPULAR]
+        serializer = self.serializer_class(footer_texts, many=True)
+
+        return Response(serializer.data)
 
 
 def upload_file(request):

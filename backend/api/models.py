@@ -70,7 +70,8 @@ class Email(models.Model):
 class FooterTexts(models.Model):
     title = models.CharField(max_length=64)
     position = models.CharField(max_length=64)
-    text = models.TextField()
+    boy_names = models.TextField(null=True)
+    girl_names = models.TextField(null=True)
     read_more_words = models.IntegerField()
 
     class Meta:

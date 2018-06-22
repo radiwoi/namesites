@@ -25,7 +25,25 @@
 
 
 <script>
+import axios from 'axios'
+export default{
+  name: 'footer',
+  data() {
+      return {
+        backend_url: "",
+        footerTexts: []
+      }
+  },
+  methods: {
 
+  },
+//  .get("http://names_project.devhost1.com/api/v1/footer-texts/")
+  mounted() {
+    axios
+      .get("http://127.0.0.1:8000/api/v1/footer-texts/")
+      .then(response => (this.footerTexts = response.data));
+  }
+}
 </script>
 
 <style>

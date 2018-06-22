@@ -144,7 +144,7 @@ export default {
     }
     .fav-counter{
       position: absolute;
-      left: 38px;
+      left: 40px;
       top:-5px;
     }
     .popular-wrapper, .popular-wrapper.active{
