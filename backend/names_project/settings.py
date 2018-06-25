@@ -96,6 +96,8 @@ DATABASES = {
         'NAME': 'names_project',
         'USER': 'root',
         'PASSWORD': 'root',
+         # wL>c83Ev6&4V7j9
+         # walmart LAPTOP > coffee 8 3 EGG visa 6 & 4 VISA 7 jack 9
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
@@ -125,9 +127,9 @@ CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 # SetUp Celery Email backend, and the SMTP server configurations
 
-EMAIL_HOST = 'SMTP_HOST'
+EMAIL_HOST = 'smtp.gmail.com'
 
-EMAIL_PORT = 'SMTP_PORT'
+EMAIL_PORT = '465' # 587 for tls
 
 EMAIL_HOST_USER = 'SMTP_USER'
 
