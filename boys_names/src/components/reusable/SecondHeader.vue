@@ -2,12 +2,12 @@
   <div class="second-header">
     <div class="container">
       <div style="position:relative" class="row">
-        <div class="col-6 col-lg-3 logo-wrapper">
+        <div class="col-6 col-lg-3 col-md-3 logo-wrapper">
           <router-link v-bind:to="'/'">
             <img class="sec-img img-fluid" src="../../assets/Boy.png" alt="">
           </router-link>
         </div>
-        <div v-if="!mobileDevice" class="col-lg-6 offset-lg-2 d-none d-sm-block">
+        <div v-if="!mobileDevice" class="col-lg-6 col-md-8 offset-lg-2 d-none d-sm-block">
           <search-form></search-form>
         </div>
         <div v-if="mobileDevice && mobileFormActive" class="search-header-wrapper">
@@ -17,7 +17,7 @@
           <img v-if="mobileDevice && !mobileFormActive" class="img-fluid" src="../../assets/Search-mobile.png" alt="">
           <img v-if="mobileDevice && mobileFormActive" class="img-fluid" src="../../assets/green-cross.png" alt="">
         </div>
-        <div class="col-3 col-lg-1 right-heart-wrapper">
+        <div class="col-3 col-md-1 col-lg-1 right-heart-wrapper">
           <!--<img src="" alt="">-->
           <router-link  v-bind:class="{'active':favoriteCount > 0}" class="popular-wrapper" to="/favorite-page">
             <span class="fav-counter">{{favoriteCount}}</span>
@@ -125,6 +125,26 @@ export default {
     margin-left: -5px;
     outline-style:none;
   }
+  .right-heart-wrapper{
+     text-align: center;
+     position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .sec-img {
+      max-width: 100%;
+    }
+    .right-heart-wrapper {
+      padding: 0;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .right-heart-wrapper {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
 
   @media (max-width: 1200px) {}
 
@@ -133,17 +153,8 @@ export default {
   @media (max-width: 768px) {}
 
   @media (max-width: 576px) {
-        .sec-img{
+    .sec-img{
       max-width: 100%;
-    }
-    .right-heart-wrapper{
-      text-align: right;
-      position: relative;
-    }
-    .fav-counter{
-      position: absolute;
-      left: 43px;
-      top: 1px;
     }
     .popular-wrapper, .popular-wrapper.active{
       /*width: 50%;*/
