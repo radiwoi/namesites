@@ -480,6 +480,9 @@ export default {
     text-align: left;
     font-size: 16px;
   }
+  .tooltip {
+    pointer-events: none;
+  }
   .p-item{
     cursor: pointer;
     width: 100%;
