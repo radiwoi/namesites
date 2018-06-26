@@ -94,4 +94,12 @@ export default {
 
     }
   }
+
+  @media (max-width: 360px) {
+    .sub-menu {
+      font-family: 'Quicksand-Bold';
+      font-size: 16px;
+    }
+  }
+
 </style>

@@ -54,6 +54,7 @@ export default{
   .footer-title{
     font-family: 'Quicksand-Bold';
     margin-bottom: 15px;
+    margin-top: 15px;
     font-size: 15px;
   }
 </style>
