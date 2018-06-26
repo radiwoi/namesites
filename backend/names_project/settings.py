@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['34.254.119.140']
 
 # USE_X_FORWARDED_HOST = True
 
-HOST_URL = 'http://names_project.devhost1.com'
+HOST_URL = 'http://34.254.119.140'
 
 # Application definition
 
@@ -95,7 +95,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'names_project',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'wL>c83Ev6&4V7j9',
          # wL>c83Ev6&4V7j9
          # walmart LAPTOP > coffee 8 3 EGG visa 6 & 4 VISA 7 jack 9
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
