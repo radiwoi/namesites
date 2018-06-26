@@ -159,7 +159,7 @@ USE_TZ = True
 # GIRL_NAMES_URL = "http://localhost:8082/"
 
 # dev
-BOY_NAMES_URL = "http://boy_names.devhost1.com/"
+BOY_NAMES_URL = "http://34.254.119.140/"
 GIRL_NAMES_URL = "http://girl_names.devhost1.com/"
 
 CORS_ORIGIN_ALLOW_ALL = True
