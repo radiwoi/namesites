@@ -77,7 +77,12 @@ export default {
 
   @media (max-width: 992px) {}
 
-  @media (max-width: 768px) {}
+  @media (max-width: 768px) {
+     .sub-menu {
+      font-family: 'Quicksand-Bold';
+      font-size: 16px;
+    }
+  }
 
   @media (max-width: 576px) {
     /*.sub-menu-item{*/
@@ -94,10 +99,5 @@ export default {
 
     }
   }
-   @media (max-width: 360px) {
-    .sub-menu {
-      font-family: 'Quicksand-Bold';
-      font-size: 16px;
-    }
-  }
+
 </style>
