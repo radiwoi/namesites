@@ -4,7 +4,7 @@ from .views import BoysNamesList, GirlsNamesList, PopularNamesList, FavoriteName
 
 
 urlpatterns = [
-    path("test/", BoysNamesList.as_view()),
+    path("boy-names/", BoysNamesList.as_view()),
     path("footer-texts/", FooterTextsList.as_view()),
     path("girls-names/", GirlsNamesList.as_view()),
     path("popular-names/", PopularNamesList.as_view()),

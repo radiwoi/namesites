@@ -99,7 +99,7 @@ export default {
   data () {
     return {
       urlsMapper:{
-        "search-page": "test",
+        "search-page": "boy-names",
         "popular-page": "popular-names",
         "favorite-page": "favorite-names",
       },

@@ -17,6 +17,7 @@ from .serializers import FooterTextsSerializer
 
 from django.db.models import Transform
 from django.db.models import CharField, TextField
+from braces.views import CsrfExemptMixin
 
 from django.conf import settings
 
@@ -117,7 +118,7 @@ class QueryRepository:
         return resp
 
 
-class BoysNamesList(generics.ListAPIView):
+class BoysNamesList(generics.ListAPIView, CsrfExemptMixin):
     parser_classes = (JSONParser,)
     serializer_class = BoysNamesSerializer
     pagination_class = LimitOffsetPagination
@@ -145,7 +146,7 @@ class BoysNamesList(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 
-class GirlsNamesList(generics.ListAPIView):
+class GirlsNamesList(generics.ListAPIView, CsrfExemptMixin):
     serializer_class = GirlsNamesSerializer
     pagination_class = LimitOffsetPagination
     parser_classes = (JSONParser,)
@@ -173,7 +174,7 @@ class GirlsNamesList(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 
-class PopularNamesList(generics.ListAPIView, ModelsMixin):
+class PopularNamesList(generics.ListAPIView, ModelsMixin, CsrfExemptMixin):
     serializer_class = BoysNamesSerializer
     pagination_class = LimitOffsetPagination
     # model = BoyName
@@ -215,7 +216,7 @@ class PopularNamesList(generics.ListAPIView, ModelsMixin):
         return Response(serializer.data)
 
 
-class FavoriteNamesList(generics.ListAPIView, ModelsMixin):
+class FavoriteNamesList(generics.ListAPIView, ModelsMixin, CsrfExemptMixin):
     serializer_class = BoysNamesSerializer
     pagination_class = LimitOffsetPagination
     model = BoyName
@@ -235,7 +236,7 @@ class FavoriteNamesList(generics.ListAPIView, ModelsMixin):
         return self.list(request, *args, **kwargs)
 
 
-class FooterTextsList(generics.ListAPIView):
+class FooterTextsList(generics.ListAPIView, CsrfExemptMixin):
     serializer_class = FooterTextsSerializer
     model = FooterTexts
 
