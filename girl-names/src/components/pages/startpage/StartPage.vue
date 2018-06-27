@@ -46,6 +46,9 @@ export default {
   },
   methods: {
 
+  },
+  created: function() {
+    window.document.title = "Start page"
   }
 }
 </script>

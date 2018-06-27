@@ -55,6 +55,9 @@ export default {
       searchObject: "getSearchObject"
     })
   },
+  created: function() {
+    window.document.title = "Popular page"
+  }
 }
 </script>
 

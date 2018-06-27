@@ -25,6 +25,9 @@ export default {
   },
   mounted () {
 
+  },
+  created: function() {
+    window.document.title = "Search page"
   }
 }
 </script>
