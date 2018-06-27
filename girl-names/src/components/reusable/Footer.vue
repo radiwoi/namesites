@@ -32,7 +32,7 @@ export default{
 //  .get("http://names_project.devhost1.com/api/v1/footer-texts/")
   mounted() {
     axios
-      .get("http://34.254.119.140/api/v1/footer-texts/")
+      .get("http://34.254.119.140/api/v1/footer-texts/?is_girl_name=True")
       .then(response => (this.footerTexts = response.data));
   }
 }
