@@ -9,7 +9,7 @@
           <td class="table-cell namn" width="35%">
             <span class="popular-rate" v-if="currentPage == 'popular-page'">{{nameObj.popular.position}}</span>
             <span >{{nameObj.name}}</span> <i v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="fa fa-info-circle"></i>
-            <div v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="tooltip main-tooltip">
+            <div v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="tooltip tooltip-list main-tooltip">
               <div v-if="nameObj.variants.length > 0" class="variants-list">
                 <div class="tooltip-title">
                   Variants
@@ -26,11 +26,11 @@
           </td>
           <td class="table-cell frequency" width="35%">
             {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
-            <div class="tooltip freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
+            <div class="tooltip tooltip-list freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
           </td>
           <td class="table-cell dist-age d-none d-sm-table-cell" width="20%">
             {{nameObj.average_age}} år<i class="fa fa-info-circle"></i>
-            <div class="tooltip chart-tooltip">
+            <div class="tooltip tooltip-list chart-tooltip">
               <div class="chart-top">
                 <div class="green-cols-wrapper">
                   <span class="a" style="height:100%; width: 30px; background: transparent"></span>
@@ -480,7 +480,7 @@ export default {
     text-align: left;
     font-size: 16px;
   }
-  .tooltip {
+  .tooltip-list {
     pointer-events: none;
   }
   .p-item{
