@@ -27743,83 +27743,6 @@ INSERT INTO `api_variant` (`id`, `name`, `language`) VALUES
 (12116, 'Zalman', 'Yiddish'),
 (10370, 'Anayeli', 'Zapotec');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `auth_group`
---
-
-CREATE TABLE `auth_group` (
-  `id` int(11) NOT NULL,
-  `name` varchar(80) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `auth_group_permissions`
---
-
-CREATE TABLE `auth_group_permissions` (
-  `id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
-  `permission_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `auth_permission`
---
-
-CREATE TABLE `auth_permission` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `content_type_id` int(11) NOT NULL,
-  `codename` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `auth_permission`
---
-
-INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALUES
-(1, 'Can add log entry', 1, 'add_logentry'),
-(2, 'Can change log entry', 1, 'change_logentry'),
-(3, 'Can delete log entry', 1, 'delete_logentry'),
-(4, 'Can add user', 2, 'add_user'),
-(5, 'Can change user', 2, 'change_user'),
-(6, 'Can delete user', 2, 'delete_user'),
-(7, 'Can add permission', 3, 'add_permission'),
-(8, 'Can change permission', 3, 'change_permission'),
-(9, 'Can delete permission', 3, 'delete_permission'),
-(10, 'Can add group', 4, 'add_group'),
-(11, 'Can change group', 4, 'change_group'),
-(12, 'Can delete group', 4, 'delete_group'),
-(13, 'Can add content type', 5, 'add_contenttype'),
-(14, 'Can change content type', 5, 'change_contenttype'),
-(15, 'Can delete content type', 5, 'delete_contenttype'),
-(16, 'Can add session', 6, 'add_session'),
-(17, 'Can change session', 6, 'change_session'),
-(18, 'Can delete session', 6, 'delete_session'),
-(19, 'Can add footer texts', 7, 'add_footertexts'),
-(20, 'Can change footer texts', 7, 'change_footertexts'),
-(21, 'Can delete footer texts', 7, 'delete_footertexts'),
-(22, 'Can add girl name', 8, 'add_girlname'),
-(23, 'Can change girl name', 8, 'change_girlname'),
-(24, 'Can delete girl name', 8, 'delete_girlname'),
-(25, 'Can add boy name', 9, 'add_boyname'),
-(26, 'Can change boy name', 9, 'change_boyname'),
-(27, 'Can delete boy name', 9, 'delete_boyname'),
-(28, 'Can add variant', 10, 'add_variant'),
-(29, 'Can change variant', 10, 'change_variant'),
-(30, 'Can delete variant', 10, 'delete_variant'),
-(31, 'Can add popular name', 11, 'add_popularname'),
-(32, 'Can change popular name', 11, 'change_popularname'),
-(33, 'Can delete popular name', 11, 'delete_popularname'),
-(34, 'Can add email', 12, 'add_email'),
-(35, 'Can change email', 12, 'change_email'),
-(36, 'Can delete email', 12, 'delete_email');
 
 --
 -- Indexes for table `api_boyname`
@@ -27948,7 +27871,7 @@ ALTER TABLE `api_popularname`
 ALTER TABLE `api_variant`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14204;
 --
--- AUTO_INCREMENT for table `auth_group`
+--
 --
 
 --
