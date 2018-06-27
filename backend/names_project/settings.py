@@ -25,7 +25,7 @@ SECRET_KEY = '(0wm6p3li_)$6jazgvjn0doj0e-ub6a851bo(*y0v7oy42_b7q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['34.254.119.140']
+ALLOWED_HOSTS = ['34.254.119.140', 'pojknamn.se', 'flicknamn.se']
 
 # USE_X_FORWARDED_HOST = True
 
