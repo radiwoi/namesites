@@ -122,6 +122,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEFAULT_AUTHENTICATION_CLASSES = [
+    'names_project.auth_classes.CsrfExemptSessionAuthentication'
+]
+
 # CELERY setup
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
