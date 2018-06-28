@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from api.views import upload_file
-from api.helpers import send_email
+from api.helpers import send_email, sendemail
 from django.conf import settings
 from django.conf.urls.static import static
 
