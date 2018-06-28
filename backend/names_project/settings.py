@@ -115,23 +115,30 @@ DEFAULT_AUTHENTICATION_CLASSES = [
 ]
 
 # CELERY setup
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+# CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 # SetUp Celery Email backend, and the SMTP server configurations
 
-EMAIL_HOST = 'mail.pojknamn.se'
+# EMAIL_HOST = 'mail.pojknamn.se'
 
-EMAIL_PORT = '25' # 587 for tls
+# EMAIL_PORT = '25' # 587 for tls
 
-EMAIL_HOST_USER = 'emailsender'
+# EMAIL_HOST_USER = 'emailsender'
 
-EMAIL_HOST_PASSWORD = 'V(hpwf=S4jWG6=='
+# EMAIL_HOST_PASSWORD = 'V(hpwf=S4jWG6=='
 
-EMAIL_USE_TLS = True   # TLS settings
+# EMAIL_USE_TLS = True   # TLS settings
 
-EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+# EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 
-EMAIL_HEADER = 'Trololo'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+EMAIL_HOST = 'email-smtp.eu-west-1.amazonaws.com'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+
+# EMAIL_HEADER = 'Trololo'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
