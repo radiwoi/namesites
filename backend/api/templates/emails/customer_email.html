@@ -1,46 +1,34 @@
-# -*- coding: utf-8 -*-
 <div class="container">
     <table class="table filters-table">
+        <thead>
+        <tr>
+            <th class="names-title-cell" style="width: 40%;">
+                    {{ capt.name | safe }}
+            </th>
+            <th class="freq-title-cell" style="width: 40%;">
+                    {{ capt.frequency | safe }}
+            </th>
+            <th class="distribution-title-cell d-none d-sm-table-cell" style="width: 20%;">
+                    {{ capt.average_age }}
+            </th>
+        </tr>
+        </thead>
         <tbody>
-        {% for element in capt %}
-            <tr>
-                <td class="names-title-cell" style="width: 40%;">
-                    <div class="title-filter names-length-filter">
-                        {{ element.name | safe }}
-                    </div>
-                </td>
-                <td class="freq-title-cell" style="width: 40%;">
-                    <div class="title-filter freq-filter">
-                        {{ element.frequency | safe }}
-                    </div>
-                </td>
-                <td class="distribution-title-cell d-none d-sm-table-cell" style="width: 20%;">
-                    <div class="title-filter">
-                        {{ element.average_age }}
-                    </div>
-                </td>
-            </tr>
+        {% for element in arr %}
+        <tr>
+            <td width="40%" class="table-cell namn">
+            <span>
+                {{ element.name | safe }}
+            </span>
+            </td>
+            <td width="40%" class="table-cell frequency">
+                {{ element.frequency | safe }}
+            </td>
+            <td width="20%" class="table-cell dist-age d-none d-sm-table-cell">
+                {{ element.average_age }}
+            </td>
+        </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
-
-<table class="table table-striped names-table">
-    <tbody>
-    {% for element in arr %}
-    <tr>
-        <td width="40%" class="table-cell namn">
-            <span>
-                {{ element.name | safe }}
-            </span>
-        </td>
-        <td width="40%" class="table-cell frequency">
-          {{ element.frequency | safe }}
-        </td>
-        <td width="20%" class="table-cell dist-age d-none d-sm-table-cell">
-          {{ element.average_age }}
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>

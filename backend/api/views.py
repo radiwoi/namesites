@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import redirect
+from django.template.loader import get_template
 from django.urls import reverse
 from rest_framework import generics
 from rest_framework.pagination import LimitOffsetPagination
@@ -20,6 +22,10 @@ from django.db.models import CharField, TextField
 from braces.views import CsrfExemptMixin
 
 from django.conf import settings
+
+from django.core.mail import send_mail
+
+from django.template import Context
 
 
 class LowerCase(Transform):
@@ -177,6 +183,7 @@ class GirlsNamesList(generics.ListAPIView, CsrfExemptMixin):
 class PopularNamesList(generics.ListAPIView, ModelsMixin, CsrfExemptMixin):
     serializer_class = BoysNamesSerializer
     pagination_class = LimitOffsetPagination
+
     # model = BoyName
 
     def get_queryset(self):
@@ -247,6 +254,58 @@ class FooterTextsList(generics.ListAPIView, CsrfExemptMixin):
         return Response(serializer.data)
 
 
+class EmailSender(generics.ListAPIView, ModelsMixin):
+    serializer_class = BoysNamesSerializer
+    pagination_class = LimitOffsetPagination
+
+    def get_queryset(self):
+        request = self.request
+        self.assign_model(request)
+
+        ids = request.data.get("ids")
+        resp = QueryRepository.build_query(QueryRepository, request, self.model)
+
+        resp = resp.filter(pk__in=ids)
+        return resp
+
+    def post(self, request, *args, **kwargs):
+        data = self.get_queryset()
+        email = request.data.get("user_email")
+
+        serializer = BoysNamesSerializer(data, many=True)
+        names_items = []
+
+        for item in serializer.data:
+            names_items.append({'name': item.get('name'),
+                                'frequency': item.get('frequency'),
+                                'average_age': item.get('average_age')})
+
+        context = {
+            'capt':
+                {
+                    'name': 'Namn',
+                    'frequency': 'Förecomst',
+                    'average_age': 'Snittalder'
+                },
+            'arr': names_items,
+        }
+
+        template = get_template('emails/customer_email.html')
+
+        html_content = template.render(context)
+        # if settings.GIRL_NAMES_URL in request.META.get('HTTP_REFERER', ''):
+        #     send_mail(subject=settings.EMAIL_HEADER, message=html_content, from_email='noreply@pojknamn.se',
+        #               recipient_list=[email],
+        #               fail_silently=False, auth_user=None, auth_password=None,
+        #               connection=None, html_message=None)
+        if settings.BOY_NAMES_URL in request.META.get('HTTP_REFERER', ''):
+            send_mail(subject='', message=html_content, from_email='noreply@pojknamn.se',
+                      recipient_list=[email], auth_user='AKIAIOCX5NM7I7QP3PDA',
+                      auth_password='AsCPRi0G6CdBWB6/kJNvM8OcHkqLYIgJf1VbfdZV55SF', html_message=html_content)
+
+        return JsonResponse({'status': 'Emain Send!'}, status=304)
+
+
 def upload_file(request):
     print(repr(request.FILES['db_file']))
     model_name = request.POST.get("db_name")
@@ -261,5 +320,3 @@ def upload_file(request):
         messages.warning(request, 'Table {} does not updated. Reason {}'.format(model_name, reason))
 
     return redirect(reverse("admin:api_{}_changelist".format(model_name)))
-
-
