@@ -49,7 +49,7 @@ export default{
       obj["ids"] = this.listFav;
       obj["user_email"] = this.userEmail;
 
-      axios.post(this.backend_url + 'send/email/', obj)
+      axios.post(this.backend_url + 'sendemail/', obj)
         .then(r => {})
         .catch(e => {})
 //      alert('not implemented yet');
