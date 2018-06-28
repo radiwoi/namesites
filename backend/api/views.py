@@ -43,8 +43,7 @@ class ModelsMixin:
     serializer_class = BoysNamesSerializer
 
     def assign_model(self, request):
-        is_girl_name = request.GET.get('is_girl_name', False)
-        if is_girl_name:
+        if settings.GIRL_NAMES_URL in request.META.get('HTTP_REFERER', ''):
             self.serializer_class = GirlsNamesSerializer
             self.model = GirlName
 
@@ -293,13 +292,14 @@ class EmailSender(generics.ListAPIView, ModelsMixin):
         template = get_template('emails/customer_email.html')
 
         html_content = template.render(context)
-        # if settings.GIRL_NAMES_URL in request.META.get('HTTP_REFERER', ''):
-        #     send_mail(subject=settings.EMAIL_HEADER, message=html_content, from_email='noreply@pojknamn.se',
-        #               recipient_list=[email],
-        #               fail_silently=False, auth_user=None, auth_password=None,
-        #               connection=None, html_message=None)
+
         if settings.BOY_NAMES_URL in request.META.get('HTTP_REFERER', ''):
             send_mail(subject='', message=html_content, from_email='noreply@pojknamn.se',
+                      recipient_list=[email], auth_user='AKIAIOCX5NM7I7QP3PDA',
+                      auth_password='AsCPRi0G6CdBWB6/kJNvM8OcHkqLYIgJf1VbfdZV55SF', html_message=html_content)
+
+        if settings.GIRL_NAMES_URL in request.META.get('HTTP_REFERER', ''):
+            send_mail(subject='', message=html_content, from_email='noreply@flicknamn.se',
                       recipient_list=[email], auth_user='AKIAIOCX5NM7I7QP3PDA',
                       auth_password='AsCPRi0G6CdBWB6/kJNvM8OcHkqLYIgJf1VbfdZV55SF', html_message=html_content)
 
