@@ -160,6 +160,7 @@ export default {
         this.total_pages = Math.ceil(this.total_results / this.searchObject.limit);
         this.$store.commit('changeDoSearch', false);
         this.isLoad = false;
+        this.total_pages_arr = [];
         for(let i=1; i <= this.total_pages; i++){
             this.total_pages_arr.push(i);
         }
