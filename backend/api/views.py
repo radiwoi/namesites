@@ -299,7 +299,7 @@ class EmailSender(generics.ListAPIView, ModelsMixin):
                       auth_password='AsCPRi0G6CdBWB6/kJNvM8OcHkqLYIgJf1VbfdZV55SF', html_message=html_content)
 
         if settings.GIRL_NAMES_URL in request.META.get('HTTP_REFERER', ''):
-            send_mail(subject='', message=html_content, from_email='noreply@flicknamn.se',
+            send_mail(subject='', message=html_content, from_email='no-reply@flicknamn.se',
                       recipient_list=[email], auth_user='AKIAIOCX5NM7I7QP3PDA',
                       auth_password='AsCPRi0G6CdBWB6/kJNvM8OcHkqLYIgJf1VbfdZV55SF', html_message=html_content)
 
