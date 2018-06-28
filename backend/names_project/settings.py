@@ -78,18 +78,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'names_project.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -131,13 +119,13 @@ CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 # SetUp Celery Email backend, and the SMTP server configurations
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'mail.pojknamn.se'
 
-EMAIL_PORT = '465' # 587 for tls
+EMAIL_PORT = '25' # 587 for tls
 
-EMAIL_HOST_USER = 'SMTP_USER'
+EMAIL_HOST_USER = 'emailsender'
 
-EMAIL_HOST_PASSWORD = 'SMTP_PASSWORD'
+EMAIL_HOST_PASSWORD = 'V(hpwf=S4jWG6=='
 
 EMAIL_USE_TLS = True   # TLS settings
 
