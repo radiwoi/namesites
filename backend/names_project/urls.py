@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/v1/', include('api.urls')),
     path('admin/file/', upload_file),
     path('send/email/', send_email),
+    path('sendemail/', sendemail),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()

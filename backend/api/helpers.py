@@ -3,7 +3,7 @@ from api.models import BoyName
 from api.serializers import BoysNamesSerializer
 from .email_sender import Mailer
 from django.conf import settings
-
+from django.core.mail import send_mail
 
 def send_email(request):
 
@@ -33,5 +33,14 @@ def send_email(request):
                                'arr': names_items,
                            },
                            to_emails=[request.user.email])
+
+    return JsonResponse({'status': 'Emain Send!'}, status=304)
+
+
+def sendemail(email='', items = []):
+
+    send_mail(subject=settings.EMAIL_HEADER, message = '', from_email = '', recipient_list = '',
+              fail_silently=False, auth_user=None, auth_password=None,
+              connection=None, html_message=None)
 
     return JsonResponse({'status': 'Emain Send!'}, status=304)
