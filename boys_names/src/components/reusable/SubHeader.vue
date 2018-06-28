@@ -32,7 +32,7 @@ export default {
   data () {
       return {
         page: "",
-        girl_names_site: "http://girl_names.devhost1.com"
+        girl_names_site: "http://flicknamn.se"
       }
   },
   mounted () {

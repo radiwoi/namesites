@@ -32,7 +32,7 @@ export default {
   data () {
       return {
         page: "",
-        boy_names_site: "http://boy_names.devhost1.com"
+        boy_names_site: "http://pojknamn.se"
       }
   },
   mounted () {
