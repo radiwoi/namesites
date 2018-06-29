@@ -210,7 +210,7 @@ class PopularNamesList(generics.ListAPIView, ModelsMixin, CsrfExemptMixin):
         order = request.GET.get('order')
 
         if order:
-            popular_names = self.model.objects.filter(popular__year='2017').order_by('?')[:PER_PAGE_POPULAR]
+            popular_names = self.model.objects.filter(popular__year=2017).order_by('?')[:PER_PAGE_POPULAR]
         else:
             popular_names = self.model.objects.all()
             paginator = Paginator(popular_names, PER_PAGE)
