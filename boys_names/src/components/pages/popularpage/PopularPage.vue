@@ -6,8 +6,8 @@
       <div class="container popular-container">
         <div class="row">
           <div class="col col-lg-3 year-filter">
-          Populara namn ar <span @click="yearTooltip = !yearTooltip" class="filter-year-bold">{{selectedYear}} <i class="fa fa-angle-down"></i></span>
-          <div v-if="yearTooltip" class="tooltip year-tooltip">
+            Populara namn ar <span @click="chooseYearDropbox" class="filter-year-bold">{{selectedYear}} <i class="fa fa-angle-down"></i></span>
+            <div v-if="yearTooltip" class="tooltip year-tooltip">
             <div v-for="y in yearsRange">
               <label class="checkbox-container-radio"> {{y}}
                 <input v-on:change="changeYear(y)" type="radio" :value="y" v-model="selectedYear">
@@ -15,7 +15,7 @@
               </label>
             </div>
           </div>
-        </div>
+          </div>
         </div>
       </div>
       <filters></filters>
@@ -37,6 +37,10 @@ export default {
     }
   },
   methods: {
+      chooseYearDropbox () {
+          this.yearTooltip = !this.yearTooltip
+      },
+
       changeYear(year){
           this.yearTooltip = false;
           this.$store.commit("changePopularYear", year);
@@ -49,14 +53,27 @@ export default {
       }
       this.selectedYear = this.searchObject.popular_year
   },
-    computed: {
-    ...mapGetters({
+  created() {
+    window.document.title = "Popular page"
+
+    let self = this;
+
+    window.addEventListener('click', function(e){
+    // close dropdown when clicked outside
+    //   console.log()
+    //   console.log(e.target)
+    //   console.log(self.$el.contains(e.target))
+      if (!self.$el.contains(e.target)){
+        // console.log('in2')
+        self.yearTooltip = false
+      }
+    })
+  },
+  computed: {
+  ...mapGetters({
       doSearch: 'getDoSearch',
       searchObject: "getSearchObject"
     })
-  },
-  created: function() {
-    window.document.title = "Popular page"
   }
 }
 </script>

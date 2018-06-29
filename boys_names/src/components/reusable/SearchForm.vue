@@ -97,6 +97,15 @@ export default {
 //    if (this.currentPage != "start-page") {
 //        this.redirectTo = this.currentPage
 //    }
+
+    let self = this;
+
+    window.addEventListener('click', function(e){
+      if (!self.$el.contains(e.target)){
+        self.seen = false
+      }
+    })
+
     this.criterias.map(criteria => {
         if (criteria.action == this.$store.state.searchObject.search_criteria) {
             criteria.chosen = true;
