@@ -57,6 +57,8 @@ export default {
   },
   created: function() {
     window.document.title = "Popular page"
+
+
   }
 }
 </script>

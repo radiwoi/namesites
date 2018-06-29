@@ -193,6 +193,16 @@ export default {
           this.checkedNames.push(n.name)
       }
     });
+
+    let self = this;
+
+    window.addEventListener('click', function(e){
+      if (!self.$el.contains(e.target)){
+        self.freqTooltip = false
+        self.namesTooltip = false
+        self.ageTooltip = false
+      }
+    })
   }
 }
 </script>
