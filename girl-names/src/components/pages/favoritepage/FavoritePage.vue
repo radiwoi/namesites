@@ -35,7 +35,7 @@ export default{
   data(){
     return {
       userEmail: "",
-      backend_url: "http://34.254.119.140/api/v1/?is_girl_name=True",
+      backend_url: "http://34.254.119.140/api/v1/",
 //      backend_url: "http://names_project.devhost1.com/api/v1/"
     }
   },
@@ -49,7 +49,7 @@ export default{
       obj["ids"] = this.listFav;
       obj["user_email"] = this.userEmail;
 
-      axios.post(this.backend_url + 'send/email/', obj)
+      axios.post(this.backend_url + 'sendemail/', obj)
         .then(r => {})
         .catch(e => {})
 //      alert('not implemented yet');
