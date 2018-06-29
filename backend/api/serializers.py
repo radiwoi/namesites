@@ -18,7 +18,7 @@ class BoysNamesSerializer(serializers.ModelSerializer):
             ON (`api_variant`.`id` = `api_boyname_variants`.`variant_id`)
             WHERE `api_boyname_variants`.`boyname_id` = %s 
             `api_variant`.`id` NOT IN (
-                SELECT `api_variant`.id from `api_variant` where name=%s
+                SELECT `api_variant`.`id` from `api_variant` where `api_variant`.`name`='%s'
             ) 
             GROUP BY `api_variant`.`language` ORDER BY NULL
         """, [boy_name.pk, boy_name.name])
@@ -64,7 +64,7 @@ class GirlsNamesSerializer(serializers.ModelSerializer):
             WHERE `api_girlname_variants`.`girlname_id` = %s
             AND
             `api_variant`.`id` NOT IN (
-                SELECT `api_variant`.id from `api_variant` where name=%s
+                SELECT `api_variant`.`id` from `api_variant` where `api_variant`.`name`='%s'
             ) 
             GROUP BY `api_variant`.`language` ORDER BY NULL
         """, [girl_name.pk, girl_name.name])
