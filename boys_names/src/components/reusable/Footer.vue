@@ -41,11 +41,8 @@ export default{
 <style>
   .footer {
     background-image: url('http://api.thumbr.it/whitenoise-600x370.png?background=eafffcff&noise=dbdbdb&density=25&opacity=20');
-    padding: 15px 10px 0px 10px;
+    /*padding: 15px 10px 0px 10px;*/
     font-family: 'Quicksand';
-  }
-  .footer .container{
-    padding: 20px;
   }
   .footer-text-col{
     font-size: 12px;
