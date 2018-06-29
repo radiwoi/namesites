@@ -22,7 +22,7 @@ export default {
   },
   methods: {
       test () {
-          alert('G!!@')
+
       }
   }
 }

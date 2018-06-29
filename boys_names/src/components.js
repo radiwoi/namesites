@@ -11,6 +11,7 @@ import FavoritePage from './components/pages/favoritepage/FavoritePage.vue'
 import SearchForm from './components/reusable/SearchForm.vue'
 import NamesList from './components/reusable/NamesList.vue'
 import Filters from './components/reusable/Filters.vue'
+import YearsFilter from './components/reusable/YearsFilter.vue'
 
 Vue.component('main-header', Header);
 Vue.component('second-header', SecondHeader);
@@ -26,3 +27,4 @@ Vue.component('main-footer', Footer);
 Vue.component('names-list', NamesList);
 Vue.component('sub-header', SubHeader);
 Vue.component('filters', Filters);
+Vue.component('years-filter', YearsFilter);

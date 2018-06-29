@@ -1,4 +1,3 @@
-// console.log(localStorage.getItem('listFav'))
 export default {
   state: {
     searchObject: {

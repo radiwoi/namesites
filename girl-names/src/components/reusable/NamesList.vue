@@ -167,7 +167,6 @@ export default {
       }
     },
     prepareRejectData(error) {
-      console.log(error);
       this.noResults = true;
       this.isLoad = false;
       this.page_number = 1;
@@ -189,7 +188,6 @@ export default {
         }
     },
     checkIfFavorite(id){
-//        console.log(this.listFav)
         if(this.listFav.includes(id)){
           return true;
         }

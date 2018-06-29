@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     onClickChild (value) {
-        console.log(value)
+
     }
   },
   mounted () {
