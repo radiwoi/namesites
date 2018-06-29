@@ -66,7 +66,6 @@ export default {
       }
       this.$store.commit('changeDoSearch', true);
       this.$store.commit('test', this.localSearchPhrase);
-      console.log(this.$store.state)
     },
     resetFilters() {
       this.chooseCriteria(0);
@@ -81,7 +80,6 @@ export default {
           validator = true;
       }
       return validator;
-//      return true
     }
   },
   computed: {

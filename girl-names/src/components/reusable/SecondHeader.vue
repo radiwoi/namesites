@@ -65,14 +65,12 @@ export default {
   },
   beforeMount() {
     this.mobileDevice = this.checkMobileDevice();
-    console.log(this.mobileDevice)
   },
   mounted() {
     this.favoriteCount = this.listFav.length;
   },
   watch: {
       listFav(o, n) {
-//          console.log('fav', o, n);
           this.favoriteCount = n.length;
       }
   }
@@ -149,7 +147,7 @@ export default {
       padding-left: 15px;
     }
   }
-  
+
   @media (max-width: 1200px) {}
 
   @media (max-width: 992px) {}

@@ -177,9 +177,6 @@ export default {
     }
   },
   created() {
-//    console.log('qq',this.$store.state.searchObject.frequency);
-    console.log('age_distribution',this.$store.state.searchObject.age_distribution.length);
-    console.log('checkedAges',this.ageDistribution.length);
     this.$store.state.searchObject.frequency.map(f => {
         this.checkedFreqs.push(f)
     });

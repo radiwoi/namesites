@@ -41,10 +41,6 @@ export default{
   },
   methods: {
     sendEmail(){
-      console.log(this.searchObject);
-      console.log(this.listFav);
-      console.log(this.userEmail);
-
       let obj = this.searchObject;
       obj["ids"] = this.listFav;
       obj["user_email"] = this.userEmail;
@@ -52,8 +48,6 @@ export default{
       axios.post(this.backend_url + 'sendemail/', obj)
         .then(r => {})
         .catch(e => {})
-//      alert('not implemented yet');
-//      send/email/
     }
   },
   computed: {
