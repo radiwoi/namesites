@@ -8,7 +8,7 @@
           <div class="col-12 col-lg-4 email-send-wrapper">
             <span class="fav-label">Send this favorite list to</span>
             <div class="input-group">
-              <input type="email" class="form-control main-search-control" v-model="userEmail" placeholder="Ex. namn@gmail.com">
+              <input type="email" class="form-control main-search-control" v-on:keyup.enter="sendEmail" v-model="userEmail" placeholder="Ex. namn@gmail.com">
               <span class="input-group-btn main-page-search">
                 <button class="btn btn-default fav-page-send-btn" @click="sendEmail" type="submit">
                   Send

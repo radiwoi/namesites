@@ -1,10 +1,10 @@
 <template>
   <div class="search-form">
     <div class="input-group">
-      <input type="text" class="form-control main-search-control" placeholder="Sök" v-model="localSearchPhrase">
+      <input type="text" class="form-control main-search-control" placeholder="Sök" v-on:keyup.enter="handleEnter" v-model="localSearchPhrase">
       <span class="input-group-btn main-page-search">
         <span v-if="localSearchPhrase.length > 0" @click="resetFilters" class="reset-filters"></span>
-        <router-link v-bind:to="{name: redirectTo}">
+        <router-link class="triggered" v-bind:to="{name: redirectTo}">
           <button class="btn btn-default main-page-search-btn" @click="handleClick" type="submit">
               <i class="fa fa-search"></i>
           </button>
@@ -52,6 +52,10 @@ export default {
       this.criterias[index]['chosen'] = true;
       this.$store.commit('changeCriteria', this.criterias[index]['action']);
       this.search_criteria = this.criterias[index];
+    },
+    handleEnter () {
+      document.getElementsByClassName('triggered')[0].click();
+      this.handleClick();
     },
     handleClick () {
       this.errorMsg = "";
