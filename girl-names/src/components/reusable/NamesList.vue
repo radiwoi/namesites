@@ -121,7 +121,12 @@ export default {
     let self = this;
 
     window.addEventListener('click', function(e){
-      if (!self.$el.contains(e.target)){
+      if (!self.$el.contains(e.target) ||
+        e.target.classList.contains('pagination') ||
+        e.target.classList.contains('names-counter') ||
+        e.target.classList.contains('names-list') ||
+        e.target.classList.contains('table-cell') ||
+        e.target.classList.contains('fa-info-circle')){
         self.showPageTooltip = false
       }
     })
