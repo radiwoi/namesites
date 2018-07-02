@@ -31,7 +31,7 @@ export default {
   data () {
     return {
       urlsMapper:{
-        "search-page": "girls-names",
+        "search-page": "girl-names",
         "popular-page": "popular-names",
         "favorite-page": "favorite-names",
       },
