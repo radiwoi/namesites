@@ -29,7 +29,7 @@
             <div class="tooltip tooltip-list freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
           </td>
           <td class="table-cell dist-age d-none d-sm-table-cell" width="20%">
-            {{nameObj.average_age}} år<i class="fa fa-info-circle"></i>
+            {{nameObj.average_age}} år <i class="fa fa-info-circle"></i>
             <div class="tooltip tooltip-list chart-tooltip">
               <div class="chart-top">
                 <div class="green-cols-wrapper">
@@ -224,7 +224,7 @@
     cursor: pointer;
   }
   .make-fav{
-    background: url("../../assets/Heart-red.png");
+    background: url("../../assets/Heart.png");
     background-repeat: no-repeat;
     background-position: 1px 2px;
     width: 25px;
@@ -234,7 +234,7 @@
     cursor: pointer;
   }
   .make-fav.active {
-    background: url("../../assets/Heart-red-filled.png");
+    background: url("../../assets/Heart-filled.png");
     background-repeat: no-repeat;
     background-position: 1px 2px;
     width: 25px;
