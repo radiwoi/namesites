@@ -8,7 +8,7 @@
           </td>
           <td class="table-cell namn" width="35%">
             <span class="popular-rate" v-if="currentPage == 'popular-page'">{{nameObj.popular.position}}</span>
-            <span >{{nameObj.name}}</span> <i v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="fa fa-info-circle" onclick=""></i>
+            <span >{{nameObj.name}}</span> <i v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="fa fa-info-circle" onclick="return true"></i>
             <div v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="tooltip tooltip-list main-tooltip">
               <div v-if="nameObj.variants.length > 0" class="variants-list">
                 <div class="tooltip-title">
@@ -25,11 +25,11 @@
             </div>
           </td>
           <td class="table-cell frequency" width="35%">
-            {{nameObj.frequency}} <i class="fa fa-info-circle" onclick=""></i>
+            {{nameObj.frequency}} <i class="fa fa-info-circle" onclick="return true"></i>
             <div class="tooltip tooltip-list freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
           </td>
           <td class="table-cell dist-age d-none d-sm-table-cell" width="20%">
-            {{nameObj.average_age}} år<i class="fa fa-info-circle" onclick=""></i>
+            {{nameObj.average_age}} år<i class="fa fa-info-circle" onclick="return true"></i>
             <div class="tooltip tooltip-list chart-tooltip">
               <div class="chart-top">
                 <div class="green-cols-wrapper">
