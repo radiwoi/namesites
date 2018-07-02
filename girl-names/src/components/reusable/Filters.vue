@@ -8,7 +8,7 @@
               <i style="visibility: hidden" class="fa fa-heart"></i>
             </td>
             <td class="names-title-cell" style="width:35%">
-              <div @click="namesTooltip = !namesTooltip, checkedNames.length == 6 ? checkedNames = [] : checkedNames=checkedNames" class="title-filter names-length-filter">
+              <div @click="freqTooltip = false, ageTooltip = false, namesTooltip = !namesTooltip, checkedNames.length == 6 ? checkedNames = [] : checkedNames=checkedNames" class="title-filter names-length-filter">
                 Namn <span class="filter-sorting"></span>
               </div>
               <div v-if="namesTooltip" class="tooltip freq-filter-tooltip">
@@ -35,7 +35,7 @@
             </td>
 
             <td class="freq-title-cell" style="width: 35%">
-              <div @click="freqTooltip = !freqTooltip, checkedFreqs.length == 6 ? checkedFreqs = [] : checkedFreqs=checkedFreqs" class="title-filter freq-filter">
+              <div @click="namesTooltip = false, ageTooltip = false, freqTooltip = !freqTooltip, checkedFreqs.length == 6 ? checkedFreqs = [] : checkedFreqs=checkedFreqs" class="title-filter freq-filter">
                 Förecomst <span class="filter-sorting"></span>
               </div>
               <div v-if="freqTooltip" class="tooltip freq-filter-tooltip">
@@ -62,7 +62,7 @@
             </td>
 
             <td class="distribution-title-cell d-none d-sm-table-cell" style="width: 20%">
-              <div @click="ageTooltip = !ageTooltip, checkedAges.length == 6 ? checkedAges = [] : checkedAges=checkedAges" class="title-filter">
+              <div @click="namesTooltip = false, freqTooltip = false, ageTooltip = !ageTooltip, checkedAges.length == 6 ? checkedAges = [] : checkedAges=checkedAges" class="title-filter">
                 Snittalder <span class="filter-sorting"></span>
               </div>
               <div v-if="ageTooltip" class="tooltip freq-filter-tooltip">
