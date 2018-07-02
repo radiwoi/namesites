@@ -12,6 +12,7 @@ import SearchForm from './components/reusable/SearchForm.vue'
 import NamesList from './components/reusable/NamesList.vue'
 import Filters from './components/reusable/Filters.vue'
 import YearsFilter from './components/reusable/YearsFilter.vue'
+import TableView from './components/reusable/TableView.vue'
 
 Vue.component('main-header', Header);
 Vue.component('second-header', SecondHeader);
@@ -28,3 +29,4 @@ Vue.component('names-list', NamesList);
 Vue.component('sub-header', SubHeader);
 Vue.component('filters', Filters);
 Vue.component('years-filter', YearsFilter);
+Vue.component('table-view', TableView);

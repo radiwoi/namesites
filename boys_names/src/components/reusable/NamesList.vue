@@ -69,25 +69,7 @@
         </tr>
       </tbody>
     </table>
-    <div v-if="namesList.length > 0" class="pagination">
-      <ul class="top-pagination pagination">
-       <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev)"><i class="fa fa-angle-left"></i></li>
-       <span @click="showPageTooltip = !showPageTooltip" class="page-counter">
-         Sida {{page_number}} / {{total_pages}} <i class="fa fa-angle-down"></i>
-         <div v-if="showPageTooltip" class="tooltip page-tooltip">
-           <div class="p-item" @click="pagesTooltipClick(p)" v-for="p in total_pages_arr">
-              {{p}} / {{total_pages}}
-           </div>
-         </div>
-       </span>
-      <li class="page-item page-next" v-bind:class="{disabled: !next}" @click="paginationClick(next)"><i class="fa fa-angle-right"></i></li>
-      </ul>
-      <div class="names-counter">{{total_results}} names</div>
-    </div>
-    <div v-if="isLoad" class="loader-wrapper">
-      <div class="loader"></div>
-    </div>
-    <div v-if="noResults" class="alert alert-info">No results found</div>
+    <page-counter></page-counter>
   </div>
 </template>
 
@@ -211,6 +193,15 @@ export default {
       }
     }
   },
+  created() {
+    let self = this;
+
+    window.addEventListener('click', function(e){
+      if (!self.$el.contains(e.target)){
+        self.showPageTooltip = false
+      }
+    })
+  },
   computed: {
     ...mapGetters({
       doSearch: 'getDoSearch',
@@ -307,44 +298,6 @@ export default {
     margin-left: 3px;
     color: #ceced0;
     cursor: pointer;
-  }
-  .pagination{
-    text-align: center;
-    display: block;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    outline-style:none;
-  }
-  .top-pagination, .top-pagination:before, .top-pagination:after {
-    -webkit-user-select: none; /* Chrome/Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+ */
-}
-  .page-counter {
-    -webkit-tap-highlight-color:transparent;
-    outline-style:none;
-    position: relative;
-    cursor: pointer;
-  }
-  .page-item {
-    cursor: pointer;
-    background: #38c8b2;
-    color: #fff;
-    display: inline-block;
-    padding-right: 15px;
-    padding-left: 15px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    border-radius: 5px;
-  }
-  .page-item.disabled{
-    cursor: auto;
-    background: rgba(239, 239, 240, 1);
-    color: #8c8c8c;
-  }
-  .names-counter{
-    text-align: center;
-    color: #ceced0;
   }
   .namn{
     max-width: 297px;
@@ -460,37 +413,9 @@ export default {
     animation: spin 2s linear infinite;
     margin: 0 auto;
   }
-  .page-tooltip {
-    font-family: 'Quicksand';
-    display: block;
-    top: 100%;
-    right:-10px;
-    opacity: 1;
-    background: #fff;
-    padding-top: 3px;
-    padding-bottom: 10px;
-    padding-left: 0px;
-    padding-right: 0px;
-    box-shadow: 0px 2px 15px #8edcd1;
-    width: 120px;
-    max-height: 288px;
-    overflow: auto;
-    text-align: left;
-    font-size: 16px;
-  }
   .tooltip-list {
     pointer-events: none;
   }
-  .p-item{
-    cursor: pointer;
-    width: 100%;
-    padding-left: 25px;
-  }
-  .p-item:hover{
-    cursor: pointer;
-    background: #eafffc;
-  }
-
   /* Safari */
   @-webkit-keyframes spin {
     0% { -webkit-transform: rotate(0deg); }

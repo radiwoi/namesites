@@ -1,74 +1,6 @@
 <template>
   <div class="names-list container">
-    <table class="table table-striped names-table">
-      <tbody>
-        <tr v-for="nameObj in namesList">
-          <td class="fav" width="10%">
-            <div class="make-fav"  v-bind:class="{'active':checkIfFavorite(nameObj.id)}" @click="makeFavorite(nameObj.id)"></div>
-          </td>
-          <td class="table-cell namn" width="35%">
-            <span class="popular-rate" v-if="currentPage == 'popular-page'">{{nameObj.popular.position}}</span>
-            <span >{{nameObj.name}}</span> <i v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="fa fa-info-circle"></i>
-            <div v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="tooltip tooltip-list main-tooltip">
-              <div v-if="nameObj.variants.length > 0" class="variants-list">
-                <div class="tooltip-title">
-                  Variants
-                </div>
-                <span v-for="variant in nameObj.variants">
-                  {{variant.variants}} ({{variant.language}}),
-                </span>
-              </div>
-              <div v-if="nameObj.meaning.length > 0">
-                <div class="tooltip-title">Betudelse</div>
-                {{nameObj.meaning}}
-              </div>
-            </div>
-          </td>
-          <td class="table-cell frequency" width="35%">
-            {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
-            <div class="tooltip tooltip-list freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
-          </td>
-          <td class="table-cell dist-age d-none d-sm-table-cell" width="20%">
-            {{nameObj.average_age}} år<i class="fa fa-info-circle"></i>
-            <div class="tooltip tooltip-list chart-tooltip">
-              <div class="chart-top">
-                <div class="green-cols-wrapper">
-                  <span class="a" style="height:100%; width: 30px; background: transparent"></span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_10) + '%'}">
-                    <span class="percents">{{nameObj.age_distribution_10}}%</span>
-                  </span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_20) + '%'}">
-                    <span class="percents">{{nameObj.age_distribution_20}}%</span>
-                  </span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_30) + '%'}">
-                    <span class="percents">{{nameObj.age_distribution_30}}%</span>
-                  </span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_50) + '%'}">
-                    <span class="percents">{{nameObj.age_distribution_50}}%</span>
-                  </span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_70) + '%'}">
-                    <span class="percents">{{nameObj.age_distribution_70}}%</span>
-                  </span>
-                  <span class="a" :style="{'height': style(nameObj.age_distribution_71) + '%'}">
-                    <span class="percents">{{nameObj.age_distribution_71}}%</span>
-                  </span>
-                </div>
-              </div>
-              <div class="chart-bottom">
-                <span style="width: 45px;" class="item-chart-label">Alder:</span>
-                <span class="item-chart-label">0-10</span>
-                <span class="item-chart-label">11-20</span>
-                <span class="item-chart-label">21-30</span>
-                <span class="item-chart-label">31-50</span>
-                <span class="item-chart-label">51-70</span>
-                <span class="item-chart-label">71 ></span>
-              </div>
-
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <table-view v-bind:namesList="namesList" v-bind:currentPage="currentPage" v-bind:listFav="listFav"></table-view>
     <div v-if="namesList.length > 0" class="pagination">
       <ul class="top-pagination pagination">
        <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev)"><i class="fa fa-angle-left"></i></li>
@@ -87,7 +19,7 @@
     <div v-if="isLoad" class="loader-wrapper">
       <div class="loader"></div>
     </div>
-    <div v-if="noResults" class="alert alert-danger">No results found</div>
+    <div v-if="noResults" class="alert alert-info">No results found</div>
   </div>
 </template>
 
@@ -103,9 +35,9 @@ export default {
         "popular-page": "popular-names",
         "favorite-page": "favorite-names",
       },
+      showPageTooltip:false,
       namesList: [],
       total_pages_arr: [],
-      showPageTooltip:false,
       currentPage: "",
       isLoad: true,
       noResults: false,
@@ -174,24 +106,6 @@ export default {
       this.next = false;
       this.$store.commit('changeDoSearch', false);
     },
-    makeFavorite(nameId) {
-        //      todo make through store commit
-        if (this.checkIfFavorite(nameId)){
-          let index = this.listFav.indexOf(nameId);
-          this.listFav.splice(index, 1);
-        } else {
-          this.listFav.push(nameId);
-        }
-        this.$store.commit('changeListFav', this.listFav);
-        if(this.$route.name == 'favorite-page') {
-            this.$store.commit('changeDoSearch', true);
-        }
-    },
-    checkIfFavorite(id){
-        if(this.listFav.includes(id)){
-          return true;
-        }
-    },
     getRequestData(){
       let postData = this.searchObject;
       postData.ids = this.listFav;
@@ -202,15 +116,15 @@ export default {
       };
       return requestData;
     },
-    style (width) {
-      if(width == 100) {
-          return 70;
-      } if(width == 0) {
-          return 5;
-      } else {
-        return width + 10
+  },
+  created() {
+    let self = this;
+
+    window.addEventListener('click', function(e){
+      if (!self.$el.contains(e.target)){
+        self.showPageTooltip = false
       }
-    }
+    })
   },
   computed: {
     ...mapGetters({
@@ -256,16 +170,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .names-list{
     font-family: 'Quicksand';
     margin-bottom: 15px;
     /*margin-top: 15px;*/
-  }
-  .names-table {
-    text-align: left;
-    font-size: 15px;
-    border-color: #fafafa;
   }
   .names-table td {
     padding: 0.65rem;
@@ -275,34 +184,6 @@ export default {
   .names-table tbody tr:nth-of-type(odd) {
     background-color: #fafafa;
     border-color: #fafafa;
-}
-  .fav{
-    text-align: center;
-    color: #F88580;
-
-  }
-  .fav i{
-    cursor: pointer;
-  }
-  .make-fav{
-    background: url("../../assets/Heart-red.png");
-    background-repeat: no-repeat;
-    background-position: 1px 2px;
-    width: 25px;
-    height: 25px;
-    background-size: contain;
-    margin: 0 auto;
-    cursor: pointer;
-  }
-  .make-fav.active {
-    background: url("../../assets/Heart-red-filled.png");
-    background-repeat: no-repeat;
-    background-position: 1px 2px;
-    width: 25px;
-    height: 25px;
-    background-size: contain;
-    margin: 0 auto;
-    cursor: pointer;
   }
   .table-cell i{
     margin-left: 3px;
@@ -347,110 +228,6 @@ export default {
     text-align: center;
     color: #ceced0;
   }
-  .namn{
-    max-width: 297px;
-  }
-  .frequency, .namn, .dist-age{
-    position: relative;
-  }
-  .fa-info-circle:hover + .tooltip,
-  .fa-info-circle:focus + .tooltip,
-  .fa-info-circle:active + .tooltip{
-    /*opacity: 1;*/
-    z-index: 2;
-    display: block;
-  }
-  .fa-info-circle:hover{
-    /*z-index: 50;*/
-    /*opacity: 0;*/
-    /*position: absolute;*/
-  }
-  .main-tooltip {
-    font-family: 'Quicksand';
-    font-size:14px;
-    width: 200%;
-    opacity: 1;
-    z-index: 0;
-    display: none;
-    padding: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
-    background: #ffffff;
-    top:25px;
-    left: 0;
-    box-shadow: 0px 2px 15px #dc8796;
-  }
-  .tooltip-title{
-    font-family: 'Quicksand-Bold';
-    margin-bottom: 5px;
-  }
-  .variants-list{
-    margin-bottom: 10px;
-    font-family: 'Quicksand';
-  }
-  .freq-tooltip{
-    font-family: 'Quicksand';
-    font-size:16px;
-    opacity: 1;
-    z-index: 0;
-    display: none;
-    padding: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
-    background: #ffffff;
-    top:25px;
-    left: 0;
-    box-shadow: 0px 2px 15px #dc8796;
-  }
-  .chart-tooltip{
-    font-family: 'Quicksand';
-    font-size:16px;
-    opacity: 1;
-    z-index: 0;
-    display: none;
-    padding: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
-    background: #ffffff;
-    top:25px;
-    right:0%;
-    min-width: 400px;
-    box-shadow: 0px 2px 15px #dc8796;
-  }
-  .chart-top {
-    height: 100px;
-    position: relative;
-  }
-  .green-cols-wrapper{
-    position: absolute;
-    bottom:0;
-    width: 100%;
-    height: 100%;
-  }
-  .a{
-    background: #F88580;
-    display: inline-block;
-    width: 40px;
-    margin-right: 10px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    position: relative;
-  }
-  .item-chart-label{
-    width: 50px;
-    display: inline-block;
-    font-size: 13px;
-  }
-  .percents{
-    font-family: "Quicksand-Bold";
-    position: absolute;
-    top: -22px;
-    left: 8px;
-  }
-  .popular-rate {
-    font-family: 'Quicksand-Bold';
-    color: #F88580;
-  }
   .loader {
     border: 8px solid rgba(239, 239, 240, 1);
     border-radius: 50%;
@@ -479,8 +256,70 @@ export default {
     text-align: left;
     font-size: 16px;
   }
-  .tooltip-list {
-    pointer-events: none;
+  .pagination{
+    text-align: center;
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    outline-style:none;
+  }
+  .top-pagination, .top-pagination:before, .top-pagination:after {
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+}
+  .page-counter {
+    -webkit-tap-highlight-color:transparent;
+    outline-style:none;
+    position: relative;
+    cursor: pointer;
+  }
+  .page-item {
+    cursor: pointer;
+    background: #38c8b2;
+    color: #fff;
+    display: inline-block;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-radius: 5px;
+  }
+  .page-item.disabled{
+    cursor: auto;
+    background: rgba(239, 239, 240, 1);
+    color: #8c8c8c;
+  }
+  .names-counter{
+    text-align: center;
+    color: #ceced0;
+  }
+  .page-tooltip {
+    font-family: 'Quicksand';
+    display: block;
+    top: 100%;
+    right:-10px;
+    opacity: 1;
+    background: #fff;
+    padding-top: 3px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    box-shadow: 0px 2px 15px #8edcd1;
+    width: 120px;
+    max-height: 288px;
+    overflow: auto;
+    text-align: left;
+    font-size: 16px;
+  }
+    .p-item{
+    cursor: pointer;
+    width: 100%;
+    padding-left: 25px;
+  }
+  .p-item:hover{
+    cursor: pointer;
+    background: #eafffc;
   }
   .p-item{
     cursor: pointer;

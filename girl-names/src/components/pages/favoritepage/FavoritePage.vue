@@ -62,7 +62,7 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
 .fav-subheader {
   font-family: 'Quicksand';
   /*box-shadow: 0px 2px 5px rgba(142, 220, 206, .55);*/
