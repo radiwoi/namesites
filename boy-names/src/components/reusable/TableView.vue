@@ -117,6 +117,9 @@
   .frequency, .namn, .dist-age{
     position: relative;
   }
+  .fa-info-circle {
+    color: darkgrey;
+  }
   .fa-info-circle:hover + .tooltip,
   .fa-info-circle:focus + .tooltip,
   .fa-info-circle:active + .tooltip{
