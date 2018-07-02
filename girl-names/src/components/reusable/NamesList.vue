@@ -201,29 +201,29 @@ export default {
     -webkit-user-select: none; /* Chrome/Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
-}
+  }
   .page-counter {
     -webkit-tap-highlight-color:transparent;
     outline-style:none;
     position: relative;
     cursor: pointer;
   }
-  .page-item {
-    cursor: pointer;
-    background: #F88580;
-    color: #fff;
-    display: inline-block;
-    padding-right: 15px;
-    padding-left: 15px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    border-radius: 5px;
-  }
-  .page-item.disabled{
-    cursor: auto;
-    background: rgba(239, 239, 240, 1);
-    color: #8c8c8c;
-  }
+  /*.page-item {*/
+    /*cursor: pointer;*/
+    /*background: #F88580;*/
+    /*color: #fff;*/
+    /*display: inline-block;*/
+    /*padding-right: 15px;*/
+    /*padding-left: 15px;*/
+    /*padding-top: 7px;*/
+    /*padding-bottom: 7px;*/
+    /*border-radius: 5px;*/
+  /*}*/
+  /*.page-item.disabled{*/
+    /*cursor: auto;*/
+    /*background: rgba(239, 239, 240, 1);*/
+    /*color: #8c8c8c;*/
+  /*}*/
   .names-counter{
     text-align: center;
     color: #ceced0;
@@ -312,7 +312,7 @@ export default {
     text-align: left;
     font-size: 16px;
   }
-    .p-item{
+  .p-item{
     cursor: pointer;
     width: 100%;
     padding-left: 25px;
