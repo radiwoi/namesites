@@ -15,8 +15,7 @@
                 </button>
               </span>
             </div>
-          </div>
-          <div v-show="send_success" class="alert alert-success" role="alert">
+            <div v-show="send_success" class="alert alert-success" role="alert">
               <button type="button" aria-label="Close" @click="send_success=false" class="close">×</button>
               E-post har skickats
             </div>
