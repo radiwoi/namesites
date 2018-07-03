@@ -1,9 +1,9 @@
 import Vue from 'vue'
 
 import Header from './components/reusable/Header.vue'
+import Footer from './components/reusable/Footer.vue'
 import SecondHeader from './components/reusable/SecondHeader.vue'
 import SubHeader from './components/reusable/SubHeader.vue'
-import Footer from './components/reusable/Footer.vue'
 import StartPage from './components/pages/startpage/StartPage.vue'
 import SearchPage from './components/pages/searchpage/SearchPage.vue'
 import PopularPage from './components/pages/popularpage/PopularPage.vue'
@@ -21,12 +21,11 @@ Vue.component('search-page', SearchPage);
 Vue.component('popular-page', PopularPage);
 Vue.component('favorite-page', FavoritePage);
 
-
 // reusable components
 Vue.component('search-form', SearchForm);
 Vue.component('main-footer', Footer);
+Vue.component('filters', Filters);
 Vue.component('names-list', NamesList);
 Vue.component('sub-header', SubHeader);
-Vue.component('filters', Filters);
 Vue.component('years-filter', YearsFilter);
 Vue.component('table-view', TableView);
