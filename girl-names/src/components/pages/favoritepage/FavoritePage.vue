@@ -6,14 +6,23 @@
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-4 email-send-wrapper">
-            <span class="fav-label">Send this favorite list to</span>
+            <span class="fav-label">Skicka listan med mina favoritnamn till:</span>
             <div class="input-group">
               <input type="email" class="form-control main-search-control" v-on:keyup.enter="sendEmail" v-model="userEmail" placeholder="Ex. namn@gmail.com">
               <span class="input-group-btn main-page-search">
                 <button class="btn btn-default fav-page-send-btn" @click="sendEmail" type="submit">
-                  Send
+                  Skicka
                 </button>
               </span>
+            </div>
+          </div>
+          <div v-show="send_success" class="alert alert-success" role="alert">
+              <button type="button" aria-label="Close" @click="send_success=false" class="close">×</button>
+              E-post har skickats
+            </div>
+            <div v-show="send_error" class="alert alert-danger" role="alert">
+              <button type="button" aria-label="Close" @click="send_error=false" class="close">×</button>
+              Ogiltig mejladress
             </div>
           </div>
           <div class="col col-lg-2 offset-lg-6 girl-logo-wrapper">
@@ -36,6 +45,8 @@ export default{
     return {
       userEmail: "",
       backend_url: "http://34.254.119.140/api/v1/",
+      send_success: false,
+      send_error: false,
 //      backend_url: "http://names_project.devhost1.com/api/v1/"
     }
   },
@@ -46,8 +57,13 @@ export default{
       obj["user_email"] = this.userEmail;
 
       axios.post(this.backend_url + 'sendemail/', obj)
-        .then(r => {})
-        .catch(e => {})
+        .then(r => {
+          this.userEmail = '';
+          this.send_success = true;
+        })
+        .catch(e => {
+          this.send_error = true;
+        })
     }
   },
   computed: {
