@@ -1,6 +1,8 @@
 <template>
-  <div class="names-list container">
-    <table class="table table-striped names-table">
+  <!--<div class="names-list container">-->
+    <table class="table table-striped names-table"
+     v-touch:swipe.left="swipeLeft"
+      v-touch:swipe.right="swipeRight">
       <tbody>
         <tr v-for="nameObj in namesList">
           <td class="fav" width="10%">
@@ -68,7 +70,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  <!--</div>-->
 </template>
 
 <script>
@@ -103,6 +105,37 @@
                 return true;
               }
             },
+          swipe(direction){
+            if (window.innerWidth < 576) {
+              var fade_classes = ['.dist-age', '.distribution-title-cell'];
+              var unfade_classes = ['.frequency', '.freq-title-cell'];
+              if (direction == 1) {
+                fade_classes = ['.frequency', '.freq-title-cell'];
+                unfade_classes = ['.dist-age', '.distribution-title-cell'];
+              }
+              unfade_classes.forEach(function (unfade_class) {
+                document.querySelectorAll(unfade_class).forEach(function (el) {
+                  // el.classList.remove('d-none');
+                  el.classList.remove('fade');
+                  el.classList.remove('d-none');
+                });
+              });
+              fade_classes.forEach(function (fade_class) {
+                document.querySelectorAll(fade_class).forEach(function (el) {
+                  // el.classList.add('d-none');
+                  el.classList.add('fade');
+                  el.classList.remove('d-none');
+                });
+              });
+            }
+
+          },
+          swipeLeft(){
+              this.swipe(1)
+          },
+          swipeRight(){
+              this.swipe()
+          }
         }
     }
 </script>
@@ -250,4 +283,32 @@
     font-size: 15px;
     border-color: #fafafa;
   }
+    @media (max-width: 576px) {
+
+    .frequency {
+      width: 35%;
+      opacity: 1;
+      display: table-cell;
+      transition: 1s;
+    }
+    .frequency.fade{
+      width: 35%;
+      opacity: 0;
+      display: none;
+      /*transition: 1s;*/
+    }
+    .dist-age {
+      width: 35%;
+      opacity: 1;
+      display: table-cell;
+      transition: 1s;
+    }
+    .dist-age.fade{
+      width: 35%;
+      opacity: 0;
+      display: none;
+      /*transition: 1s;*/
+    }
+  }
+
 </style>
