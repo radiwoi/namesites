@@ -15,10 +15,10 @@
         </div>
         <div class="col-3 col-lg-2 offset-lg-4 right-sub">
           <a :href="girl_names_site">
-            <img class="img-fluid sub-img d-none d-sm-block" src="../../assets/Logo-girl.png" alt="">
+            <img class="img-fluid sub-img d-none d-sm-block" src="../../assets/Logo-girl-new.png" alt="">
           </a>
           <a :href="girl_names_site">
-            <img class="img-fluid1 sub-img d-block d-sm-none" src="../../assets/Logo-girl-mobile.png" alt="">
+            <img class="img-fluid1 sub-img d-block d-sm-none" src="../../assets/Logo-girl-mobile-new.png" alt="">
           </a>
         </div>
       </div>
