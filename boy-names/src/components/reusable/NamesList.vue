@@ -72,7 +72,7 @@ export default {
     },
     pagesTooltipClick(value){
       let data = this.getRequestData();
-      data['url'] = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.limit * (value - 1) + "&is_girl_name=True";
+      data['url'] = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.limit * (value - 1);
       axios.post(
         data['url'],
         data["postData"]
@@ -109,7 +109,7 @@ export default {
     getRequestData(){
       let postData = this.searchObject;
       postData.ids = this.listFav;
-      let url = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.skip + "&is_girl_name=True";
+      let url = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.skip;
       let requestData = {
         "postData": postData,
         "url": url
