@@ -43,7 +43,9 @@ class ModelsMixin:
     serializer_class = BoysNamesSerializer
 
     def assign_model(self, request):
-        if settings.GIRL_NAMES_URL in request.META.get('HTTP_REFERER', ''):
+        # if settings.GIRL_NAMES_URL in request.META.get('HTTP_REFERER', ''):
+        is_girl_name = request.GET.get('is_girl_name', False)
+        if is_girl_name:
             self.serializer_class = GirlsNamesSerializer
             self.model = GirlName
 
