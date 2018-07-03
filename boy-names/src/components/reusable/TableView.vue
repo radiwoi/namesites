@@ -2,8 +2,7 @@
   <!--<div class="names-list container">-->
     <table class="table table-striped names-table"
       v-touch:swipe.left="swipeLeft"
-      v-touch:swipe.right="swipeRight"
-    >
+      v-touch:swipe.right="swipeRight">
       <tbody>
         <tr v-for="nameObj in namesList">
           <td class="fav" width="10%">
