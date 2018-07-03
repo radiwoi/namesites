@@ -145,7 +145,7 @@
     background: #ffffff;
     top:25px;
     left: 0;
-    box-shadow: 0px 2px 15px #dc8796;
+    box-shadow: 0px 2px 15px #8edcd1;
   }
   .tooltip-title{
     font-family: 'Quicksand-Bold';
@@ -167,7 +167,7 @@
     background: #ffffff;
     top:25px;
     left: 0;
-    box-shadow: 0px 2px 15px #dc8796;
+    box-shadow: 0px 2px 15px #8edcd1;
   }
   .chart-tooltip{
     font-family: 'Quicksand';
@@ -182,7 +182,7 @@
     top:25px;
     right:0%;
     min-width: 400px;
-    box-shadow: 0px 2px 15px #dc8796;
+    box-shadow: 0px 2px 15px #8edcd1;
   }
   .chart-top {
     height: 100px;
@@ -195,7 +195,7 @@
     height: 100%;
   }
   .a{
-    background: #F88580;
+    background: #38c8b2;
     display: inline-block;
     width: 40px;
     margin-right: 10px;
@@ -216,12 +216,11 @@
   }
   .popular-rate {
     font-family: 'Quicksand-Bold';
-    color: #F88580;
+    color: #38c8b2;
   }
   .fav{
     text-align: center;
-    color: #F88580;
-
+    color: #38c8b2;
   }
   .fav i{
     cursor: pointer;

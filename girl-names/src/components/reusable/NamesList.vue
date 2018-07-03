@@ -281,7 +281,7 @@ export default {
   }
   .page-item {
     cursor: pointer;
-    background: #38c8b2;
+    background: #F88580;
     color: #fff;
     display: inline-block;
     padding-right: 15px;
