@@ -90,7 +90,7 @@ export default {
     padding-bottom: 10px;
     padding-left: 13px;
     padding-right: 15px;
-    box-shadow: 0px 2px 15px #8edcd1;
+    box-shadow: 0px 2px 15px #dc8796;
     width: 150px;
     height: 288px;
     overflow: auto;
@@ -135,8 +135,8 @@ export default {
 
   /* When the checkbox is checked, add a blue background */
   .checkbox-container-radio input:checked ~ .checkmark-radio {
-      background-color: #39c8b2;
-      border-color: #39c8b2;
+      background-color: #f88580;
+      border-color: #f88580;
   }
 
   /* Create the checkmark/indicator (hidden when not checked) */

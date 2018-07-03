@@ -19,7 +19,7 @@
     <div v-if="isLoad" class="loader-wrapper">
       <div class="loader"></div>
     </div>
-    <div v-if="noResults" class="alert alert-info">No results found</div>
+    <div v-if="noResults" class="alert alert-info">Din sökning gav inga träffar</div>
   </div>
 </template>
 
@@ -294,7 +294,7 @@ export default {
     padding-bottom: 10px;
     padding-left: 0px;
     padding-right: 0px;
-    box-shadow: 0px 2px 15px #8edcd1;
+    box-shadow: 0px 2px 15px #dc8796;
     width: 120px;
     max-height: 288px;
     overflow: auto;
@@ -318,6 +318,15 @@ export default {
   .p-item:hover{
     cursor: pointer;
     background: #fff9f8;
+  }
+
+  .alert-info {
+    background: #F88580;
+    border: 2px solid #F88580;
+    height: 52px;
+    box-shadow: 0px 2px 5px #dc8796;
+    font-family: 'Quicksand';
+    border-radius: 5px;
   }
 
   /* Safari */

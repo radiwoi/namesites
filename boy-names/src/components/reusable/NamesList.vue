@@ -19,7 +19,7 @@
     <div v-if="isLoad" class="loader-wrapper">
       <div class="loader"></div>
     </div>
-    <div v-if="noResults" class="alert alert-info">No results found</div>
+    <div v-if="noResults" class="alert alert-info">Din sökning gav inga träffar</div>
   </div>
 </template>
 
@@ -318,6 +318,15 @@ export default {
   .p-item:hover{
     cursor: pointer;
     background: #fff9f8;
+  }
+
+  .alert-info {
+    background: #38c8b2;
+    border: 2px solid #38c8b2;
+    height: 52px;
+    box-shadow: 0px 2px 5px #8edcd1;
+    font-family: 'Quicksand';
+    border-radius: 5px;
   }
 
   /* Safari */
