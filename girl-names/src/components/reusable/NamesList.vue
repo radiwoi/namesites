@@ -213,22 +213,6 @@ export default {
     position: relative;
     cursor: pointer;
   }
-  /*.page-item {*/
-    /*cursor: pointer;*/
-    /*background: #F88580;*/
-    /*color: #fff;*/
-    /*display: inline-block;*/
-    /*padding-right: 15px;*/
-    /*padding-left: 15px;*/
-    /*padding-top: 7px;*/
-    /*padding-bottom: 7px;*/
-    /*border-radius: 5px;*/
-  /*}*/
-  /*.page-item.disabled{*/
-    /*cursor: auto;*/
-    /*background: rgba(239, 239, 240, 1);*/
-    /*color: #8c8c8c;*/
-  /*}*/
   .names-counter{
     text-align: center;
     color: #ceced0;
