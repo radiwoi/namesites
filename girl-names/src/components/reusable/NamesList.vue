@@ -14,7 +14,7 @@
        </span>
       <li class="page-item page-next" v-bind:class="{disabled: !next}" @click="paginationClick(next)"><i class="fa fa-angle-right"></i></li>
       </ul>
-      <div class="names-counter">{{total_results}} names</div>
+      <div class="names-counter">{{total_results}} namn</div>
     </div>
     <div v-if="isLoad" class="loader-wrapper">
       <div class="loader"></div>

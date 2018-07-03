@@ -2,7 +2,7 @@
   <div class="container popular-container">
     <div class="row">
       <div class="col col-lg-3 year-filter">
-        Populara namn ar <span @click="chooseYearDropbox" class="filter-year-bold">{{selectedYear}} <i class="fa fa-angle-down"></i></span>
+        Populäraste namnen bland nyfödda år <span @click="chooseYearDropbox" class="filter-year-bold">{{selectedYear}} <i class="fa fa-angle-down"></i></span>
         <div v-if="yearTooltip" class="tooltip year-tooltip">
         <div v-for="y in yearsRange">
           <label class="checkbox-container-radio"> {{y}}

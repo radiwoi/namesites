@@ -14,21 +14,21 @@
             <div v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="tooltip tooltip-list main-tooltip">
               <div v-if="nameObj.variants.length > 0" class="variants-list">
                 <div class="tooltip-title">
-                  Variants
+                  Varianter
                 </div>
                 <span v-for="variant in nameObj.variants">
                   {{variant.variants}} ({{variant.language}}),
                 </span>
               </div>
               <div v-if="nameObj.meaning.length > 0">
-                <div class="tooltip-title">Betudelse</div>
+                <div class="tooltip-title">Betydelse</div>
                 {{nameObj.meaning}}
               </div>
             </div>
           </td>
           <td class="table-cell frequency" width="35%">
             {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
-            <div class="tooltip tooltip-list freq-tooltip">{{nameObj.total_bearing_name}} personer bar detta namn</div>
+            <div class="tooltip tooltip-list freq-tooltip">{{nameObj.total_bearing_name}} personer bär detta namn</div>
           </td>
           <td class="table-cell dist-age d-none d-sm-table-cell" width="20%">
             {{nameObj.average_age}} år <i class="fa fa-info-circle"></i>
@@ -57,7 +57,7 @@
                 </div>
               </div>
               <div class="chart-bottom">
-                <span style="width: 45px;" class="item-chart-label">Alder:</span>
+                <span style="width: 45px;" class="item-chart-label">Ålder:</span>
                 <span class="item-chart-label">0-10</span>
                 <span class="item-chart-label">11-20</span>
                 <span class="item-chart-label">21-30</span>
