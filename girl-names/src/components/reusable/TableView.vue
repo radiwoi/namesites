@@ -221,7 +221,6 @@
   .fav{
     text-align: center;
     color: #F88580;
-
   }
   .fav i{
     cursor: pointer;

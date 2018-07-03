@@ -4,7 +4,7 @@
       <div style="position:relative" class="row">
         <div class="col-6 col-lg-3 col-md-3 logo-wrapper">
           <router-link v-bind:to="'/'">
-            <img class="sec-img img-fluid" src="../../assets/Girl.png" alt="">
+            <img class="sec-img img-fluid" src="../../assets/Girls.png" alt="">
           </router-link>
         </div>
         <div v-if="!mobileDevice" class="col-lg-6 col-md-8 offset-lg-2 d-none d-sm-block">

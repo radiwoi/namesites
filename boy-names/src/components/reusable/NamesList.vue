@@ -19,7 +19,7 @@
     <div v-if="isLoad" class="loader-wrapper">
       <div class="loader"></div>
     </div>
-    <div v-if="noResults" class="alert alert-info">No results found</div>
+    <div v-if="noResults" class="alert alert-info">Din sökning gav inga träffar</div>
   </div>
 </template>
 
@@ -72,7 +72,7 @@ export default {
     },
     pagesTooltipClick(value){
       let data = this.getRequestData();
-      data['url'] = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.limit * (value - 1) + "&is_girl_name=True";
+      data['url'] = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.limit * (value - 1);
       axios.post(
         data['url'],
         data["postData"]
@@ -109,7 +109,7 @@ export default {
     getRequestData(){
       let postData = this.searchObject;
       postData.ids = this.listFav;
-      let url = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.skip + "&is_girl_name=True";
+      let url = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.skip;
       let requestData = {
         "postData": postData,
         "url": url
@@ -213,22 +213,6 @@ export default {
     position: relative;
     cursor: pointer;
   }
-  /*.page-item {*/
-    /*cursor: pointer;*/
-    /*background: #F88580;*/
-    /*color: #fff;*/
-    /*display: inline-block;*/
-    /*padding-right: 15px;*/
-    /*padding-left: 15px;*/
-    /*padding-top: 7px;*/
-    /*padding-bottom: 7px;*/
-    /*border-radius: 5px;*/
-  /*}*/
-  /*.page-item.disabled{*/
-    /*cursor: auto;*/
-    /*background: rgba(239, 239, 240, 1);*/
-    /*color: #8c8c8c;*/
-  /*}*/
   .names-counter{
     text-align: center;
     color: #ceced0;
@@ -334,6 +318,15 @@ export default {
   .p-item:hover{
     cursor: pointer;
     background: #fff9f8;
+  }
+
+  .alert-info {
+    background: #38c8b2;
+    border: 2px solid #38c8b2;
+    height: 52px;
+    box-shadow: 0px 2px 5px #8edcd1;
+    font-family: 'Quicksand';
+    border-radius: 5px;
   }
 
   /* Safari */
