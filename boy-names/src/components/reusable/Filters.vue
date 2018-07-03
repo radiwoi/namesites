@@ -360,8 +360,32 @@ export default {
   @media (max-width: 768px) {}
 
   @media (max-width: 576px) {
-    .freq-filter-tooltip{
+    .freq-filter-tooltip {
       left: -30px;
+    }
+    .freq-title-cell {
+      width: 35%;
+      opacity: 1;
+      display: table-cell;
+      transition: 1s;
+    }
+    .freq-title-cell.fade {
+      width: 35%;
+      opacity: 0;
+      display: none;
+      /*transition: 1s;*/
+    }
+    .distribution-title-cell {
+      width: 35%!important;
+      opacity: 1;
+      display: table-cell;
+      transition: 1s;
+    }
+    .distribution-title-cell.fade {
+      width: 35%!important;
+      opacity: 0;
+      display: none;
+      /*transition: 1s;*/
     }
   }
 </style>
