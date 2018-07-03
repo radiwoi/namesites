@@ -22,12 +22,12 @@
                 </div>
                 <div class="footer-filter">
                   <!--{{checkedFreqs}}-->
-                  <button @click="namesLengthApply" class="btn btn-filter freq-btn">Accept</button>
+                  <button @click="namesLengthApply" class="btn btn-filter freq-btn">Ok</button>
                 </div>
               </div>
               <small class="filter-choises">
                 <!--<span v-if="checkedNames.length == 0">None</span>-->
-                <span v-if="checkedNames.length == 6 || checkedNames.length == 0">All</span>
+                <span v-if="checkedNames.length == 6 || checkedNames.length == 0">Alla</span>
                 <span v-if="checkedNames.length > 0 && checkedNames.length < 6 && !namesTooltip" class="item-check" v-for="(cName, ind) in checkedNames">
                   <i @click="removeElement(ind, 'checkedNames')" class="fa fa-times"></i> {{cName}}
                 </span>
@@ -36,7 +36,7 @@
 
             <td class="freq-title-cell" style="width: 35%">
               <div @click="namesTooltip = false, ageTooltip = false, freqTooltip = !freqTooltip, checkedFreqs.length == 6 ? checkedFreqs = [] : checkedFreqs=checkedFreqs" class="title-filter freq-filter">
-                Förecomst <span class="filter-sorting"></span>
+                Förekomst <span class="filter-sorting"></span>
               </div>
               <div v-if="freqTooltip" class="tooltip freq-filter-tooltip">
                 <div v-for="freq in frequency">
@@ -49,12 +49,12 @@
                 </div>
                 <div class="footer-filter">
                   <!--&lt;!&ndash;{{checkedFreqs}}&ndash;&gt;{{z}}-->
-                  <button @click="frequencyApply" class="btn btn-filter freq-btn">Accept</button>
+                  <button @click="frequencyApply" class="btn btn-filter freq-btn">Ok</button>
                 </div>
               </div>
               <small class="filter-choises">
                 <!--<span v-if="checkedFreqs.length == 0">None</span>-->
-                <span v-if="checkedFreqs.length == 6 || checkedFreqs.length == 0">All</span>
+                <span v-if="checkedFreqs.length == 6 || checkedFreqs.length == 0">Alla</span>
                 <span v-if="checkedFreqs.length > 0 && checkedFreqs.length < 6 && !freqTooltip" class="item-check" v-for="(freqName, ind) in checkedFreqs">
                   <i @click="removeElement(ind, 'checkedFreqs')" class="fa fa-times"></i> {{freqName}}
                 </span>
@@ -63,7 +63,7 @@
 
             <td class="distribution-title-cell d-none d-sm-table-cell" style="width: 20%">
               <div @click="namesTooltip = false, freqTooltip = false, ageTooltip = !ageTooltip, checkedAges.length == 6 ? checkedAges = [] : checkedAges=checkedAges" class="title-filter">
-                Snittalder <span class="filter-sorting"></span>
+                Snittålder <span class="filter-sorting"></span>
               </div>
               <div v-if="ageTooltip" class="tooltip freq-filter-tooltip">
                 <div v-for="age in ageDistribution">
@@ -76,12 +76,12 @@
                 </div>
                 <div class="footer-filter">
                   <!--{{checkedFreqs}}-->
-                  <button @click="ageDistributionApply" class="btn btn-filter freq-btn">Accept</button>
+                  <button @click="ageDistributionApply" class="btn btn-filter freq-btn">Ok</button>
                 </div>
               </div>
               <small class="filter-choises">
                 <!--<span v-if="checkedAges.length == 0">None</span>-->
-                <span v-if="checkedAges.length == 6 || checkedAges.length == 0">All</span>
+                <span v-if="checkedAges.length == 6 || checkedAges.length == 0">Alla</span>
                 <span v-if="checkedAges.length > 0 && checkedAges.length < 6 && !ageTooltip" class="item-check" v-for="(checkedAge, ind) in checkedAges">
                   <i @click="removeElement(ind, 'checkedAges')" class="fa fa-times"></i> {{checkedAge}}
                 </span>
@@ -111,7 +111,7 @@ export default {
         {"name": "4-5 bokstaver", "value": "4 - 5"},
         {"name": "6-7 bokstaver", "value": "6 - 7"},
         {"name": "8-9 bokstaver", "value": "8 - 9"},
-        {"name": "10 > bokstaver", "value": "9 >"},
+        {"name": "9 > bokstäver", "value": "9 >"},
       ],
       frequency: [
         {"name": "Mycket vanligt", "value": ""},
@@ -122,12 +122,12 @@ export default {
         {"name": "Mycket ovanligt", "value": ""},
       ],
       ageDistribution: [
-        {"name": "0 - 10 ar", "value": 10},
-        {"name": "11 - 20 ar", "value": 20},
-        {"name": "21 - 30 ar", "value": 30},
-        {"name": "31 - 50 ar", "value": 50},
-        {"name": "51 - 70 ar", "value": 70},
-        {"name": "71 > ar", "value": 71},
+        {"name": "0 - 10 år", "value": 10},
+        {"name": "11 - 20 år", "value": 20},
+        {"name": "21 - 30 år", "value": 30},
+        {"name": "31 - 50 år", "value": 50},
+        {"name": "51 - 70 år", "value": 70},
+        {"name": "71 > år", "value": 71},
       ],
       checkedFreqs: [],
       checkedNames: [],

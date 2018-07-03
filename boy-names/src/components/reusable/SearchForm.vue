@@ -1,7 +1,7 @@
 <template>
   <div class="search-form">
     <div class="input-group">
-      <input type="text" class="form-control main-search-control" placeholder="Sök" v-on:keyup.enter="handleEnter" v-model="localSearchPhrase">
+      <input type="text" class="form-control main-search-control" placeholder="Sök på namn, del av namn eller enstaka bokstäver" v-on:keyup.enter="handleEnter" v-model="localSearchPhrase">
       <span class="input-group-btn main-page-search">
         <span v-if="localSearchPhrase.length > 0" @click="resetFilters" class="reset-filters"></span>
         <router-link class="triggered" v-bind:to="{name: redirectTo}">
@@ -12,7 +12,7 @@
       </span>
     </div>
     <small id="emailHelp" class="form-text text-muted under-search">
-      Visa Namn Som
+      Visa namn som
       <span class="search-criteria" @click="chooseCriteriaWindow">{{search_criteria.name}} <i class="fas fa-angle-down"></i>
         <div v-if="seen" class="criterias-list">
           <div v-for="criteria, index in criterias" @click="chooseCriteria(index)" v-if="!criteria.chosen">{{criteria.name}}</div>
@@ -37,9 +37,9 @@ export default {
         redirectTo: "search-page",
         errorMsg: "",
         criterias: [
-            {name: "börjar med söksträngen ", action: "start", chosen: true},
-            {name: "innehar soksträngen", action: "middle", chosen: false},
-            {name: "slutar med söksträngen", action: "end", chosen: false},
+            {name: "börjar med sökfrasen", action: "start", chosen: true},
+            {name: "innehåller sökfrasen", action: "middle", chosen: false},
+            {name: "slutar med sökfrasen", action: "end", chosen: false},
         ],
       }
     },

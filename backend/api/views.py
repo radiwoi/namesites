@@ -285,8 +285,8 @@ class EmailSender(generics.ListAPIView, ModelsMixin):
             'capt':
                 {
                     'name': 'Namn',
-                    'frequency': 'Förecomst',
-                    'average_age': 'Snittalder'
+                    'frequency': 'Förekomst',
+                    'average_age': 'Snittålder'
                 },
             'arr': names_items,
         }

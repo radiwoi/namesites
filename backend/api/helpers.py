@@ -30,8 +30,8 @@ def send_email(request):
                                'capt': [
                                    {
                                        'name': u'{}'.format('Namn').encode('utf-8'),
-                                       'frequency': u'{}'.format('Förecomst').encode('utf-8'),
-                                       'average_age': u'{}'.format('Snittalder').encode('utf-8')
+                                       'frequency': u'{}'.format('Förekomst').encode('utf-8'),
+                                       'average_age': u'{}'.format('Snittålder').encode('utf-8')
                                    }
                                ],
                                'arr': names_items,
