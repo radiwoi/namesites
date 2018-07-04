@@ -55,6 +55,12 @@ export default{
       obj["ids"] = this.listFav;
       obj["user_email"] = this.userEmail;
 
+      let valid = this.checkInput();
+      if (!valid) {
+        this.send_error = true;
+        return false;
+      }
+
       axios.post(this.backend_url + 'sendemail/?is_girl_name=True', obj, {
         validateStatus: function (status) {
           return ([404, 500].indexOf(status) == -1);
@@ -67,6 +73,15 @@ export default{
         .catch(e => {
           this.send_error = true;
         })
+    },
+    checkInput() {
+      let validRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      let validator = false;
+      if (validRegEx.test(this.userEmail)) {
+        validator = true;
+      }
+      return validator;
+//      return true
     }
   },
   computed: {
