@@ -55,7 +55,11 @@ export default{
       obj["ids"] = this.listFav;
       obj["user_email"] = this.userEmail;
 
-      axios.post(this.backend_url + 'sendemail/?is_girl_name=True', obj)
+      axios.post(this.backend_url + 'sendemail/?is_girl_name=True', obj, {
+        validateStatus: function (status) {
+          return ([404, 500].indexOf(status) == -1);
+        }
+      })
         .then(r => {
           this.userEmail = '';
           this.send_success = true;
