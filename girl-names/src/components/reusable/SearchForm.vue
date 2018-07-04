@@ -112,6 +112,13 @@ export default {
             criteria.chosen = false
         }
     });
+  },
+  watch: {
+    currentPage: function (from, to) {
+      // console.log(from);
+      // console.log(to);
+      this.resetFilters();
+    }
   }
 }
 </script>
