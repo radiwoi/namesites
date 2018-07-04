@@ -305,7 +305,7 @@ class EmailSender(generics.ListAPIView, ModelsMixin):
                       recipient_list=[email], auth_user='AKIAIOCX5NM7I7QP3PDA',
                       auth_password='AsCPRi0G6CdBWB6/kJNvM8OcHkqLYIgJf1VbfdZV55SF', html_message=html_content)
 
-        return JsonResponse({'status': 'Emain Send!'}, status=304)
+        return JsonResponse({'status': 'Emain Send!'}, status=200)
 
 
 def upload_file(request):

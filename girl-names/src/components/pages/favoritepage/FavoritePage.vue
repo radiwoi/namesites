@@ -43,7 +43,7 @@ export default{
   data(){
     return {
       userEmail: "",
-      backend_url: "http://34.254.119.140/api/v1/",
+      backend_url: "http://127.0.0.1/api/v1/",
       send_success: false,
       send_error: false,
 //      backend_url: "http://names_project.devhost1.com/api/v1/"
@@ -55,7 +55,7 @@ export default{
       obj["ids"] = this.listFav;
       obj["user_email"] = this.userEmail;
 
-      axios.post(this.backend_url + 'sendemail/', obj)
+      axios.post(this.backend_url + 'sendemail/?is_girl_name=True', obj)
         .then(r => {
           this.userEmail = '';
           this.send_success = true;
