@@ -1,5 +1,4 @@
 <template>
-  <!--<div class="names-list container">-->
     <table class="table table-striped names-table"
       v-touch:swipe.left="swipeLeft"
       v-touch:swipe.right="swipeRight">
@@ -70,7 +69,6 @@
         </tr>
       </tbody>
     </table>
-  <!--</div>-->
 </template>
 
 <script>
@@ -152,7 +150,7 @@
   }
   .fa-info-circle {
     color: darkgrey;
-  }`
+  }
   .fa-info-circle:hover + .tooltip,
   .fa-info-circle:focus + .tooltip,
   .fa-info-circle:active + .tooltip{

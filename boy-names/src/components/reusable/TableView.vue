@@ -1,5 +1,4 @@
 <template>
-  <!--<div class="names-list container">-->
     <table class="table table-striped names-table"
       v-touch:swipe.left="swipeLeft"
       v-touch:swipe.right="swipeRight">
@@ -69,13 +68,8 @@
           </td>
         </tr>
       </tbody>
-      <!--<vue2-gesture :type="'swipeLeft'"  :call="swipe(1)">swipeLeft</vue2-gesture>-->
-      <!--<vue2-gesture :type="'swipeRight'"  :call="swipe">swipeRight</vue2-gesture>-->
     </table>
-  <!--</div>-->
-
 </template>
-
 
 <script>
     export default {
