@@ -387,5 +387,8 @@ export default {
       display: none;
       /*transition: 1s;*/
     }
+    .filters > .container{
+      padding: 0;
+    }
   }
 </style>

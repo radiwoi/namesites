@@ -351,6 +351,9 @@ export default {
     .names-table td{
       padding: 0.25rem;
     }
+    .names-list.container{
+      padding: 0;
+    }
   }
 
 </style>

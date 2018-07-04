@@ -313,6 +313,10 @@
       display: none;
       /*transition: 1s;*/
     }
+    td{
+      padding-right: 5px;
+      padding-left: 5px;
+    }
   }
 
 </style>
