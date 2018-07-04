@@ -220,7 +220,7 @@ export default {
   .loader {
     border: 8px solid rgba(239, 239, 240, 1);
     border-radius: 50%;
-    border-top: 8px solid #F88580;
+    border-top: 8px solid #38c8b2;
     width: 50px;
     height: 50px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
