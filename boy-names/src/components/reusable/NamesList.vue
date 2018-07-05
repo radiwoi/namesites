@@ -52,23 +52,27 @@ export default {
     }
   },
   methods: {
-    paginationClick (value) {
-
-        if(value !== null) {
-            let urlParams = new URLSearchParams(value);
-            value = value.replace('http://localhost:8000/api/v1/', this.backend_url);
-            axios.post(value, this.searchObject)
-            .then(r => {
-                this.prepareResponseData(r);
-                if(!parseInt(urlParams.get('offset'))){
-                    this.page_number = 1;
-                }
-                else {
-                    this.page_number = parseInt(urlParams.get('offset')) / this.searchObject.limit + 1;
-                }
-            })
-            .catch(error => { this.prepareRejectData(error) });
-        }
+    paginationClick(value) {
+      if (value !== null) {
+        let element = document.getElementsByClassName("filters")[0];
+        let top = element.offsetTop;
+        let urlParams = new URLSearchParams(value);
+        value = value.replace('http://localhost:8000/api/v1/', this.backend_url);
+        axios.post(value, this.searchObject)
+          .then(r => {
+            window.scrollTo(0, top);
+            this.prepareResponseData(r);
+            if (!parseInt(urlParams.get('offset'))) {
+              this.page_number = 1;
+            }
+            else {
+              this.page_number = parseInt(urlParams.get('offset')) / this.searchObject.limit + 1;
+            }
+          })
+          .catch(error => {
+            this.prepareRejectData(error)
+          });
+      }
     },
     pagesTooltipClick(value){
       let data = this.getRequestData();
