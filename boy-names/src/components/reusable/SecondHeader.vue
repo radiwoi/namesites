@@ -37,7 +37,8 @@ export default {
     return {
       favoriteCount: 0,
       mobileFormActive: false,
-      mobileDevice: false
+      mobileDevice: false,
+      currentPage: "",
     }
   },
   methods: {
@@ -66,6 +67,9 @@ export default {
       listFav: 'getListFav'
     })
   },
+  created(){
+        this.currentPage = this.$route.name;
+  },
   beforeMount() {
     this.mobileDevice = this.checkMobileDevice();
   },
@@ -73,9 +77,15 @@ export default {
     this.favoriteCount = this.listFav.length;
   },
   watch: {
-      listFav(o, n) {
-          this.favoriteCount = n.length;
+    listFav(o, n) {
+      this.favoriteCount = n.length;
+    },
+    currentPage: function (o, n) {
+      if (o != 'search-page' && this.checkMobileDevice()) {
+        this.$store.commit('test', '');
+        this.$store.commit('changeDoSearch', true);
       }
+    }
   }
 }
 </script>
