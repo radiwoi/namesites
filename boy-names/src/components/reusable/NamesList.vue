@@ -47,7 +47,7 @@ export default {
       total_pages: 1,
       page_number: 1,
       part: 'test',
-      backend_url: "http://34.254.119.140/api/v1/",
+      backend_url: "https://pojknamn.se/api/v1/",
 //      backend_url: "http://names_project.devhost1.com/api/v1/"
     }
   },

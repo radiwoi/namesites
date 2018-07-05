@@ -43,7 +43,7 @@ export default{
   data(){
     return {
       userEmail: "",
-      backend_url: "http://34.254.119.140/api/v1/",
+      backend_url: "https://flicknamn.se/api/v1/",
       send_success: false,
       send_error: false,
 //      backend_url: "http://names_project.devhost1.com/api/v1/"
