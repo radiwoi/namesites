@@ -2,36 +2,41 @@
   <div class="favorite-page">
     <second-header></second-header>
     <sub-header></sub-header>
-    <div class="fav-subheader">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-lg-4 email-send-wrapper">
-            <span class="fav-label">Skicka listan med mina favoritnamn till:</span>
-            <div class="input-group">
-              <input type="email" class="form-control main-search-control" v-on:keyup.enter="sendEmail" v-model="userEmail" placeholder="Ex. namn@gmail.com">
-              <span class="input-group-btn main-page-search">
-                <button class="btn btn-default fav-page-send-btn" @click="sendEmail" type="submit">
-                  Skicka
-                </button>
-              </span>
+    <div v-if="this.listFav.length > 0">
+      <div class="fav-subheader">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-lg-4 email-send-wrapper">
+              <span class="fav-label">Skicka listan med mina favoritnamn till:</span>
+              <div class="input-group">
+                <input type="email" class="form-control main-search-control" v-on:keyup.enter="sendEmail" v-model="userEmail" placeholder="Ex. namn@gmail.com">
+                <span class="input-group-btn main-page-search">
+                  <button class="btn btn-default fav-page-send-btn" @click="sendEmail" type="submit">
+                    Skicka
+                  </button>
+                </span>
+              </div>
+              <div v-show="send_success" class="alert alert-success" role="alert">
+                <button type="button" aria-label="Close" @click="send_success=false" class="close">×</button>
+                E-post har skickats
+              </div>
+              <div v-show="send_error" class="alert alert-danger" role="alert">
+                <button type="button" aria-label="Close" @click="send_error=false" class="close">×</button>
+                Ogiltig mejladress
+              </div>
             </div>
-            <div v-show="send_success" class="alert alert-success" role="alert">
-              <button type="button" aria-label="Close" @click="send_success=false" class="close">×</button>
-              E-post har skickats
+            <div class="col col-lg-2 offset-lg-6 girl-logo-wrapper">
+              <!--<img class="img-fluid sub-fav-img" src="../../../assets/Logo-girl.png" alt="">-->
             </div>
-            <div v-show="send_error" class="alert alert-danger" role="alert">
-              <button type="button" aria-label="Close" @click="send_error=false" class="close">×</button>
-              Ogiltig mejladress
-            </div>
-          </div>
-          <div class="col col-lg-2 offset-lg-6 girl-logo-wrapper">
-            <!--<img class="img-fluid sub-fav-img" src="../../../assets/Logo-girl.png" alt="">-->
           </div>
         </div>
       </div>
+      <filters></filters>
+      <names-list></names-list>
     </div>
-    <filters></filters>
-    <names-list></names-list>
+    <div v-else="this.listFav.length > 0" class="solo-capt">
+      Det finns inga sparade favoriter.
+    </div>
   </div>
 </template>
 
@@ -94,6 +99,8 @@ export default{
     })
   },
   created: function() {
+    console.log(this.listFav.length)
+    console.log(this.listFav)
     window.document.title = "Favorite page"
   }
 }
@@ -124,6 +131,11 @@ export default{
   border: 2px solid #F88580;
   border-radius: 5px;
   box-shadow: none;
+}
+.solo-capt {
+    font-family: 'Quicksand-Bold';
+    font-size: 17px;
+    padding: 30px 0px;
 }
 .sub-fav-img {
   width: 90%;
