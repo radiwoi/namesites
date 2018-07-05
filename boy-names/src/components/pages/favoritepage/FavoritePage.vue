@@ -69,9 +69,11 @@ export default{
         .then(r => {
           this.userEmail = '';
           this.send_success = true;
+          this.send_error = false;
         })
         .catch(e => {
           this.send_error = true;
+          this.send_success = false;
         })
     },
     checkInput() {
