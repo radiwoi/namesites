@@ -81,16 +81,14 @@ export default {
   }
   .year-tooltip {
     font-family: 'Quicksand';
-    display: block;
-    top: 70%;
-    right:40px;
+    display: inline-grid;
     opacity: 1;
     background: #fff;
     padding-top: 3px;
     padding-bottom: 10px;
     padding-left: 13px;
     padding-right: 15px;
-    box-shadow: 0px 2px 15px #dc8796;
+    box-shadow: 0px 2px 15px #8edcd1;
     width: 150px;
     height: 288px;
     overflow: auto;
