@@ -29,7 +29,7 @@ export default {
 }
 
 body {
-  background-image: url('http://api.thumbr.it/whitenoise-600x370.png?background=ffffffff&noise=dbdbdb&density=25&opacity=20')
+  background-image: url('assets/app.png')
 }
 
 #app {

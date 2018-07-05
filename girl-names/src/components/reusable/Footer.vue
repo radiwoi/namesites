@@ -40,7 +40,7 @@ export default{
 
 <style>
   .footer {
-    background-image: url('http://api.thumbr.it/whitenoise-600x370.png?background=fff8f8ff&noise=dbd4d7&density=31&opacity=35');
+    background-image: url('../../assets/footer.png');
     padding: 15px 10px 40px 10px;
     font-family: 'Quicksand';
   }
