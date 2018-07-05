@@ -58,6 +58,7 @@ export default{
       let valid = this.checkInput();
       if (!valid) {
         this.send_error = true;
+        this.send_success = false;
         return false;
       }
 
