@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['34.254.119.140', 'pojknamn.se', 'flicknamn.se']
 
 # USE_X_FORWARDED_HOST = True
 
-HOST_URL = 'http://34.254.119.140'
+# HOST_URL = 'http://34.254.119.140'
 
 # Application definition
 
