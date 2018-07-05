@@ -58,6 +58,7 @@ export default {
       this.handleClick();
     },
     handleClick () {
+      this.$emit("closeMobileSearch");
       this.errorMsg = "";
       let valid = this.checkInput();
       if (!valid) {

@@ -11,7 +11,7 @@
           <search-form></search-form>
         </div>
         <div v-if="mobileDevice && mobileFormActive" class="search-header-wrapper">
-          <search-form></search-form>
+          <search-form v-on:closeMobileSearch="closeMobileSearch"></search-form>
         </div>
         <div @click="mobileSearchFormActions()" class="col-3 d-block d-xs-block d-sm-block d-md-none search-mobile">
           <img v-if="mobileDevice && !mobileFormActive" style="max-height: 99%" class="img-fluid" src="../../assets/red-search.png" alt="">
@@ -51,6 +51,9 @@ export default {
       } else {
         el.classList.remove('overflow');
       }
+    },
+    closeMobileSearch: function(){
+      this.mobileFormActive = !this.mobileFormActive;
     },
     checkMobileDevice: function() {
       let check = false;
