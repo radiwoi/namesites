@@ -234,7 +234,7 @@ export default {
   .item-check {
     display: inline-block;
     margin-left: 1px;
-    /*width: 100px;*/
+    margin-right: 5px;
   }
 
   .item-check .fa {

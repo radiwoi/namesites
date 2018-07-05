@@ -95,7 +95,7 @@ export default {
     text-align: left;
     font-size: 16px;
   }
-    .checkbox-container-radio {
+  .checkbox-container-radio {
     display: block;
     position: relative;
     padding-left: 25px;

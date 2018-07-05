@@ -10,7 +10,7 @@ export default {
       "letters_range": [true, "1 - 3", "4 - 5", "6 - 7", "8 - 9", "9 >"],
       "search_phrase": "",
       "search_criteria": "start",
-      "limit": 13,
+      "limit": 40,
       "skip": 0
     },
     availableYears: [],
