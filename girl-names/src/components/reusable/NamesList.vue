@@ -2,18 +2,20 @@
   <div class="names-list container">
     <table-view v-bind:namesList="namesList" v-bind:currentPage="currentPage" v-bind:listFav="listFav"></table-view>
     <div v-if="namesList.length > 0" class="pagination">
-      <ul class="top-pagination pagination">
-       <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev)"><i class="fa fa-angle-left"></i></li>
-       <span @click="showPageTooltip = !showPageTooltip" class="page-counter">
-         Sida {{page_number}} / {{total_pages}} <i class="fa fa-angle-down"></i>
-         <div v-if="showPageTooltip" class="tooltip page-tooltip">
-           <div class="p-item" @click="pagesTooltipClick(p)" v-for="p in total_pages_arr">
-              {{p}} / {{total_pages}}
+      <div v-if="currentPage !== 'favorite-page'">
+        <ul class="top-pagination pagination">
+         <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev)"><i class="fa fa-angle-left"></i></li>
+         <span @click="showPageTooltip = !showPageTooltip" class="page-counter">
+           Sida {{page_number}} / {{total_pages}} <i class="fa fa-angle-down"></i>
+           <div v-if="showPageTooltip" class="tooltip page-tooltip">
+             <div class="p-item" @click="pagesTooltipClick(p)" v-for="p in total_pages_arr">
+                {{p}} / {{total_pages}}
+             </div>
            </div>
-         </div>
-       </span>
-      <li class="page-item page-next" v-bind:class="{disabled: !next}" @click="paginationClick(next)"><i class="fa fa-angle-right"></i></li>
-      </ul>
+         </span>
+         <li class="page-item page-next" v-bind:class="{disabled: !next}" @click="paginationClick(next)"><i class="fa fa-angle-right"></i></li>
+        </ul>
+      </div>
       <div class="names-counter">{{total_results}} namn</div>
     </div>
     <div v-if="isLoad" class="loader-wrapper">
@@ -113,7 +115,7 @@ export default {
     getRequestData(){
       let postData = this.searchObject;
       postData.ids = this.listFav;
-      let url = this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.skip + "&is_girl_name=True";
+      let url = (this.currentPage != 'favorite-page') ? this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.skip  + "&is_girl_name=True" : this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=10000&offset=0&is_girl_name=True";
       let requestData = {
         "postData": postData,
         "url": url
