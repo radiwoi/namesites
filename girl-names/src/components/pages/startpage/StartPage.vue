@@ -41,7 +41,7 @@ export default {
   },
   mounted() {
       axios
-      .get("https://34.254.119.140/api/v1/popular-names/?order=rand&is_girl_name=True")
+      .get("https://flicknamn.se/api/v1/popular-names/?order=rand&is_girl_name=True")
       .then(response => (this.popular_names = response.data));
   },
   methods: {
