@@ -118,7 +118,9 @@ export default {
     currentPage: function (from, to) {
       // console.log(from);
       // console.log(to);
-      this.resetFilters();
+      if (from != 'search-page'){
+        this.resetFilters();
+      }
     }
   }
 }
