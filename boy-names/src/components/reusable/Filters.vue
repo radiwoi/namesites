@@ -127,7 +127,7 @@ export default {
         {"name": "21 - 30 år", "value": 30},
         {"name": "31 - 50 år", "value": 50},
         {"name": "51 - 70 år", "value": 70},
-        {"name": "71 > år", "value": 71},
+        {"name": "70 > år", "value": 71},
       ],
       checkedFreqs: [],
       checkedNames: [],
