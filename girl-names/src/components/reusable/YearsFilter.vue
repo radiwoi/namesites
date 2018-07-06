@@ -88,7 +88,7 @@ export default {
     padding-bottom: 10px;
     padding-left: 13px;
     padding-right: 15px;
-    box-shadow: 0px 2px 15px #8edcd1;
+    box-shadow: 0px 2px 15px #dc8796;
     width: 150px;
     height: 288px;
     overflow: auto;

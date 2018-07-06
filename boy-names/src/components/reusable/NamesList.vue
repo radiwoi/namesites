@@ -2,7 +2,7 @@
   <div class="names-list container">
     <table-view v-bind:namesList="namesList" v-bind:currentPage="currentPage" v-bind:listFav="listFav"></table-view>
     <div v-if="namesList.length > 0" class="pagination">
-      <div v-if="currentPage !== 'favorite-page'">
+      <div v-if="currentPage == 'search-page'">
         <ul class="top-pagination pagination">
          <li class="page-item page-prev" v-bind:class="{disabled: !prev}" @click="paginationClick(prev)"><i class="fa fa-angle-left"></i></li>
          <span @click="showPageTooltip = !showPageTooltip" class="page-counter">
@@ -115,7 +115,7 @@ export default {
     getRequestData(){
       let postData = this.searchObject;
       postData.ids = this.listFav;
-      let url = (this.currentPage != 'favorite-page') ? this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.skip : this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=10000&offset=0";
+      let url = (this.currentPage == 'search-page') ? this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=" + this.searchObject.limit + "&offset=" + this.searchObject.skip : this.backend_url + this.urlsMapper[this.currentPage] + "/?limit=10000&offset=0";
       let requestData = {
         "postData": postData,
         "url": url
