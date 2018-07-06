@@ -34,7 +34,7 @@
             <div class="tooltip tooltip-list chart-tooltip">
               <div class="chart-top">
                 <div class="green-cols-wrapper">
-                  <span class="a" style="height:100%; width: 30px; background: transparent"></span>
+                  <span class="a" style="height:100%; background: transparent"></span>
                   <span class="a" :style="{'height': style(nameObj.age_distribution_10) + '%'}">
                     <span class="percents">{{nameObj.age_distribution_10}}%</span>
                   </span>
@@ -56,7 +56,7 @@
                 </div>
               </div>
               <div class="chart-bottom">
-                <span style="width: 45px;" class="item-chart-label">Ålder:</span>
+                <span class="item-chart-label">Ålder:</span>
                 <span class="item-chart-label">0-10</span>
                 <span class="item-chart-label">11-20</span>
                 <span class="item-chart-label">21-30</span>
@@ -234,10 +234,16 @@
     border-top-right-radius: 5px;
     position: relative;
   }
+  .a:first-of-type{
+    width: 30px;
+  }
   .item-chart-label{
     width: 50px;
     display: inline-block;
     font-size: 13px;
+  }
+  .item-chart-label:first-of-type{
+    width: 45px;
   }
   .percents{
     font-family: "Quicksand-Bold";
@@ -310,6 +316,23 @@
     td{
       padding-right: 5px;
       padding-left: 5px;
+    }
+    .chart-tooltip {
+      min-width: 320px;
+    }
+    .a {
+      width: 13%;
+      margin-right: 0;
+    }
+    .a:first-of-type {
+      width: 13%;
+    }
+    .item-chart-label {
+      width: 13%;
+      text-align: center;
+    }
+    .item-chart-label:first-of-type {
+      width: 13%;
     }
   }
 
