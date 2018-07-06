@@ -62,7 +62,7 @@
                 <span class="item-chart-label">21-30</span>
                 <span class="item-chart-label">31-50</span>
                 <span class="item-chart-label">51-70</span>
-                <span class="item-chart-label">71 ></span>
+                <span class="item-chart-label">70 ></span>
               </div>
             </div>
           </td>
