@@ -133,7 +133,6 @@ class BoysNamesList(generics.ListAPIView, CsrfExemptMixin):
     def get_queryset(self):
         request = self.request
         resp = QueryRepository.build_query(QueryRepository, request, BoyName)
-        # print(resp.query)
         return resp.all()
 
     def get(self, request, *args, **kwargs):
@@ -161,7 +160,6 @@ class GirlsNamesList(generics.ListAPIView, CsrfExemptMixin):
     def get_queryset(self):
         request = self.request
         resp = QueryRepository.build_query(QueryRepository, request, GirlName)
-        # print(resp.query)
         return resp.all()
 
     def get(self, request, *args, **kwargs):
