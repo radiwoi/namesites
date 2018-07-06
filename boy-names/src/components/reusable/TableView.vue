@@ -91,11 +91,11 @@
             },
             style (width) {
               if(width == 100) {
-                  return 70;
+                  return 80;
               } if(width == 0) {
                   return 5;
               } else {
-                return width + 10
+                return width * 0.8
               }
             },
             checkIfFavorite(id){
