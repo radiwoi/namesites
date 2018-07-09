@@ -63,8 +63,8 @@ class Variant(models.Model):
 class Email(models.Model):
     email = models.EmailField()
     domain = models.CharField(max_length=256)
-    date = models.DateField()
-    time = models.TimeField()
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
 
 
 class FooterTexts(models.Model):

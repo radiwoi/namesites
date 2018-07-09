@@ -13,8 +13,9 @@ from rest_framework.parsers import JSONParser
 
 from names_project.settings import PER_PAGE, PER_PAGE_POPULAR
 from .parser import dispatcher
-from .models import BoyName, GirlName, PopularName, Variant, FooterTexts, PojknamnFooterText, FlicknamnFooterText
-from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNamesSerializer, PopularNamesSerializer
+from .models import BoyName, GirlName, PopularName, Variant, FooterTexts, PojknamnFooterText, FlicknamnFooterText, Email
+from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNamesSerializer, PopularNamesSerializer, \
+    PojknamnFooterTextsSerializer, FlicknamnFooterTextsSerializer
 from .serializers import FooterTextsSerializer
 
 from django.db.models import Transform
@@ -249,8 +250,10 @@ class FooterTextsList(generics.ListAPIView, CsrfExemptMixin):
     def get(self, request, *args, **kwargs):
         if settings.BOY_NAMES_URL in request.META.get('HTTP_REFERER', ''):
             self.model = PojknamnFooterText
+            self.serializer_class = PojknamnFooterTextsSerializer
         if settings.GIRL_NAMES_URL in request.META.get('HTTP_REFERER', ''):
             self.model = FlicknamnFooterText
+            self.serializer_class = FlicknamnFooterTextsSerializer
         footer_texts = self.model.objects.order_by('position')
         serializer = self.serializer_class(footer_texts, many=True)
 
@@ -301,11 +304,21 @@ class EmailSender(generics.ListAPIView, ModelsMixin):
             send_mail(subject='Mina favoriter', message=html_content, from_email='noreply@pojknamn.se',
                       recipient_list=[email], auth_user='AKIAIOCX5NM7I7QP3PDA',
                       auth_password='AsCPRi0G6CdBWB6/kJNvM8OcHkqLYIgJf1VbfdZV55SF', html_message=html_content)
+            mail_status = Email(
+                email=email,
+                domain=settings.BOY_NAMES_URL
+            )
+            mail_status.save()
 
         if settings.GIRL_NAMES_URL in request.META.get('HTTP_REFERER', ''):
             send_mail(subject='Mina favoriter', message=html_content, from_email='no-reply@flicknamn.se',
                       recipient_list=[email], auth_user='AKIAIOCX5NM7I7QP3PDA',
                       auth_password='AsCPRi0G6CdBWB6/kJNvM8OcHkqLYIgJf1VbfdZV55SF', html_message=html_content)
+            mail_status = Email(
+                email=email,
+                domain=settings.BOY_NAMES_URL
+            )
+            mail_status.save()
 
         return JsonResponse({'status': 'Emain Send!'}, status=200)
 

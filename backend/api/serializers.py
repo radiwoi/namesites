@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework import status
 from rest_framework.fields import SerializerMethodField
 
-from .models import BoyName, GirlName, PopularName, Variant, FooterTexts
+from .models import BoyName, GirlName, PopularName, Variant, FooterTexts, PojknamnFooterText, FlicknamnFooterText
 
 
 class BoysNamesSerializer(serializers.ModelSerializer):
@@ -102,4 +102,16 @@ class VariantNamesSerializer(serializers.ModelSerializer):
 class FooterTextsSerializer(serializers.ModelSerializer):
     class Meta:
         model = FooterTexts
+        fields = '__all__'
+
+
+class PojknamnFooterTextsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PojknamnFooterText
+        fields = '__all__'
+
+
+class FlicknamnFooterTextsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlicknamnFooterText
         fields = '__all__'
