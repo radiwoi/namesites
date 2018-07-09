@@ -77,3 +77,30 @@ class FooterTexts(models.Model):
 
     class Meta:
         verbose_name_plural = "footer text"
+
+
+class FlicknamnFooterText(models.Model):
+    title = models.CharField(max_length=64, null=True)
+    position = models.CharField(max_length=64)
+    names = models.TextField(null=True)
+    read_more_words = models.IntegerField()
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "Flicknamn Footer Texts"
+
+
+class PojknamnFooterText(models.Model):
+    title = models.CharField(max_length=64, null=True)
+    position = models.CharField(max_length=64)
+    names = models.TextField(null=True)
+    read_more_words = models.IntegerField()
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "Pojknamn Footer Texts"
+

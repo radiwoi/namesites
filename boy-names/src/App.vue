@@ -2,7 +2,9 @@
   <div id="app">
     <!--<main-header></main-header>-->
     <router-view></router-view>
-    <main-footer></main-footer>
+    <div class="footer">
+      <span>© Pojknamn.se</span>
+    </div>
   </div>
 </template>
 

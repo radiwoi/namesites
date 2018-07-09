@@ -13,7 +13,7 @@ from rest_framework.parsers import JSONParser
 
 from names_project.settings import PER_PAGE, PER_PAGE_POPULAR
 from .parser import dispatcher
-from .models import BoyName, GirlName, PopularName, Variant, FooterTexts
+from .models import BoyName, GirlName, PopularName, Variant, FooterTexts, PojknamnFooterText, FlicknamnFooterText
 from .serializers import BoysNamesSerializer, GirlsNamesSerializer, VariantNamesSerializer, PopularNamesSerializer
 from .serializers import FooterTextsSerializer
 
@@ -247,7 +247,11 @@ class FooterTextsList(generics.ListAPIView, CsrfExemptMixin):
     model = FooterTexts
 
     def get(self, request, *args, **kwargs):
-        footer_texts = self.model.objects.order_by('position')[:PER_PAGE_POPULAR]
+        if settings.BOY_NAMES_URL in request.META.get('HTTP_REFERER', ''):
+            self.model = PojknamnFooterText
+        if settings.GIRL_NAMES_URL in request.META.get('HTTP_REFERER', ''):
+            self.model = FlicknamnFooterText
+        footer_texts = self.model.objects.order_by('position')
         serializer = self.serializer_class(footer_texts, many=True)
 
         return Response(serializer.data)

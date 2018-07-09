@@ -1,29 +1,34 @@
 <template>
-  <div class="start-page">
-    <main-header></main-header>
-    <div class="container">
-      <div class="start-page-title">Letar du efter ett namn till din son?</div>
-      <div class="start-page-subtitle">Sök bland svenska pojknamn och unisexnamn</div>
-      <div class="row start-page-form">
-        <div class="col col-lg-2 d-none d-sm-block"><img class="img-fluid1 woman-png hidden-sm" src="../../../assets/Woman.png" alt=""></div>
-        <div class="col col-lg-6 offset-lg-1 start-page-core col-sm-12">
-          <search-form></search-form>
-          <div class="results">
-            <router-link v-bind:to="'/populara'">
-              <div class="results-head">Populära namn</div>
-            </router-link>
-            <div class="results-wrapper row">
-              <div v-for="item in popular_names" class="col-lg-3 col-4">
-                <router-link v-bind:to="'/populara'">
-                  {{item.name}}
-                </router-link>
+  <div>
+    <div class="start-page">
+      <main-header></main-header>
+      <div class="container">
+        <div class="start-page-title">Letar du efter ett namn till din son?</div>
+        <div class="start-page-subtitle">Sök bland svenska pojknamn och unisexnamn</div>
+        <div class="row start-page-form">
+          <div class="col col-lg-2 d-none d-sm-block"><img class="img-fluid1 woman-png hidden-sm"
+                                                           src="../../../assets/Woman.png" alt=""></div>
+          <div class="col col-lg-6 offset-lg-1 start-page-core col-sm-12">
+            <search-form></search-form>
+            <div class="results">
+              <router-link v-bind:to="'/populara'">
+                <div class="results-head">Populära namn</div>
+              </router-link>
+              <div class="results-wrapper row">
+                <div v-for="item in popular_names" class="col-lg-3 col-4">
+                  <router-link v-bind:to="'/populara'">
+                    {{item.name}}
+                  </router-link>
+                </div>
               </div>
             </div>
           </div>
+          <div class="col col-lg-3 d-none d-sm-block"><img class="img-fluid1" src="../../../assets/Man.png" alt="">
+          </div>
         </div>
-        <div class="col col-lg-3 d-none d-sm-block"><img class="img-fluid1" src="../../../assets/Man.png" alt=""></div>
       </div>
     </div>
+    <main-footer></main-footer>
   </div>
 </template>
 

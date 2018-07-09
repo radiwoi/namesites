@@ -4,7 +4,9 @@ from .models import *
 
 
 admin.site.register(Email)
-admin.site.register(FooterTexts)
+# admin.site.register(FooterTexts)
+admin.site.register(FlicknamnFooterText)
+admin.site.register(PojknamnFooterText)
 
 
 @admin.register(BoyName)
