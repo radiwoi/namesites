@@ -14,7 +14,7 @@
 export default {
   name: 'popular-page',
   created() {
-    window.document.title = "Popular page"
+    window.document.title = "Pojknamn.se - De populäraste pojknamnen de senaste åren"
   }
 }
 </script>

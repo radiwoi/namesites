@@ -27,7 +27,7 @@ export default {
 
   },
   created: function() {
-    window.document.title = "Search page"
+    window.document.title = "Pojknamn.se - Sökresultat med pojknamn"
   }
 }
 </script>

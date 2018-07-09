@@ -14,7 +14,7 @@
 export default {
   name: 'popular-page',
   created: function() {
-    window.document.title = "Popular page"
+    window.document.title = "Flicknamn.se - De populäraste flicknamnen de senaste åren"
   }
 }
 </script>

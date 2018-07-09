@@ -100,7 +100,7 @@ export default{
     })
   },
   created: function() {
-    window.document.title = "Favorite page"
+    window.document.title = "Pojknamn.se - Mina favoriter"
   }
 }
 </script>

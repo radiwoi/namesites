@@ -48,7 +48,7 @@ export default {
 
   },
   created: function() {
-    window.document.title = "Start page"
+    window.document.title = "Pojknamn.se - Sök bland svenska pojknamn och killnamn"
   }
 }
 </script>

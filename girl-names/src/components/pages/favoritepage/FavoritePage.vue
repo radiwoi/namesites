@@ -101,7 +101,7 @@ export default{
   created: function() {
     console.log(this.listFav.length)
     console.log(this.listFav)
-    window.document.title = "Favorite page"
+    window.document.title = "Flicknamn.se - Mina favoriter"
   }
 }
 </script>

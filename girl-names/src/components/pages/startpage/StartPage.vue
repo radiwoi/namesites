@@ -31,7 +31,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'start-page',
+  name: 'Flicknamn.se - Sök bland svenska flicknamn och tjejnamn',
 
   props: [''],
   data () {
