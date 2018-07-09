@@ -2,7 +2,7 @@
   <div id="app">
     <!--<main-header></main-header>-->
     <router-view></router-view>
-    <div class="footer">
+    <div class="footer common-footer">
       <span>© Flicknamn.se</span>
     </div>
   </div>
@@ -60,4 +60,7 @@ a {
   color: #42b983;
 }
 
+.common-footer {
+  padding: 15px 10px 15px;
+}
 </style>
