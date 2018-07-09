@@ -2,9 +2,6 @@ from django.contrib import admin
 
 from .models import *
 
-
-admin.site.register(Email)
-# admin.site.register(FooterTexts)
 admin.site.register(FlicknamnFooterText)
 admin.site.register(PojknamnFooterText)
 
@@ -39,7 +36,7 @@ class PopularNamesAdmin(admin.ModelAdmin):
         'position',
     ]
     search_fields = ('boy_names__name', 'girl_names__name',)
-    clange_list_template = 'admin/api/popularname/change_list.html'
+    change_list_template = 'admin/api/popularname/change_list.html'
 
 
 @admin.register(Variant)
@@ -50,4 +47,14 @@ class VariantsAdmin(admin.ModelAdmin):
         'language',
     ]
     search_fields = ('name',)
-    clange_list_template = 'admin/api/variant/change_list.html'
+    change_list_template = 'admin/api/variant/change_list.html'
+
+
+@admin.register(Email)
+class EmailAdmin(admin.ModelAdmin):
+    list_display = [
+        'email',
+        'domain',
+        'date',
+        'time'
+    ]
