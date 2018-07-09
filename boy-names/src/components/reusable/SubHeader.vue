@@ -3,13 +3,13 @@
     <div class="container">
       <div class="row">
         <div class="col-9 col-lg-6 sub-menu">
-          <router-link v-bind:to="'/search-page'">
+          <router-link v-bind:to="'/sokresultat'">
             <span class="sub-menu-item" v-bind:class="{active: page == 'search-page'}">Sökning</span>
           </router-link>
-          <router-link v-bind:to="'/popular-page'">
+          <router-link v-bind:to="'/populara'">
             <span class="sub-menu-item" v-bind:class="{active: page == 'popular-page'}">Populära namn</span>
           </router-link>
-          <router-link class="d-none d-sm-inline" v-bind:to="'/favorite-page'">
+          <router-link class="d-none d-sm-inline" v-bind:to="'/mina-favoriter'">
             <span class="sub-menu-item" v-bind:class="{active: page == 'favorite-page'}">Mina favoriter</span>
           </router-link>
         </div>

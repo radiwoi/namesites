@@ -12,9 +12,9 @@ export default new VueRouter({
   mode: "history",
   base: __dirname,
   routes: [
-    { path: '/search-page', component: SearchPage, name: "search-page" },
-    { path: '/popular-page', component: PopularPage, name: "popular-page" },
-    { path: '/favorite-page', component: FavoritePage, name: "favorite-page" },
+    { path: '/sokresultat', component: SearchPage, name: "search-page" },
+    { path: '/populara', component: PopularPage, name: "popular-page" },
+    { path: '/mina-favoriter', component: FavoritePage, name: "favorite-page" },
     { path: '/', component: StartPage, name: "start-page" }
   ]
 })

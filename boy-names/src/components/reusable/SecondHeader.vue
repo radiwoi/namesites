@@ -19,7 +19,7 @@
         </div>
         <div class="col-3 col-md-1 col-lg-1 right-heart-wrapper">
           <!--<img src="" alt="">-->
-          <router-link  v-bind:class="{'active':favoriteCount > 0}" class="popular-wrapper" to="/favorite-page">
+          <router-link  v-bind:class="{'active':favoriteCount > 0}" class="popular-wrapper" to="/mina-favoriter">
             <span class="fav-counter">{{favoriteCount}}</span>
           </router-link>
         </div>

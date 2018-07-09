@@ -9,12 +9,12 @@
         <div class="col col-lg-6 offset-lg-1 start-page-core col-sm-12">
           <search-form></search-form>
           <div class="results">
-            <router-link v-bind:to="'/popular-page'">
+            <router-link v-bind:to="'/populara'">
               <div class="results-head">Populära namn</div>
             </router-link>
             <div class="results-wrapper row">
               <div v-for="item in popular_names" class="col-lg-3 col-4">
-                <router-link v-bind:to="'/popular-page'">
+                <router-link v-bind:to="'/populara'">
                   {{item.name}}
                 </router-link>
               </div>
