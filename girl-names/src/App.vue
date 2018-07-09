@@ -61,6 +61,6 @@ a {
 }
 
 .common-footer {
-  padding: 15px 10px 15px;
+  padding: 15px 10px 15px!important;
 }
 </style>
