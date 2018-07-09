@@ -316,7 +316,7 @@ class EmailSender(generics.ListAPIView, ModelsMixin):
                       auth_password='AsCPRi0G6CdBWB6/kJNvM8OcHkqLYIgJf1VbfdZV55SF', html_message=html_content)
             mail_status = Email(
                 email=email,
-                domain=settings.BOY_NAMES_URL
+                domain=settings.GIRL_NAMES_URL
             )
             mail_status.save()
 
