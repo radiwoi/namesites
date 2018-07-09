@@ -9,7 +9,7 @@
           </td>
           <td class="table-cell namn" width="35%">
             <span class="popular-rate" v-if="currentPage == 'popular-page'">{{nameObj.popular.position}}</span>
-            <span >{{nameObj.name}}</span> <i v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="fa fa-info-circle"></i>
+            <span class="hoverable">{{nameObj.name}}</span> <i v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="fa fa-info-circle"></i>
             <div v-if="nameObj.variants.length > 0 && nameObj.meaning.length > 0" class="tooltip tooltip-list main-tooltip">
               <div v-if="nameObj.variants.length > 0" class="variants-list">
                 <div class="tooltip-title">
@@ -26,11 +26,11 @@
             </div>
           </td>
           <td class="table-cell frequency" width="35%">
-            {{nameObj.frequency}} <i class="fa fa-info-circle"></i>
+            <span class="hoverable"> {{nameObj.frequency}}</span>  <i class="fa fa-info-circle"></i>
             <div class="tooltip tooltip-list freq-tooltip">{{nameObj.total_bearing_name}} personer bär detta namn</div>
           </td>
           <td class="table-cell dist-age d-none d-sm-table-cell" width="20%">
-            {{nameObj.average_age}} år <i class="fa fa-info-circle"></i>
+            <span class="hoverable"> {{nameObj.average_age}} år</span> <i class="fa fa-info-circle"></i>
             <div class="tooltip tooltip-list chart-tooltip">
               <div class="chart-top">
                 <div class="green-cols-wrapper">
@@ -163,6 +163,16 @@
     /*z-index: 50;*/
     /*opacity: 0;*/
     /*position: absolute;*/
+  }
+  .hoverable:hover ~.tooltip,
+  .hoverable:focus ~ .tooltip,
+  .hoverable:active ~ .tooltip{
+    /*opacity: 1;*/
+    z-index: 2;
+    display: block;
+  }
+  .hoverable:hover{
+
   }
   .main-tooltip {
     font-family: 'Quicksand';
