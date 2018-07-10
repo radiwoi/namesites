@@ -3,9 +3,9 @@
     <div class="container">
       <div class="row">
         <div v-for="text in footerTexts" class="footer-text-col col-12 col-lg-4">
-          <div class="footer-title">
-            {{text.title}}
-          </div>
+          <!--<div class="footer-title">-->
+            <!--{{text.title}}-->
+          <!--</div>-->
           <div class="col-text-wrapper">
             {{text.names}}
           </div>
