@@ -6,8 +6,7 @@
           <!--<div class="footer-title">-->
             <!--{{text.title}}-->
           <!--</div>-->
-          <div class="col-text-wrapper">
-            {{text.names}}
+          <div class="col-text-wrapper" v-html="{{text.names}}">
           </div>
         </div>
       </div>

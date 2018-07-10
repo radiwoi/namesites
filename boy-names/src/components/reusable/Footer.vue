@@ -7,7 +7,7 @@
             <!--{{text.title}}-->
           <!--</div>-->
           <div class="col-text-wrapper">
-            {{text.names}}
+            <div v-html="{{text.names}}"></div>
           </div>
         </div>
       </div>
