@@ -1,4 +1,5 @@
 import VueRouter from 'vue-router'
+import Meta from 'vue-meta'
 import Vue from 'vue'
 
 import StartPage from '../components/pages/startpage/StartPage.vue'
@@ -7,6 +8,7 @@ import PopularPage from '../components/pages/popularpage/PopularPage.vue'
 import FavoritePage from '../components/pages/favoritepage/FavoritePage.vue'
 
 Vue.use(VueRouter);
+Vue.use(Meta);
 
 export default new VueRouter({
   mode: "history",

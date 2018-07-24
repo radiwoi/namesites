@@ -38,6 +38,13 @@ import axios from 'axios'
 export default {
   name: 'start-page',
 
+  metaInfo: {
+    title: 'Pojknamn.se - Sök bland svenska pojknamn och killnamn',
+     meta: [
+      { name: 'description', content: 'Sök och bläddra bland svenska pojknamn och unisexnamn. Inspireras och få uppslag till namn. Se hur vanligt förekommande olika namn är i olika åldrar.' }
+    ]
+  },
+
   props: [''],
   data () {
     return {
@@ -51,9 +58,6 @@ export default {
   },
   methods: {
 
-  },
-  created: function() {
-    window.document.title = "Pojknamn.se - Sök bland svenska pojknamn och killnamn"
   }
 }
 </script>

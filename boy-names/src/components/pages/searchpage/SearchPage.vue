@@ -13,6 +13,14 @@
 
 export default {
   props: ['searchInput'],
+
+  metaInfo: {
+    title: 'Pojknamn.se - Sökresultat med pojknamn',
+     meta: [
+      { name: 'description', content: 'Sökresultat  på svenska pojknamn. Du har möjlighet att filtrera listan på namn, förekomst och snittålder. Hur många personer bär namnet och i vilka åldrar.' }
+    ]
+  },
+
   data () {
     return {
 
@@ -25,9 +33,6 @@ export default {
   },
   mounted () {
 
-  },
-  created: function() {
-    window.document.title = "Pojknamn.se - Sökresultat med pojknamn"
   }
 }
 </script>

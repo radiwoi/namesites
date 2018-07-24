@@ -13,8 +13,11 @@
 <script>
 export default {
   name: 'popular-page',
-  created: function() {
-    window.document.title = "Flicknamn.se - De populäraste flicknamnen de senaste åren"
+  metaInfo: {
+    title: 'Flicknamn.se - De populäraste flicknamnen de senaste åren',
+     meta: [
+      { name: 'description', content: 'Här hittar du en topplista med de populäraste flicknamnen för varje år. Listan baseras på hur många nyfödda flickor som fått respektive namn.' }
+    ]
   }
 }
 </script>

@@ -45,6 +45,14 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 export default{
   name: 'favorite-page',
+
+  metaInfo: {
+    title: 'Pojknamn.se - Mina favoriter',
+     meta: [
+      { name: 'description', content: 'Här listas de favoriter du sparat bland pojknamn och unisexnamn. Du har möjlighet att skicka listan via e-post till dig själv eller någon annan.' }
+    ]
+  },
+
   data(){
     return {
       userEmail: "",
@@ -98,9 +106,6 @@ export default{
       listFav: 'getListFav',
       searchObject: "getSearchObject"
     })
-  },
-  created: function() {
-    window.document.title = "Pojknamn.se - Mina favoriter"
   }
 }
 </script>

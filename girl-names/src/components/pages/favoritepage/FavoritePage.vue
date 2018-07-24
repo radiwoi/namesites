@@ -45,6 +45,12 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 export default{
   name: 'favorite-page',
+  metaInfo: {
+    title: 'Flicknamn.se - Mina favoriter',
+     meta: [
+      { name: 'description', content: 'Här listas de favoriter du sparat bland flicknamn och unisexnamn. Du har möjlighet att skicka listan via e-post till dig själv eller någon annan.' }
+    ]
+  },
   data(){
     return {
       userEmail: "",
@@ -101,7 +107,6 @@ export default{
   created: function() {
     console.log(this.listFav.length)
     console.log(this.listFav)
-    window.document.title = "Flicknamn.se - Mina favoriter"
   }
 }
 </script>

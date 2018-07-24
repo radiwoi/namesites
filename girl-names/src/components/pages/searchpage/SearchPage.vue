@@ -13,6 +13,12 @@
 
 export default {
   props: ['searchInput'],
+  metaInfo: {
+    title: 'Flicknamn.se - Sökresultat med flicknamn',
+     meta: [
+      { name: 'description', content: 'Sökresultat  på svenska flicknamn. Du har möjlighet att filtrera listan på namn, förekomst och snittålder. Hur många personer bär namnet och i vilka åldrar.' }
+    ]
+  },
   data () {
     return {
 
@@ -25,9 +31,6 @@ export default {
   },
   mounted () {
 
-  },
-  created: function() {
-    window.document.title = "Flicknamn.se - Sökresultat med flicknamn"
   }
 }
 </script>
