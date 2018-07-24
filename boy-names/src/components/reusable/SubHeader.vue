@@ -3,9 +3,9 @@
     <div class="container">
       <div class="row">
         <div class="col-9 col-lg-6 sub-menu">
-          <router-link v-bind:to="'/sokresultat'">
-            <span class="sub-menu-item" v-bind:class="{active: page == 'search-page'}">Sökning</span>
-          </router-link>
+          <!--<router-link v-bind:to="'/sokresultat'">-->
+            <!--<span class="sub-menu-item" v-bind:class="{active: page == 'search-page'}">Sökning</span>-->
+          <!--</router-link>-->
           <router-link v-bind:to="'/populara'">
             <span class="sub-menu-item" v-bind:class="{active: page == 'popular-page'}">Populära namn</span>
           </router-link>
