@@ -1,6 +1,10 @@
 <template>
   <div class="search-form">
     <div class="input-group">
+      <a class="alphabet" v-on:click="handleLetter()">Alla</a>
+      <a class="alphabet" v-for="letter in alphabet" v-on:click="handleLetter(letter)">{{letter}}</a>
+    </div>
+    <div class="input-group">
       <input type="text" class="form-control main-search-control" placeholder="Sök på namn, del av namn eller enstaka bokstäver" v-on:keyup.enter="handleEnter" v-model="localSearchPhrase">
       <span class="input-group-btn main-page-search">
         <span v-if="localSearchPhrase.length > 0" @click="resetFilters" class="reset-filters"></span>
@@ -41,6 +45,7 @@ export default {
             {name: "innehåller sökfrasen", action: "middle", chosen: false},
             {name: "slutar med sökfrasen", action: "end", chosen: false},
         ],
+        alphabet: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Å', 'Ä', 'Ö']
       }
     },
   methods: {
@@ -54,6 +59,15 @@ export default {
       this.search_criteria = this.criterias[index];
     },
     handleEnter () {
+      document.getElementsByClassName('triggered')[0].click();
+      this.handleClick();
+    },
+    handleLetter (letter){
+      if (letter){
+        this.localSearchPhrase = letter;
+      } else {
+        this.localSearchPhrase = "";
+      }
       document.getElementsByClassName('triggered')[0].click();
       this.handleClick();
     },
@@ -221,5 +235,19 @@ export default {
     z-index: 100;
     cursor: pointer;
     position: absolute;
+  }
+  a.alphabet {
+    padding: 2px;
+    color: #42b983;
+  }
+  @media (max-width: 1024px) {
+    a.alphabet {
+      padding: 1px;
+    }
+  }
+  @media (max-width: 767px) {
+    a.alphabet {
+      padding: 8px;
+    }
   }
 </style>
