@@ -3,7 +3,7 @@
     <div class="start-page">
       <main-header></main-header>
       <div class="container">
-        <div class="start-page-title">Letar du efter ett namn till din son?</div>
+        <h1 class="start-page-title">Letar du efter ett namn till din son?</h1>
         <div class="start-page-subtitle">Sök bland svenska pojknamn och unisexnamn</div>
         <div class="row start-page-form">
           <div class="col col-lg-2 d-none d-sm-block"><img class="img-fluid1 woman-png hidden-sm"
