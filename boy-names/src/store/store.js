@@ -15,6 +15,7 @@ export default {
     },
     availableYears: [],
     doSearch: false,
+    doResetFilters: false,
     listFav: localStorage.getItem("listFav") == null || localStorage.getItem("listFav") == undefined ?  [] : JSON.parse(localStorage.getItem('listFav')),
   },
 
@@ -44,6 +45,9 @@ export default {
     },
     changeDoSearch (state, value) {
       state.doSearch = value
+    },
+    changeDoResetFilters (state, value) {
+      state.doResetFilters = value
     }
   },
   actions: {
@@ -53,6 +57,7 @@ export default {
   },
   getters: {
     getDoSearch: state => state.doSearch,
+    getDoResetFilters: state => state.doResetFilters,
     getListFav: state => state.listFav,
     getSearchObject: state => state.searchObject,
   }

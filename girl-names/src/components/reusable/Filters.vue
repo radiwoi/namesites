@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'filters',
   data () {
@@ -135,6 +135,9 @@ export default {
       freqTooltip: false,
       namesTooltip: false,
       ageTooltip: false,
+      freqChanged: false,
+      namesChanged: false,
+      agesChanged: false,
     }
   },
   methods: {
@@ -144,6 +147,8 @@ export default {
       this.freqTooltip = false;
       this.showFreqFilters = true;
       this.$store.commit('changeDoSearch', true);
+      this.$store.commit('changeDoResetFilters', false);
+      this.freqChanged = false;
     },
     namesLengthApply() {
       let tmp = [];
@@ -156,6 +161,8 @@ export default {
       this.namesTooltip = false;
       this.showNameFilters = true;
       this.$store.commit('changeDoSearch', true);
+      this.$store.commit('changeDoResetFilters', false);
+      this.namesChanged = false;
     },
     ageDistributionApply() {
       let tmp = [];
@@ -168,6 +175,8 @@ export default {
       this.ageTooltip = false;
       this.showAgeFilters = true;
       this.$store.commit('changeDoSearch', true);
+      this.$store.commit('changeDoResetFilters', false);
+      this.agesChanged = false;
     },
     removeElement: function (index, what) {
       this[what].splice(index, 1);
@@ -175,6 +184,11 @@ export default {
       this.namesLengthApply();
       this.frequencyApply();
     }
+  },
+  computed: {
+    ...mapGetters({
+      doResetFilters: 'getDoResetFilters'
+    })
   },
   created() {
     this.$store.state.searchObject.frequency.map(f => {
@@ -195,11 +209,45 @@ export default {
 
     window.addEventListener('click', function(e){
       if (!self.$el.contains(e.target)){
-        self.freqTooltip = false
-        self.namesTooltip = false
-        self.ageTooltip = false
+        self.freqTooltip = false;
+        self.namesTooltip = false;
+        self.ageTooltip = false;
       }
     })
+  },
+  watch: {
+    doResetFilters: function (from, to) {
+      if (!from) {
+        return;
+      }
+      this.checkedFreqs = [];
+      this.checkedAges = [];
+      this.checkedNames = [];
+    },
+    checkedFreqs: function (from, to) {
+      this.freqChanged = true;
+    },
+    checkedNames: function (from, to) {
+      this.namesChanged = true;
+    },
+    checkedAges: function (from, to){
+      this.agesChanged = true;
+    },
+    freqTooltip: function(f, to){
+      if (!f && this.freqChanged){
+        this.frequencyApply();
+      }
+    },
+    namesTooltip: function(f, to){
+      if (!f && this.namesChanged){
+        this.namesLengthApply();
+      }
+    },
+    ageTooltip: function(f, to){
+      if (!f && this.agesChanged){
+        this.ageDistributionApply();
+      }
+    },
   }
 }
 </script>

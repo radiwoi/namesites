@@ -79,7 +79,10 @@ export default {
           this.errorMsg = 'incorrect value';
           return false;
       }
+      this.$store.state.searchObject.frequency = ["Ovanligt", "Mindre vanligt", "Mycket vanligt", "Mycket ovanligt", "Ganska vanligt", "Vanligt"];
+      this.$store.state.searchObject.age_distribution = [10,20,30,50,70,71];
       this.$store.commit('changeDoSearch', true);
+      this.$store.commit('changeDoResetFilters', true);
       this.$store.commit('test', this.localSearchPhrase);
     },
     resetFilters() {
