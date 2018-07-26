@@ -93,7 +93,7 @@ export default {
       this.$store.commit('changeDoSearch', true);
     },
     checkInput () {
-      let validRegEx = /^[[a-zA-Z() ÅÄÖ]]*$/;
+      let validRegEx = /^[a-zA-Z() ÅÄÖ]*$/;
       let validator = false;
       if(validRegEx.test(this.localSearchPhrase)){
           validator = true;
