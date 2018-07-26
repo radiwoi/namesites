@@ -1,8 +1,8 @@
 <template>
   <div class="search-form">
     <div class="input-group">
-      <a class="alphabet" v-on:click="handleLetter()">Alla</a>
-      <a class="alphabet" v-for="letter in alphabet" v-on:click="handleLetter(letter)">{{letter}}</a>
+      <a href="" class="alphabet" v-on:click="handleLetter()">Alla</a>
+      <a href="" class="alphabet" v-for="letter in alphabet" v-on:click="handleLetter(letter)">{{letter}}</a>
     </div>
     <div class="input-group">
       <input type="text" class="form-control main-search-control" placeholder="Sök på namn, del av namn eller enstaka bokstäver" v-on:keyup.enter="handleEnter" v-model="localSearchPhrase">
@@ -63,6 +63,7 @@ export default {
       this.handleClick();
     },
     handleLetter (letter){
+      event.preventDefault();
       if (letter){
         this.localSearchPhrase = letter;
       } else {
