@@ -10,13 +10,17 @@ import FavoritePage from '../components/pages/favoritepage/FavoritePage.vue'
 Vue.use(VueRouter);
 Vue.use(Meta);
 
-export default new VueRouter({
-  mode: "history",
-  base: __dirname,
-  routes: [
-    { path: '/sokresultat', component: SearchPage, name: "search-page" },
-    { path: '/populara', component: PopularPage, name: "popular-page" },
-    { path: '/mina-favoriter', component: FavoritePage, name: "favorite-page" },
-    { path: '/', component: StartPage, name: "start-page" }
-  ]
-})
+export function createRouter() {
+  return new VueRouter({
+    mode: "history",
+    fallback: false,
+        scrollBehavior: () => ({ y: 0 }),
+
+    routes: [
+      {path: '/sokresultat', component: SearchPage, name: "search-page"},
+      {path: '/populara', component: PopularPage, name: "popular-page"},
+      {path: '/mina-favoriter', component: FavoritePage, name: "favorite-page"},
+      {path: '/', component: StartPage, name: "start-page"}
+    ]
+  })
+}
