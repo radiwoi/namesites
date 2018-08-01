@@ -242,7 +242,7 @@ export default {
   }
   a.alphabet {
     padding: 2px;
-    color: #42b983;
+    color: #f88580;
   }
   @media (max-width: 1024px) {
     a.alphabet {
