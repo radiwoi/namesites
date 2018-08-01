@@ -18,7 +18,11 @@ export default {
     title: 'Pojknamn.se - Sökresultat med pojknamn',
      meta: [
       { name: 'description', content: 'Sökresultat  på svenska pojknamn. Du har möjlighet att filtrera listan på namn, förekomst och snittålder. Hur många personer bär namnet och i vilka åldrar.' }
+    ],
+    link: [
+      { rel: 'canonical', href: 'https://pojknamn.se/sokresultat' }
     ]
+
   },
 
   data () {

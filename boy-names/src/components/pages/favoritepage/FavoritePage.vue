@@ -50,7 +50,11 @@ export default{
     title: 'Pojknamn.se - Mina favoriter',
      meta: [
       { name: 'description', content: 'Här listas de favoriter du sparat bland pojknamn och unisexnamn. Du har möjlighet att skicka listan via e-post till dig själv eller någon annan.' }
+    ],
+    link: [
+      { rel: 'canonical', href: 'https://pojknamn.se/mina-favoriter' }
     ]
+
   },
 
   data(){

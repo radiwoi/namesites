@@ -18,7 +18,11 @@ export default {
     title: 'Pojknamn.se - De populäraste pojknamnen de senaste åren',
      meta: [
       { name: 'description', content: 'Här hittar du en topplista med de populäraste pojknamnen för varje år. Listan baseras på hur många nyfödda pojkar som fått respektive namn.' }
+    ],
+    link: [
+      { rel: 'canonical', href: 'https://pojknamn.se/populara' }
     ]
+
   }
 }
 </script>

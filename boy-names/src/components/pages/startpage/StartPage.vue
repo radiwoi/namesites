@@ -43,6 +43,9 @@ export default {
      meta: [
         { 'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8'},
         { name: 'description', content: 'Sök och bläddra bland svenska pojknamn och unisexnamn. Inspireras och få uppslag till namn. Se hur vanligt förekommande olika namn är i olika åldrar.' }
+    ],
+    link: [
+      { rel: 'canonical', href: 'https://pojknamn.se/' }
     ]
   },
 
