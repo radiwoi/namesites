@@ -6,9 +6,6 @@ const { VueLoaderPlugin } = require('vue-loader')
 
 const isProd = process.env.NODE_ENV === 'production'
 
-const ImageminPlugin = require('imagemin-webpack-plugin').default
-
-
 module.exports = {
   entry: '../src/main.js',
   devtool: isProd
