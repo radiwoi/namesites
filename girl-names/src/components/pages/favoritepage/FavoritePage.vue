@@ -49,6 +49,9 @@ export default{
     title: 'Flicknamn.se - Mina favoriter',
      meta: [
       { name: 'description', content: 'Här listas de favoriter du sparat bland flicknamn och unisexnamn. Du har möjlighet att skicka listan via e-post till dig själv eller någon annan.' }
+    ],
+    link: [
+      { rel: 'canonical', href: 'https://flicknamn.se/mina-favoriter' }
     ]
   },
   data(){

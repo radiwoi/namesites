@@ -17,6 +17,9 @@ export default {
     title: 'Flicknamn.se - Sökresultat med flicknamn',
      meta: [
       { name: 'description', content: 'Sökresultat  på svenska flicknamn. Du har möjlighet att filtrera listan på namn, förekomst och snittålder. Hur många personer bär namnet och i vilka åldrar.' }
+    ],
+    link: [
+      { rel: 'canonical', href: 'https://flicknamn.se/sokresultat' }
     ]
   },
   data () {

@@ -41,6 +41,9 @@ export default {
     title: 'Flicknamn.se - Sök bland svenska flicknamn och tjejnamn',
      meta: [
       { name: 'description', content: 'Sök och bläddra bland svenska flicknamn och unisexnamn. Inspireras och få uppslag till namn. Se hur vanligt förekommande olika namn är i olika åldrar.' }
+    ],
+    link: [
+      { rel: 'canonical', href: 'https://flicknamn.se/' }
     ]
   },
   props: [''],
