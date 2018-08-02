@@ -10,15 +10,6 @@ const ImageminPlugin = require('imagemin-webpack-plugin').default
 
 
 module.exports = {
-   plugins: [
-    // Make sure that the plugin is after any plugins that add images
-    new ImageminPlugin({
-      disable: process.env.NODE_ENV !== 'production', // Disable during development
-      pngquant: {
-        quality: '50'
-      }
-    })
-  ],
   entry: '../src/main.js',
   devtool: isProd
     ? false
@@ -30,9 +21,10 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'public': path.resolve(__dirname, '../public')
-    }
-  },
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    extensions: ['*', '.js', '.vue', '.json']
+    },
   module: {
     noParse: /es6-promise\.js$/, // avoid webpack shimming process
     rules: [
@@ -62,6 +54,13 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.(png)$/,
+        loader: 'image-webpack-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
       }
     ]
   },
@@ -79,12 +78,6 @@ module.exports = {
       // new ExtractTextPlugin({
       //   filename: 'common.[chunkhash].css'
       // })
-      new ImageminPlugin({
-        test: /\.(png)$/,
-        optipng: {
-          optimizationLevel: 9
-        }
-      })
     ]
     : [
         new VueLoaderPlugin(),

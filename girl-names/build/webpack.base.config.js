@@ -57,12 +57,20 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg|woff|woff2|eot|ttf)$/,
+        test: /\.(jpg|gif|svg|woff|woff2|eot|ttf)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.(png)$/,
+        loader: 'image-webpack-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
       }
+
     ]
   },
   performance: {
@@ -79,12 +87,6 @@ module.exports = {
       // new ExtractTextPlugin({
       //   filename: 'common.[chunkhash].css'
       // })
-      new ImageminPlugin({
-        test: /\.(png)$/,
-        optipng: {
-          optimizationLevel: 9
-        }
-      })
     ]
     : [
         new VueLoaderPlugin(),
