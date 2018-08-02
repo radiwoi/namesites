@@ -1,16 +1,9 @@
-// store.js
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Vue2TouchEvents from 'vue2-touch-events'
 
 Vue.use(Vuex)
 Vue.use(Vue2TouchEvents);
-
-// Assume we have a universal API that returns Promises
-// and ignore the implementation details
-// import { fetchItem } from './api'
-
-
 
 export function createStore () {
 
