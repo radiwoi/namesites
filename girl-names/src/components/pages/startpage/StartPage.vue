@@ -4,7 +4,7 @@
       <main-header></main-header>
       <div class="container">
         <h1 class="start-page-title">Letar du efter ett namn till din dotter?</h1>
-        <div class="start-page-subtitle">Sök bland svenska flicknamn och unisexnamn</div>
+        <h2 class="start-page-subtitle">Sök bland svenska flicknamn och unisexnamn</h2>
         <div class="row start-page-form">
           <div class="col col-lg-2 d-none d-sm-block"><img class="img-fluid1 woman-png hidden-sm"
                                                            src="../../../assets/Woman.png" alt=""></div>
