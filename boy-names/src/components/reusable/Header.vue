@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col col-lg-3 logo-wrapper">
           <router-link v-bind:to="'/'">
-            <img class="img-fluid" src="../../assets/Boy.png" alt="">
+            <img class="img-fluid" src="../../assets/Boy.png" alt="Pojknamn / Killnamn" title="Pojknamn.se Logo">
           </router-link>
         </div>
       </div>
