@@ -1,4 +1,4 @@
 User-Agent: *
-Disallow: 
+Disallow:
 
-Sitemap: https://flicknamn.se/sitemap.xml
+Sitemap: https://pojknamn.se/sitemap.xml
